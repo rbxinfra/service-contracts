@@ -1,0 +1,17 @@
+version: 1.0.0
+protos_path: roblox/roblox2/configuration/service/v1
+
+protos:
+  - name: Roblox2.Configuration.Service.V1
+    path: configuration.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+
+  - name: Roblox2.Configuration.Service.V1.ConfigurationAPI
+    type: api
+    path: configuration_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox2.Configuration.Service.V1
+

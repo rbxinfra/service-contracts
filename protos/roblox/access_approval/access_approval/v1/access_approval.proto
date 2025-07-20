@@ -1,0 +1,54 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=c6a576 SwarpVersion=1.38.0 SwarpCreateDate=2020-08-25T16:10:25.040Z
+//  gRPC Messages
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.accessapproval.accessapproval.v1;
+
+option csharp_namespace = "Roblox.Accessapproval.Accessapproval.V1";
+option go_package = "./accessapprovalv1";
+option java_multiple_files = true;
+option java_outer_classname = "AccessApprovalProto";
+option java_package = "com.roblox.accessapproval.accessapproval.v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+// Types of the accessors.
+enum AccessorType {
+  ACCESSOR_TYPE_INVALID = 0;
+  ACCESSOR_TYPE_GAME_CODE_REVIEWER = 1;
+  ACCESSOR_TYPE_ALL_GAME_CODE_REVIEWERS = 2;
+}
+
+// Status of an access request.
+enum AccessRequestStatus {
+  ACCESS_REQUEST_STATUS_INVALID = 0;
+  ACCESS_REQUEST_STATUS_PENDING = 1;
+  ACCESS_REQUEST_STATUS_APPROVED = 2;
+  ACCESS_REQUEST_STATUS_EXPIRED = 3;
+}
+
+// Details of an access request.
+message AccessRequest {
+  int64 id = 1;
+  AccessorType accessor_type = 2;
+  int64 accessor_id = 3;
+  int64 access_target_id = 4;
+  string explanation = 5;
+  AccessRequestStatus status = 6;
+  .google.protobuf.Int64Value approver_id = 7;
+  .google.protobuf.Timestamp creation_time = 8;
+  .google.protobuf.Timestamp approval_time = 9;
+  .google.protobuf.Timestamp expiration_time = 10;
+}
+
+// Payload used in CreateApprovedAccessRequest RPC.
+message CreateApprovedAccessRequestPayload {
+  AccessorType accessor_type = 1;
+  int64 accessor_id = 2;
+  int64 access_target_id = 3;
+  string explanation = 4;
+}

@@ -1,0 +1,12 @@
+version: 2.0.0
+protos_path: protoc-gen-openapiv2/options
+
+protos:
+  - name: Grpc.Gateway.V2.OpenApiV2
+    path: openapiv2.proto
+
+  - name: Grpc.Gateway.V2.Annotations
+    path: annotations.proto
+    depends_on:
+      - Grpc.Gateway.V2.OpenApiV2
+ 

@@ -1,0 +1,17 @@
+version: 1.0.0
+protos_path: roblox/services/apicontrolplane/v1
+
+protos:
+  - name: Roblox.Services.Apicontrolplane.V1
+    path: apicontrolplane.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+
+  - name: Roblox.Services.Apicontrolplane.V1.ApiControlPlaneAPI
+    type: api
+    path: apicontrolplane_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Services.Apicontrolplane.V1
+

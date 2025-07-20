@@ -1,0 +1,120 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=02ccf9 SwarpVersion=1.38.0 SwarpCreateDate=2020-08-25T16:10:25.040Z
+//  gRPC Service
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.accessapproval.accessapproval.v1;
+
+option csharp_namespace = "Roblox.Accessapproval.Accessapproval.V1";
+option go_package = "./accessapprovalv1";
+option java_multiple_files = true;
+option java_outer_classname = "AccessApprovalApiProto";
+option java_package = "com.roblox.accessapproval.accessapproval.v1";
+
+import "roblox/access_approval/access_approval/v1/access_approval.proto";
+
+
+// AccessApproval service.
+service AccessApprovalAPI {
+  // Creates a pending access request.
+  rpc CreateAccessRequest(CreateAccessRequestRequest) returns (CreateAccessRequestResponse) {}
+
+  // Gets the details of an access request.
+  rpc GetAccessRequest(GetAccessRequestRequest) returns (GetAccessRequestResponse) {}
+
+  // Gets paged access requests for the given accessors.
+  rpc GetAccessRequestsByAccessor(GetAccessRequestsByAccessorRequest) returns (GetAccessRequestsByAccessorResponse) {}
+
+  // Approves a pending access request.
+  rpc ApproveAccessRequest(ApproveAccessRequestRequest) returns (ApproveAccessRequestResponse) {}
+
+  // Creates an access request that's already approved.
+  rpc CreateApprovedAccessRequest(CreateApprovedAccessRequestRequest) returns (CreateApprovedAccessRequestResponse) {}
+
+  // Checks if the accessor can access the given target. Writes a log if yes.
+  rpc TryAccess(TryAccessRequest) returns (TryAccessResponse) {}
+
+  // Revokes an approved access request.
+  rpc RevokeAccessRequest(RevokeAccessRequestRequest) returns (RevokeAccessRequestResponse) {}
+}
+
+message CreateAccessRequestRequest {
+  string api_key = 1;
+  AccessorType accessor_type = 2;
+  int64 accessor_id = 3;
+  int64 access_target_id = 4;
+  string explanation = 5;
+}
+
+message CreateAccessRequestResponse {
+  // ID of the created access request.
+  int64 access_request_id = 1;
+}
+
+message GetAccessRequestRequest {
+  string api_key = 1;
+  int64 access_request_id = 2;
+}
+
+message GetAccessRequestResponse {
+  AccessRequest access_request = 1;
+}
+
+message GetAccessRequestsByAccessorRequest {
+  string api_key = 1;
+  AccessorType accessor_type = 2;
+  int64 accessor_id = 3;
+  int32 count = 4;
+  // Empty means start from beginning.
+  string exclusive_start_key = 5;
+}
+
+message GetAccessRequestsByAccessorResponse {
+  repeated AccessRequest access_requests = 1;
+  // Empty means no more entries.
+  string next_exclusive_start_key = 2;
+}
+
+message ApproveAccessRequestRequest {
+  string api_key = 1;
+  int64 access_request_id = 2;
+  int64 approver_id = 3;
+}
+
+message ApproveAccessRequestResponse {
+  // Empty
+}
+
+message CreateApprovedAccessRequestRequest {
+  // JSON Web Tokens signed by the caller.
+  // Required claim: rbx_msg_hsh, which should match the SHA256 of serialized_payload.
+  string authorization_jwt = 1;
+  // Serialized bytes of CreateApprovedAccessRequestPayload message.
+  bytes serialized_payload = 2;
+}
+
+message CreateApprovedAccessRequestResponse {
+  // ID of the created access request.
+  int64 access_request_id = 1;
+}
+
+message TryAccessRequest {
+  string api_key = 1;
+  int64 accessor_id  = 2;
+  int64 access_target_id = 3;
+}
+
+message TryAccessResponse {
+  bool has_access = 1;
+}
+
+message RevokeAccessRequestRequest {
+  string api_key = 1;
+  int64 access_request_id = 2;
+}
+
+message RevokeAccessRequestResponse {
+  // Empty
+}

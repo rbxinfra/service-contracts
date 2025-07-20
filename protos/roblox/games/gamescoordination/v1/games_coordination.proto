@@ -1,0 +1,131 @@
+//  gRPC Messages
+//
+// Copyright © 2024 Roblox
+//
+syntax = "proto3";
+
+package roblox.games.gamescoordination.v1;
+
+option csharp_namespace = "Roblox.Games.Gamescoordination.V1";
+option go_package = "roblox/gamescoordinationv1";
+option java_multiple_files = true;
+option java_outer_classname = "GamesCoordinationApiProto";
+option java_package = "com.roblox.games.gamescoordination.v1";
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message NullableDuration {
+    oneof ItemType
+    {
+        google.protobuf.NullValue null = 1;
+        google.protobuf.Duration duration = 2;
+    }
+}
+
+// Represents the full Relay configuration with
+// extra bits in it to accomodate the gRPC client
+// settings (They differ from the HTTP)
+message RelayConfiguration
+{
+	// Job Manager Settings
+
+	int32 max_rcc_instance_reuses = 1;
+	int32 rcc_service_start_attempts = 2;
+	.google.protobuf.Int32Value max_rcc_instances = 3;
+	int32 rcc_max_threads = 4;
+	.google.protobuf.Duration rcc_service_wait_for_tcp_sleep_interval = 5;
+	int32 ready_instances_to_keep_in_reserve = 6;
+	int32 populate_ready_rcc_instance_threads = 7;
+	string rcc_settings_application_name = 8;
+	string rcc_settings_bucket_name = 9;
+	.google.protobuf.Duration rcc_application_settings_valid_window = 10;
+	bool is_rcc_cpu_allocation_check_enabled = 11;
+	bool is_rcc_threads_allocation_check_enabled = 12;
+	bool is_rcc_memory_allocation_check_enabled = 13;
+	double rcc_cpu_over_allocation_ratio = 14;
+	double rcc_threads_over_allocation_ratio = 15;
+	double rcc_memory_over_allocation_ratio = 16;
+
+	// Docker Settings
+
+	string docker_registry_username = 17;
+	string docker_registry_password = 18;
+	string docker_registry_identity_token = 19;
+	int64 rcc_max_memory_in_bytes = 20;
+	.google.protobuf.Int32Value reserved_cores_per_rcc_instance = 21;
+	map<string, string> rcc_environment_variables = 22;
+	string rcc_shared_directory_app_data = 23;
+	string rcc_shared_directory_cache = 24;
+	string rcc_shared_directory_temp = 25;
+	string rcc_shared_directory_logs = 26;
+	string base_url = 27;
+	string http_access_key = 28;
+	string rcc_image_name = 29;
+	string rcc_image_tag = 30;
+	int32 container_stop_wait_before_kill_in_seconds = 31;
+	int32 max_attempts_to_wait_for_container_exit = 32;
+	string rcc_primary_dns_server = 33;
+	string rcc_secondary_dns_server = 34;
+	string rcc_settings_key = 35;
+	.google.protobuf.Duration max_delay_before_fetching_new_rcc_container = 36;
+
+
+	// Process Settings
+
+	bool verbose_logging_enabled = 37;
+
+	// Relay Settings
+
+	.google.protobuf.Duration rcc_job_lease_duration = 38;
+	.google.protobuf.Duration configuration_update_interval = 39;
+	.google.protobuf.DoubleValue process_work_cpu_usage_threshold = 40;
+	.google.protobuf.DoubleValue process_work_available_memory_gigabytes_threshold = 41;
+	.google.protobuf.Duration post_stats_interval = 42;
+	.google.protobuf.Duration network_bandwidth_sample_period = 43;
+	string interface_prefixes_to_ignore_for_network_bandwidth_csv = 44;
+	string log_level = 45;
+	string client_settings_api_url = 46;
+	string client_settings_api_key = 47;
+
+	NullableDuration relay_operations_client_request_timeout = 48;
+	.google.protobuf.Int32Value relay_operation_client_failures_allowed_before_trip = 49; // Obsolete when using gRPC
+	NullableDuration relay_operations_client_circuit_breaker_retry_interval = 50; // Obsolete when using gRPC
+
+	.google.protobuf.Duration fetch_work_interval = 51;
+	.google.protobuf.Duration no_work_to_do_wait_interval = 52;
+	.google.protobuf.Duration high_utilization_wait_interval = 53;
+	int32 relay_fetch_work_slow_down_factor = 54;
+	int32 relay_number_of_fetch_work_threads = 55;
+}
+
+// Server Stats Model
+message ServerStatistics {
+	double cpu_usage = 1;
+	int32 rcc_service_processes = 2;
+	int32 processor_count = 3;
+	double total_physical_memory_gigabytes = 4;
+	double available_physical_memory_gigabytes = 5;
+	string relay_version = 6;
+	int32 logical_processor_count = 7;
+	double upload_speed_kilobytes_per_second = 8;
+	double download_speed_kilobytes_per_second = 9;
+	string network_bandwidth_by_nic = 10;
+	int32 ready_rcc_service_processes = 11;
+	.google.protobuf.Timestamp last_successful_rcc_application_settings_fetch_time = 12;
+	.google.protobuf.Timestamp start_up_time = 13;
+	.google.protobuf.Duration up_time = 14;
+	bool server_above_cpu_threshold = 15;
+	bool server_below_memory_threshold = 16;
+	int32 active_jobs = 17;
+}
+
+message RelayWorkItem {
+	string id = 1;
+	.google.protobuf.Duration duration = 2;
+	string error = 3;
+	string operation = 4;
+	string payload = 5;
+}

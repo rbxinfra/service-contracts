@@ -1,0 +1,27 @@
+version: 1.0.0
+protos_path: roblox/games
+
+protos:
+  - name: Roblox.Games.Gamescoordination.V1
+    path: gamescoordination/v1/games_coordination.proto
+
+  - name: Roblox.Games.Gamescoordination.V1.GamesCoordinationAPI
+    type: api
+    path: gamescoordination/v1/games_coordination_api.proto
+    depends_on:
+      - Roblox.Games.Gamescoordination.V1
+
+  - name: Roblox.Games.Jobsstate.V1
+    path: jobsstate/v1/jobs_state.proto
+ 
+  - name: Roblox.Games.Jobsstate.V1.JobsStateDataStoreAPI.Messages
+    path: jobsstate/v1/jobs_state_datastore_api_messages.proto
+    depends_on:
+     - Roblox.Games.Jobsstate.V1
+  
+  - name: Roblox.Games.Jobsstate.V1.JobsStateDataStoreAPI
+    type: api
+    path: jobsstate/v1/jobs_state_datastore_api.proto
+    depends_on:
+      - Roblox.Games.Jobsstate.V1
+      - Roblox.Games.Jobsstate.V1.JobsStateDataStoreAPI.Messages

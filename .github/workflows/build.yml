@@ -1,0 +1,121 @@
+name: "Build + Publish NuGet Package"
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "src/**"
+      - ".github/workflows/**"
+      - "*.sln"
+
+  push:
+    branches:
+      - master
+    paths:
+      - "src/**"
+      - ".github/workflows/**"
+      - "*.sln"
+
+env:
+  DOTNET_NOLOGO: true
+
+jobs:
+  get-head-commit-message:
+    runs-on: "ubuntu-latest"
+
+    outputs:
+     head-commit-message: ${{ steps.get-head-commit-details.outputs.head-commit }}
+
+    steps:
+      # Setup
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get Head Commit message
+        id: get-head-commit-details
+        run: >
+          {
+            echo 'head-commit<<EOF'
+            git log -1 --pretty=%B
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    runs-on: "ubuntu-latest"
+    if: ${{ !contains(needs.get-head-commit-message.outputs.head-commit-message, '#!skip-build!#') }}
+
+    needs: get-head-commit-message
+
+    steps:
+      # Setup
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup the Golang environment with version 1.20.x
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20.x
+
+      - name: Build service-contracts-generator
+        run: make build-release WITH_STDERR=1 PROJECT_NAME=service-contracts-generator
+
+      - name: Generate service contracts output
+        run: ./bin/release/linux/x64/service-contracts-generator --output-directory ./out/protos
+
+      - name: Compile C# projects via Docker
+        run: |
+          docker run \
+            -v $(pwd)/protos:/protos \
+            -v $(pwd)/out:/grpcclients \
+            -w /grpcclients/protos \
+            --name docker-builder-dotnet \
+            mcr.microsoft.com/dotnet/sdk:8.0 \
+            dotnet pack --output /grpcclients/packages -c Release -p:ProtoRoot=/protos -p:RootDir=/grpcclients/protos
+
+          docker rm docker-builder-dotnet
+
+      # Finish
+      - name: Upload build artifacts
+        if: ${{ github.event_name == 'push' }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 1
+          name: nuget-packages
+          path: |
+            ./out/packages/*.nupkg
+
+  # Upload to NuGet
+  upload:
+    runs-on: "rbx-local"
+
+    needs: "build"
+
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      # Setup
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: dist
+
+      - name: Publish NuGet Packages
+        run: >-
+          dotnet nuget push
+          dist/*.nupkg
+          --skip-duplicate
+          --source ${{ vars.NUGET_SOURCE }}
+          --api-key ${{ secrets.NUGET_API_KEY }}
+
+      - name: Clean up
+        run: >-
+          rm -rf dist

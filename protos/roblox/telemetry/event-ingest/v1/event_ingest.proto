@@ -1,0 +1,41 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=8716f1 SwarpVersion=1.38.0 SwarpCreateDate=2021-08-25T16:10:25.040Z
+//  gRPC Messages
+//
+// Copyright © 2021 Roblox
+//
+syntax = "proto3";
+
+package roblox.telemetry.eventingest.v1;
+
+option csharp_namespace = "Roblox.Telemetry.Eventingest.V1";
+option go_package = "./eventingestv1";
+option java_multiple_files = true;
+option java_outer_classname = "EventIngestProto";
+option java_package = "com.roblox.eventingest.v1";
+
+// Defines an event field.
+message EventField {
+    // The key of the field.
+    string key = 1;
+
+    // The value of the field.
+    string value = 2;
+}
+
+// Defines an event.
+message Event {
+    // The name of the event.
+    string name = 1;
+
+    // The fields of the event.
+    repeated EventField meta = 2;
+
+    // The timestamp of the event.
+    int64 ts = 3;
+}
+
+// Defines a batch of events.
+message EventBatch {
+    // The events in the batch.
+    repeated Event events = 1;
+}

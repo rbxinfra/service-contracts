@@ -1,0 +1,252 @@
+//  gRPC Messages
+//
+// Copyright © 2021 Roblox
+//
+syntax = "proto3";
+
+package roblox2.configuration.service.v1;
+
+option csharp_namespace = "Roblox.Configuration.Service.V1";
+option go_package = "./configurationv1";
+option java_multiple_files = true;
+option java_outer_classname = "ConfigurationProto";
+option java_package = "com.roblox.configuration.service.v1";
+
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// Environment defines which environment a setting was fetched from.
+enum Environment {
+    // Production
+    ENVIRONMENT_PROD = 0;
+
+    // Staging.
+    ENVIRONMENT_ST1 = 1;
+
+    // Testing.
+    ENVIRONMENT_ST2 = 2;
+
+    // Development.
+    ENVIRONMENT_ST3 = 3;
+};
+
+// Region defines which region the setting was fetched from.
+enum Region {
+    // us-east
+    REGION_US_EAST = 0;
+
+    // us-central
+    REGION_US_CENTRAL = 1;
+
+    // us-west
+    REGION_US_WEST = 2;
+};
+
+// Datacenter defines which datacenter the setting was fetched from.
+enum Datacenter {
+    // Production
+    DATACENTER_CHI1 = 0;
+
+    // Offload us-central
+    DATACENTER_ASH1 = 1;
+
+    // RBX-Alpha
+    DATACENTER_RA = 2;
+
+    // Amazon-West-Alpha
+    DATACENTER_AWA = 3;
+
+    // Test-new
+    DATACENTER_SNC2 = 4;
+
+    // Dev-new
+    DATACENTER_SNC3 = 5;
+};
+
+// Represents setting environment details.
+message EnvironmentDetails {
+    // The environment.
+    Environment environment = 1;
+
+    // The region.
+    Region region = 2;
+
+    // The datacenter
+    Datacenter datacenter = 3;
+
+    // The gRPC authority.
+    string authority = 4;
+
+    // The vault server being used by the callee.
+    string vault_server = 5;
+};
+
+// Represents setting environment variance details.
+message VarianceDetails {
+    // Is the parent unique for just production?
+    bool is_value_unique_for_production = 1;
+
+    // Is the parent the same in all test environments? (stage, test and dev)
+    bool is_value_same_for_all_test_environments = 2;
+
+    // Is the parent environment specific?
+    bool is_environment_specific = 3;
+};
+
+// The typeof setting.
+enum SettingType {
+    // System.Int32
+    SETTING_TYPE_INT32 = 0;
+
+    // System.UInt32
+    SETTING_TYPE_UINT32 = 1;
+
+    // System.Int64
+    SETTING_TYPE_INT64 = 2;
+
+    // System.UInt64
+    SETTING_TYPE_UINT64 = 3;
+
+    // System.Double
+    SETTING_TYPE_DOUBLE = 4;
+
+    // System.Decimal
+    SETTING_TYPE_DECIMAL = 5;
+
+    // System.Float - Deprecated, use System.Single
+    SETTING_TYPE_FLOAT = 6;
+
+    // System.Single
+    SETTING_TYPE_SINGLE = 7;
+
+    // Roblox.Redis.RedisEndpoints
+    SETTING_TYPE_REDIS_ENDPOINTS = 8;
+
+    // Roblox.Csv
+    SETTING_TYPE_CSV = 9;
+
+    // Roblox.Configuration.WeightedCsv
+    SETTING_TYPE_WEIGHTED_CSV = 10;
+
+    // System.Boolean
+    SETTING_TYPE_BOOLEAN = 11;
+
+    // System.Guid
+    SETTING_TYPE_GUID = 12;
+
+    // System.Byte
+    SETTING_TYPE_BYTE = 13;
+
+    // System.SByte
+    SETTING_TYPE_SBYTE = 14;
+
+    // System.String
+    SETTING_TYPE_STRING = 15;
+
+    // System.TimeSpan
+    SETTING_TYPE_TIME_SPAN = 16;
+};
+
+// Represents a single setting.
+message Setting {
+    // The ID of the setting.
+    int64 id = 1;
+
+    // The name of the group this setting belongs to.
+    string group_name = 2;
+
+    // The name of the setting.
+    string name = 3;
+
+    // The value of the setting.
+    string value = 4;
+
+    // The type of this setting.
+    SettingType type = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: "System.Int32";
+            enum: "System.UInt32";
+            enum: "System.Int64";
+            enum: "System.UInt64";
+            enum: "System.Double";
+            enum: "System.Decimal";
+            enum: "System.Float";
+            enum: "System.Single";
+            enum: "Roblox.Redis.RedisEndpoints";
+            enum: "System.Csv";
+            enum: "Roblox.Configuration.WeightedCsv";
+            enum: "System.Boolean";
+            enum: "System.Guid";
+            enum: "System.Byte";
+            enum: "System.SByte";
+            enum: "System.String";
+            enum: "System.TimeSpan";
+        }
+    ];
+
+    // An optional comment.
+    string comment = 6;
+
+    // Is the setting value masked?
+    bool is_masked = 7;
+
+    // Environment details for the setting.
+    EnvironmentDetails environment_details = 8;
+
+    // Variance details for the setting.
+    VarianceDetails variance_details = 9;
+
+    // The created date for this setting.
+    .google.protobuf.Timestamp created = 10;
+
+    // The updated date for this setting.
+    .google.protobuf.Timestamp updated = 11;
+};
+
+// Represents a single connection string.
+message ConnectionString {
+    // The ID of the connection string.
+    int64 id = 1;
+
+    // The name of the group this connection string belongs to.
+    string group_name = 2;
+
+    // The name of the connection string.
+    string name = 3;
+
+    // The value of the connection string.
+    string value = 4;
+
+    // An optional comment.
+    string comment = 5;
+
+    // Environment details for the connection string.
+    EnvironmentDetails environment_details = 6;
+
+    // Variance details for the connection string.
+    VarianceDetails variance_details = 7;
+
+    // The created date for this connection string.
+    .google.protobuf.Timestamp created = 8;
+
+    // The updated date for this connection string.
+    .google.protobuf.Timestamp updated = 9;
+};
+
+// Represents a single populated group.
+message PopulatedGroup {
+    // The ID of the populated group.
+    int64 id = 1;
+
+    // The name of the populated group.
+    string name = 2;
+
+    // Environment details for the populated group.
+    EnvironmentDetails environment_details = 3;
+
+    // The created date for this populated group.
+    .google.protobuf.Timestamp created = 4;
+
+    // The updated date for this populated group.
+    .google.protobuf.Timestamp updated = 5;
+};

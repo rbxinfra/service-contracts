@@ -1,0 +1,7 @@
+version: 1.0.0
+protos_path: roblox/protobuf
+
+protos:
+  - name: Roblox.Protobuf
+    path: options.proto
+

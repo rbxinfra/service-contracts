@@ -1,0 +1,106 @@
+//  gRPC Messages
+//
+// Copyright © 2024 Roblox
+//
+syntax = "proto3";
+
+package roblox.games.jobsstate.v1;
+
+option csharp_namespace = "Roblox.Games.Jobsstate.V1";
+option go_package = "roblox/jobsstatev1";
+option java_multiple_files = true;
+option java_outer_classname = "JobsStateApiProto";
+option java_package = "com.roblox.games.jobsstate.v1";
+
+import "google/protobuf/wrappers.proto";
+import "roblox/games/jobsstate/v1/jobs_state.proto";
+
+message CreateJobRequest {
+  // The derived key for the queue.
+  string queue_key = 1;
+
+  // The type of operation being executed on the relay.
+  string operation = 2;
+
+  // The payload being given or received from the relay.
+  string payload = 3;
+}
+
+message CreateJobResponse {
+  // The raw job returned from the creation.
+  Job job = 1;
+}
+
+message PopJobRequest {
+  // The derived key for the queue.
+  string queue_key = 1;
+
+  // The worker ID that is attempting to pop the job.
+  string worker_id = 2;
+}
+
+message PopJobResponse {
+  // The raw job returned from the pop.
+  Job job = 1;
+}
+
+message PushJobRequest {
+  // The dervied key for the queue
+  string queue_key = 1;
+
+  // The ID of the job.
+  string job_id = 2;
+}
+
+message PushJobResponse {
+}
+
+// Null values mean that the field isn't updated.
+message UpdateJobRequest {
+  // The ID of the job to update.
+  string id = 1;
+
+  // The queue key to update the job to.
+  .google.protobuf.StringValue queue_key = 2;
+
+  // The status to update the job to.
+  optional JobStatus status = 3;
+
+  // The retry count to update the job to.
+  .google.protobuf.Int32Value retry_count = 4;
+
+  // The active worker id to update the job to.
+  .google.protobuf.StringValue active_worker_id = 5;
+
+  // The operation to update the job to.
+  .google.protobuf.StringValue operation = 6;
+
+  // The payload to update the job to.
+  .google.protobuf.StringValue payload = 7;
+
+  // The error to update the job to.
+  .google.protobuf.StringValue error = 8;
+}
+
+message UpdateJobResponse {
+}
+
+message GetJobRequest {
+  // The ID of the job to get.
+  string id = 1;
+}
+
+message GetJobResponse {
+  // The raw job returned from the query.
+  Job job = 1;
+}
+
+message DeleteJobRequest {
+  // The ID of the job to delete.
+  string id = 1;
+}
+
+message DeleteJobResponse {
+  // True if the job was deleted successfully.
+  bool success = 1;
+}

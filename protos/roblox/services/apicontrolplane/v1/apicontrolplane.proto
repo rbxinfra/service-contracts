@@ -1,0 +1,253 @@
+//  gRPC Messages
+//
+// Copyright © 2022 Roblox
+//
+syntax = "proto3";
+
+package roblox.services.apicontrolplane.v1;
+
+option csharp_namespace = "Roblox.Services.Apicontrolplane.V1";
+option go_package = "./apicontrolplanev1";
+option java_multiple_files = true;
+option java_outer_classname = "ApiControlPlaneProto";
+option java_package = "com.services.apicontrolplane.v1";
+
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// AuthorizationType
+enum AuthorizationType {
+    // The client has no authorization over the operation or service.
+    AUTHORIZATION_TYPE_NONE = 0;
+
+    // The client has partial authorization over the service, normally paired with OperationAuthorizations of type Full.
+    AUTHORIZATION_TYPE_PARTIAL = 1;
+
+    // The client has full authorization over the operation or service.
+    AUTHORIZATION_TYPE_FULL = 2;
+};
+
+// Represents authorization type entity. This is used by Roblox.ApiControlPlane to use a service for the AuthorizationType Entity.
+message AuthorizationTypeEntity {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "AuthorizationTypeEntity"
+        }
+    };
+
+    // The ID of the authorization type.
+    int32 id = 1;
+
+    // The value of the authorization type.
+    string value = 2;
+
+    // The description of the authorization type.
+    string description = 3;
+
+    // The abbreviation of the authorization type.
+    string abbreviation = 4;
+
+    // The created date of this authorization type.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this authorization type.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents status type entity. This is used by Roblox.ApiControlPlane to use a service for the StatusType Entity.
+message StatusTypeEntity {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "StatusTypeEntity"
+        }
+    };
+
+    // The ID of the status type.
+    int32 id = 1;
+
+    // The value of the status type.
+    string value = 2;
+
+    // The description of the status type.
+    string description = 3;
+
+    // The abbreviation of the status type.
+    string abbreviation = 4;
+
+    // The created date of this status type.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this status type.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents the model for an API Client.
+message ApiClient {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ApiClient"
+        }
+    };
+
+    // The ID of this API Client.
+    int64 id = 1;
+
+    // The API Key of this API CLient.
+    string key = 2;
+
+    // The name of this API Client.
+    string note = 3;
+
+    // Is this API Client enabled or not?
+    bool is_valid = 4;
+
+    // The created date of this API Client.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this API Client.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents the model for a service.
+message Service {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Service"
+        }
+    };
+
+    // The ID of this service.
+    int64 id = 1;
+
+    // The name of this service.
+    string name = 2;
+
+    // Is this service enabled or not?
+    bool is_enabled = 3;
+
+    // The created date of this service.
+    .google.protobuf.Timestamp created = 4;
+
+    // The updated date of this service.
+    .google.protobuf.Timestamp updated = 5;
+};
+
+// Represents the model for a service operation.
+message Operation {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Operation"
+        }
+    };
+
+    // The ID of this service operation.
+    int64 id = 1;
+
+    // The name of this service operation.
+    string name = 2;
+
+    // The service this service operation belongs to.
+    Service service = 3;
+
+    // Is this service operation enabled or not?
+    bool is_enabled = 4;
+
+    // The created date of this service operation.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this service operation.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents the model for a service authorization.
+message ServiceAuthorization {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ServiceAuthorization"
+        }
+    };
+
+    // The ID of this service authorization.
+    int64 id = 1;
+
+    // The service this service authorization belongs to.
+    Service service = 2;
+
+    // The API Client this service authorization belongs to.
+    ApiClient api_client = 3;
+
+    // The authorization type for this service authorization.
+    AuthorizationType authorization_type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+
+    // The created date of this service authorization.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this service authorization.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents the model for a operation authorization.
+message OperationAuthorization {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "OperationAuthorization"
+        }
+    };
+
+    // The ID of this operation authorization.
+    int64 id = 1;
+
+    // The operation this operation authorization belongs to.
+    Operation operation = 2;
+
+    // The API Client this operation authorization belongs to.
+    ApiClient api_client = 3;
+
+    // The authorization type for this operation authorization.
+    AuthorizationType authorization_type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+
+    // The created date of this operation authorization.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this operation authorization.
+    .google.protobuf.Timestamp updated = 6;
+};
+
+// Represents the simple model for an authorization.
+message Authorization {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "Authorization"
+        }
+    };
+
+    // The ID of this authorization.
+    int64 id = 1;
+
+    // The operation this authorization belongs to. If this is null, then this authorization is for a service.
+    Operation operation = 2;
+
+    // The API Client this authorization belongs to.
+    ApiClient api_client = 3;
+
+    // The authorization type for this authorization.
+    AuthorizationType authorization_type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+
+    // The created date of this authorization.
+    .google.protobuf.Timestamp created = 5;
+
+    // The updated date of this authorization.
+    .google.protobuf.Timestamp updated = 6;
+};

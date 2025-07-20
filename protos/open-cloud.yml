@@ -1,0 +1,19 @@
+version: 1.0.0
+protos_path: roblox/open_cloud
+
+protos:
+  - name: Roblox.Opencloud.Cloudauthenticationservice.V1
+    path: cloud_authentication_service/v1/cloud_authentication_service.proto
+
+  - name: Roblox.Opencloud.Cloudauthenticationservice.V1.CloudAuthenticationServiceAPI
+    type: api
+    path: cloud_authentication_service/v1/cloud_authentication_service_api.proto
+    depends_on:
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Cloudauthenticationservice.V1
+
+  - name: Roblox.Opencloud.Cloudauthenticationservice.V1Beta1.CloudAuthenticationServiceAPI
+    type: api
+    path: cloud_authentication_service/v1beta1/cloud_authentication_service_beta1_api.proto
+    depends_on:
+      - Roblox.Protobuf

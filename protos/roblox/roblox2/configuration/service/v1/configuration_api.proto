@@ -1,0 +1,1132 @@
+//  gRPC Service
+//
+// Copyright © 2021 Roblox
+//
+syntax = "proto3";
+
+package roblox2.configuration.service.v1;
+
+option csharp_namespace = "Roblox.Configuration.Service.V1";
+option go_package = "./configurationv1";
+option java_multiple_files = true;
+option java_outer_classname = "ConfigurationApiProto";
+option java_package = "com.roblox.configuration.service.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "roblox/roblox2/configuration/service/v1/configuration.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "Configuration Service v3";
+        version: "v1";
+        description: "gRPC Configuration Service";
+        contact: {
+            name: "roblox2-configuration-service";
+            url: "https://apis.simulprod.com/roblox2-configuration-service";
+        };
+    };
+
+    external_docs: {
+        description: "Confluence Page";
+        url: "https://confluence.rbx.com/pages/viewpage.action?pageId=115584579";
+    };
+
+    base_path: "/roblox2-configuration-service";
+};
+
+// ConfigurationAPI service defines methods for fetching configuration related information.
+// Also contains gRPC gateway definitions for configuration-v3.
+service ConfigurationAPI {
+    // Populated Groups:
+
+    // DeletePopulatedGroupByID deletes a populated group by ID
+    rpc DeletePopulatedGroupByID(DeletePopulatedGroupByIDRequest) returns (DeletePopulatedGroupByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeletePopulatedGroupByID.
+        option (google.api.http) = {
+            delete: "/v1/populated-groups/delete-populated-group-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // DeletePopulatedGroupByName deletes a populated group by Name.
+    rpc DeletePopulatedGroupByName(DeletePopulatedGroupByNameRequest) returns (DeletePopulatedGroupByNameResponse) {
+        // HTTP mapping from Configuration Service API to DeletePopulatedGroupByName.
+        option (google.api.http) = {
+            delete: "/v1/populated-groups/delete-populated-group-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // CreateNewPopulatedGroup creates a new populated group.
+    rpc CreateNewPopulatedGroup(CreateNewPopulatedGroupRequest) returns (CreateNewPopulatedGroupResponse) {
+        // HTTP mapping from Configuration Service API to CreateNewPopulatedGroup.
+        option (google.api.http) = {
+            post: "/v1/populated-groups/create-populated-group";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // UpdatePopulatedGroupByID updates a populated group by ID.
+    rpc UpdatePopulatedGroupByID(UpdatePopulatedGroupByIDRequest) returns (UpdatePopulatedGroupByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdatePopulatedGroupByID.
+        option (google.api.http) = {
+            patch: "/v1/populated-groups/update-populated-group-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // UpdatePopulatedGroupByName updates a populated group by Name.
+    rpc UpdatePopulatedGroupByName(UpdatePopulatedGroupByNameRequest) returns (UpdatePopulatedGroupByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdatePopulatedGroupByName.
+        option (google.api.http) = {
+            patch: "/v1/populated-groups/update-populated-group-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // GetPopulatedGroupByID gets a populated group by ID.
+    rpc GetPopulatedGroupByID(GetPopulatedGroupByIDRequest) returns (GetPopulatedGroupByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetPopulatedGroupByID.
+        option (google.api.http) = {
+            get: "/v1/populated-groups/get-populated-group-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // GetPopulatedGroupByName gets a populated group by Name.
+    rpc GetPopulatedGroupByName(GetPopulatedGroupByNameRequest) returns (GetPopulatedGroupByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdatePopulatedGroupByName.
+        option (google.api.http) = {
+            get: "/v1/populated-groups/get-populated-group-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // GetPopulatedGroupsPaged gets a list of populated groups with optional paging.
+    rpc GetPopulatedGroupsPaged(GetPopulatedGroupsPagedRequest) returns (GetPopulatedGroupsPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetPopulatedGroupsPaged.
+        option (google.api.http) = {
+            get: "/v1/populated-groups/get-populated-groups";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "PopulatedGroups";
+        };
+    };
+
+    // Settings:
+
+    // DeleteSettingByID deletes a setting by ID
+    rpc DeleteSettingByID(DeleteSettingByIDRequest) returns (DeleteSettingByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteSettingByID.
+        option (google.api.http) = {
+            delete: "/v1/settings/delete-setting-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // DeleteSettingByName deletes a setting by Name.
+    rpc DeleteSettingByName(DeleteSettingByNameRequest) returns (DeleteSettingByNameResponse) {
+        // HTTP mapping from Configuration Service API to DeleteSettingByName.
+        option (google.api.http) = {
+            delete: "/v1/settings/delete-setting-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // CreateNewSetting creates a new setting.
+    rpc CreateNewSetting(CreateNewSettingRequest) returns (CreateNewSettingResponse) {
+        // HTTP mapping from Configuration Service API to CreateNewSetting.
+        option (google.api.http) = {
+            post: "/v1/settings/create-setting";
+            body: "setting_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // UpdateSettingByID updates a setting by ID.
+    rpc UpdateSettingByID(UpdateSettingByIDRequest) returns (UpdateSettingByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateSettingByID.
+        option (google.api.http) = {
+            patch: "/v1/settings/update-setting-by-id";
+            body: "setting_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // UpdateSettingByName updates a setting by Name.
+    rpc UpdateSettingByName(UpdateSettingByNameRequest) returns (UpdateSettingByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdateSettingByName.
+        option (google.api.http) = {
+            patch: "/v1/settings/update-setting-by-name";
+            body: "setting_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetSettingByID gets a populated group by ID.
+    rpc GetSettingByID(GetSettingByIDRequest) returns (GetSettingByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetSettingByID.
+        option (google.api.http) = {
+            get: "/v1/settings/get-setting-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetSettingByName gets a populated group by Name.
+    rpc GetSettingByName(GetSettingByNameRequest) returns (GetSettingByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdateSettingByName.
+        option (google.api.http) = {
+            get: "/v1/settings/get-setting-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetSettingsByGroupNamePaged gets a list of settings by GroupName with optional paging.
+    rpc GetSettingsByGroupNamePaged(GetSettingsByGroupNamePagedRequest) returns (GetSettingsByGroupNamePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetSettingsByGroupNamePaged.
+        option (google.api.http) = {
+            get: "/v1/settings/get-settings-group-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetSettingsByNamePaged gets a list of settings by Name pattern with optional paging.
+    rpc GetSettingsByNamePaged(GetSettingsByNamePagedRequest) returns (GetSettingsByNamePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetSettingsByNamePaged.
+        option (google.api.http) = {
+            get: "/v1/settings/get-settings-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetSettingsByValuePaged gets a list of settings by Value pattern with optional paging.
+    rpc GetSettingsByValuePaged(GetSettingsByValuePagedRequest) returns (GetSettingsByValuePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetSettingsByValuePaged.
+        option (google.api.http) = {
+            get: "/v1/settings/get-settings-by-value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // GetTotalNumberOfSettingsByGroupNameAndUpdated gets the count of settings by GroupName and Updated.
+    rpc GetTotalNumberOfSettingsByGroupNameAndUpdated(GetTotalNumberOfSettingsByGroupNameAndUpdatedRequest) returns (GetTotalNumberOfSettingsByGroupNameAndUpdatedResponse) {
+        // HTTP mapping from Configuration Service API to GetTotalNumberOfSettingsByGroupNameAndUpdated.
+        option (google.api.http) = {
+            get: "/v1/settings/get-count-of-settings";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Settings";
+        };
+    };
+
+    // Connection Strings:
+
+    // DeleteConnectionStringByID deletes a connection-string by ID
+    rpc DeleteConnectionStringByID(DeleteConnectionStringByIDRequest) returns (DeleteConnectionStringByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteConnectionStringByID.
+        option (google.api.http) = {
+            delete: "/v1/connection-strings/delete-connection-string-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // DeleteConnectionStringByName deletes a connection-string by Name.
+    rpc DeleteConnectionStringByName(DeleteConnectionStringByNameRequest) returns (DeleteConnectionStringByNameResponse) {
+        // HTTP mapping from Configuration Service API to DeleteConnectionStringByName.
+        option (google.api.http) = {
+            delete: "/v1/connection-strings/delete-connection-string-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // CreateNewConnectionString creates a new connection-string.
+    rpc CreateNewConnectionString(CreateNewConnectionStringRequest) returns (CreateNewConnectionStringResponse) {
+        // HTTP mapping from Configuration Service API to CreateNewConnectionString.
+        option (google.api.http) = {
+            post: "/v1/connection-strings/create-connection-string";
+            body: "connection_string_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // UpdateConnectionStringByID updates a connection-string by ID.
+    rpc UpdateConnectionStringByID(UpdateConnectionStringByIDRequest) returns (UpdateConnectionStringByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateConnectionStringByID.
+        option (google.api.http) = {
+            patch: "/v1/connection-strings/update-connection-string-by-id";
+            body: "connection_string_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // UpdateConnectionStringByName updates a connection-string by Name.
+    rpc UpdateConnectionStringByName(UpdateConnectionStringByNameRequest) returns (UpdateConnectionStringByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdateConnectionStringByName.
+        option (google.api.http) = {
+            patch: "/v1/connection-strings/update-connection-string-by-name";
+            body: "connection_string_value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetConnectionStringByID gets a populated group by ID.
+    rpc GetConnectionStringByID(GetConnectionStringByIDRequest) returns (GetConnectionStringByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetConnectionStringByID.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-connection-string-by-id";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetConnectionStringByName gets a populated group by Name.
+    rpc GetConnectionStringByName(GetConnectionStringByNameRequest) returns (GetConnectionStringByNameResponse) {
+        // HTTP mapping from Configuration Service API to UpdateConnectionStringByName.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-connection-string-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetConnectionStringsByGroupNamePaged gets a list of connection-strings by GroupName with optional paging.
+    rpc GetConnectionStringsByGroupNamePaged(GetConnectionStringsByGroupNamePagedRequest) returns (GetConnectionStringsByGroupNamePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetConnectionStringsByGroupNamePaged.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-connection-strings-group-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetConnectionStringsByNamePaged gets a list of connection-strings by Name pattern with optional paging.
+    rpc GetConnectionStringsByNamePaged(GetConnectionStringsByNamePagedRequest) returns (GetConnectionStringsByNamePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetConnectionStringsByNamePaged.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-connection-strings-by-name";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetConnectionStringsByValuePaged gets a list of connection-strings by Value pattern with optional paging.
+    rpc GetConnectionStringsByValuePaged(GetConnectionStringsByValuePagedRequest) returns (GetConnectionStringsByValuePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetConnectionStringsByValuePaged.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-connection-strings-by-value";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+
+    // GetTotalNumberOfConnectionStringsByGroupNameAndUpdated gets the count of connection-strings by GroupName and Updated.
+    rpc GetTotalNumberOfConnectionStringsByGroupNameAndUpdated(GetTotalNumberOfConnectionStringsByGroupNameAndUpdatedRequest) returns (GetTotalNumberOfConnectionStringsByGroupNameAndUpdatedResponse) {
+        // HTTP mapping from Configuration Service API to GetTotalNumberOfConnectionStringsByGroupNameAndUpdated.
+        option (google.api.http) = {
+            get: "/v1/connection-strings/get-count-of-connection-strings";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ConnectionStrings";
+        };
+    };
+};
+
+// Populated groups:
+
+// Request that has ID for DeletePopulatedGroupByID
+message DeletePopulatedGroupByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The populated group.
+    int64 id = 1;
+};
+
+// Response for DeletePopulatedGroupByID
+message DeletePopulatedGroupByIDResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has Name for DeletePopulatedGroupByName
+message DeletePopulatedGroupByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name"]; 
+        }
+    };
+
+    // The Name of the populated group.
+    string group_name = 1;
+};
+
+// Response for DeletePopulatedGroupByIDRequest
+message DeletePopulatedGroupByNameResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has Name for CreateNewPopulatedGroup
+message CreateNewPopulatedGroupRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name"]; 
+        }
+    };
+
+    // The Name of the populated group.
+    string group_name = 1;
+};
+
+// Response for CreateNewPopulatedGroup
+message CreateNewPopulatedGroupResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has ID for UpdatePopulatedGroupByID
+message UpdatePopulatedGroupByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the populated group.
+    int64 id = 1;
+};
+
+// Response for UpdatePopulatedGroupByID
+message UpdatePopulatedGroupByIDResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has Name for UpdatePopulatedGroupByName
+message UpdatePopulatedGroupByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name"]; 
+        }
+    };
+
+    // The Name of the populated group.
+    string group_name = 1;
+};
+
+// Response for UpdatePopulatedGroupByName
+message UpdatePopulatedGroupByNameResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has ID for GetPopulatedGroupByID
+message GetPopulatedGroupByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the populated group.
+    int64 id = 1;
+};
+
+// Response for GetPopulatedGroupByID
+message GetPopulatedGroupByIDResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request that has Name for GetPopulatedGroupByName
+message GetPopulatedGroupByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name"]; 
+        }
+    };
+
+    // The Name of the populated group.
+    string group_name = 1;
+};
+
+// Response for GetPopulatedGroupByName
+message GetPopulatedGroupByNameResponse {
+    // The populated group.
+    PopulatedGroup data = 1;
+};
+
+// Request for GetPopulatedGroupsPaged
+message GetPopulatedGroupsPagedRequest {
+    // The page to start paging from.
+    int32 page = 1;
+
+    // The size of the page.
+    int32 page_size = 2;
+};
+
+// Response for GetPopulatedGroupsPaged
+message GetPopulatedGroupsPagedResponse {
+    // The populated groups.
+    repeated PopulatedGroup data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Settings:
+
+// Request that has ID for DeleteSettingByID
+message DeleteSettingByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the setting.
+    int64 id = 1;
+};
+
+// Response for DeleteSettingByID
+message DeleteSettingByIDResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has Name for DeleteSettingByName
+message DeleteSettingByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name"];  
+        }
+    };
+
+    // The Name of the setting.
+    string name = 1;
+};
+
+// Response for DeleteSettingByIDRequest
+message DeleteSettingByNameResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has Name for CreateNewSetting
+message CreateNewSettingRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "setting_name", "type"];  
+        }
+    };
+
+    // The GroupName of the setting.
+    string group_name = 1;
+
+    // The Name of the setting.
+    string setting_name = 2;
+
+    // The value of the setting.
+    string setting_value = 3;
+
+    // The type of this setting.
+    SettingType type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: "System.Int32";
+            enum: "System.UInt32";
+            enum: "System.Int64";
+            enum: "System.UInt64";
+            enum: "System.Double";
+            enum: "System.Decimal";
+            enum: "System.Float";
+            enum: "System.Single";
+            enum: "Roblox.Redis.RedisEndpoints";
+            enum: "System.Csv";
+            enum: "Roblox.Configuration.WeightedCsv";
+            enum: "System.Boolean";
+            enum: "System.Guid";
+            enum: "System.Byte";
+            enum: "System.SByte";
+            enum: "System.String";
+            enum: "System.TimeSpan";
+        }
+    ];
+
+    // An optional comment.
+    string comment = 5;
+
+    // Is the setting value masked?
+    bool is_masked = 6 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "false";
+        }
+    ];
+};
+
+// Response for CreateNewSetting
+message CreateNewSettingResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has ID for UpdateSettingByID
+message UpdateSettingByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"];  
+        }
+    };
+
+    // The ID of the setting.
+    int64 id = 1;
+
+    // The GroupName of the setting.
+    string group_name = 2;
+
+    // The Name of the setting.
+    string setting_name = 3;
+
+    // The value of the setting.
+    string setting_value = 4;
+
+    // An optional comment.
+    string comment = 5;
+
+    // Is the setting value masked?
+    bool is_masked = 6 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "false";
+        }
+    ];
+};
+
+// Response for UpdateSettingByID
+message UpdateSettingByIDResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has Name for UpdateSettingByName
+message UpdateSettingByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "setting_name"];  
+        }
+    };
+
+    // The GroupName of the setting.
+    string group_name = 1;
+
+    // The Name of the setting.
+    string setting_name = 2;
+
+    // The value of the setting.
+    string setting_value = 3;
+
+    // An optional comment.
+    string comment = 4;
+
+    // Is the setting value masked?
+    bool is_masked = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "false";
+        }
+    ];
+};
+
+// Response for UpdateSettingByName
+message UpdateSettingByNameResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has ID for GetSettingByID
+message GetSettingByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the setting.
+    int64 id = 1;
+};
+
+// Response for GetSettingByID
+message GetSettingByIDResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has Name for GetSettingByName
+message GetSettingByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "setting_name"];  
+        }
+    };
+
+    // The GroupName of the setting.
+    string group_name = 1;
+
+    // The Name of the setting.
+    string setting_name = 2;
+};
+
+// Response for GetSettingByName
+message GetSettingByNameResponse {
+    // The setting.
+    Setting data = 1;
+};
+
+// Request that has GroupName for GetSettingsByGroupNamePaged
+message GetSettingsByGroupNamePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name_pattern"];  
+        }
+    };
+
+    // The GroupName to query.
+    string group_name_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetSettingsByGroupNamePaged
+message GetSettingsByGroupNamePagedResponse {
+    // The settings.
+    repeated Setting data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Name for GetSettingsByNamePaged
+message GetSettingsByNamePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["setting_name_pattern"];  
+        }
+    };
+
+    // The Name to query.
+    string setting_name_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetSettingsByNamePaged
+message GetSettingsByNamePagedResponse {
+    // The settings.
+    repeated Setting data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Value for GetSettingsByValuePaged
+message GetSettingsByValuePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["setting_value_pattern"];  
+        }
+    };
+
+    // The Value to query.
+    string setting_value_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetSettingsByValuePaged
+message GetSettingsByValuePagedResponse {
+    // The settings.
+    repeated Setting data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Value for GetTotalNumberOfSettingsByGroupNameAndUpdated
+message GetTotalNumberOfSettingsByGroupNameAndUpdatedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "updated"];  
+        }
+    };
+
+    // The group name
+    string group_name = 1;
+
+    // The updated date.
+    .google.protobuf.Timestamp updated = 2;
+};
+
+// Response for GetTotalNumberOfSettingsByGroupNameAndUpdated
+message GetTotalNumberOfSettingsByGroupNameAndUpdatedResponse {
+    // The setting count.
+    int32 data = 1;
+};
+
+// Connection strings:
+
+// Request that has ID for DeleteConnectionStringByID
+message DeleteConnectionStringByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the connection string.
+    int64 id = 1;
+};
+
+// Response for DeleteConnectionStringByID
+message DeleteConnectionStringByIDResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has Name for DeleteConnectionStringByName
+message DeleteConnectionStringByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name"];  
+        }
+    };
+
+    // The Name of the connection string.
+    string name = 1;
+};
+
+// Response for DeleteConnectionStringByIDRequest
+message DeleteConnectionStringByNameResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has Name for CreateNewConnectionString
+message CreateNewConnectionStringRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "connection_string_name", "type"];  
+        }
+    };
+
+    // The GroupName of the connection string.
+    string group_name = 1;
+
+    // The Name of the connection string.
+    string connection_string_name = 2;
+
+    // The value of the connection string.
+    string connection_string_value = 3;
+
+    // An optional comment.
+    string comment = 4;
+};
+
+// Response for CreateNewConnectionString
+message CreateNewConnectionStringResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has ID for UpdateConnectionStringByID
+message UpdateConnectionStringByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"];  
+        }
+    };
+
+    // The ID of the connection string.
+    int64 id = 1;
+
+    // The GroupName of the connection string.
+    string group_name = 2;
+
+    // The Name of the connection string.
+    string connection_string_name = 3;
+
+    // The value of the connection string.
+    string connection_string_value = 4;
+
+    // An optional comment.
+    string comment = 5;
+};
+
+// Response for UpdateConnectionStringByID
+message UpdateConnectionStringByIDResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has Name for UpdateConnectionStringByName
+message UpdateConnectionStringByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "connection_string_name"];  
+        }
+    };
+
+    // The GroupName of the connection string.
+    string group_name = 1;
+
+    // The Name of the connection string.
+    string connection_string_name = 2;
+
+    // The value of the connection string.
+    string connection_string_value = 3;
+
+    // An optional comment.
+    string comment = 4;
+};
+
+// Response for UpdateConnectionStringByName
+message UpdateConnectionStringByNameResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has ID for GetConnectionStringByID
+message GetConnectionStringByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+        }
+    };
+
+    // The ID of the connection string.
+    int64 id = 1;
+};
+
+// Response for GetConnectionStringByID
+message GetConnectionStringByIDResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has Name for GetConnectionStringByName
+message GetConnectionStringByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "connection_string_name"];  
+        }
+    };
+
+    // The GroupName of the connection string.
+    string group_name = 1;
+
+    // The Name of the connection string.
+    string connection_string_name = 2;
+};
+
+// Response for GetConnectionStringByName
+message GetConnectionStringByNameResponse {
+    // The connection string.
+    ConnectionString data = 1;
+};
+
+// Request that has GroupName for GetConnectionStringsByGroupNamePaged
+message GetConnectionStringsByGroupNamePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name_pattern"];  
+        }
+    };
+
+    // The GroupName to query.
+    string group_name_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetConnectionStringsByGroupNamePaged
+message GetConnectionStringsByGroupNamePagedResponse {
+    // The connection strings.
+    repeated ConnectionString data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Name for GetConnectionStringsByNamePaged
+message GetConnectionStringsByNamePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["connection_string_name_pattern"];  
+        }
+    };
+
+    // The Name to query.
+    string connection_string_name_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetConnectionStringsByNamePaged
+message GetConnectionStringsByNamePagedResponse {
+    // The connection strings.
+    repeated ConnectionString data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Value for GetConnectionStringsByValuePaged
+message GetConnectionStringsByValuePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["connection_string_value_pattern"];  
+        }
+    };
+
+    // The Value to query.
+    string connection_string_value_pattern = 1;
+
+    // The page to start paging from.
+    int32 page = 2;
+
+    // The size of the page.
+    int32 page_size = 3;
+};
+
+// Response for GetConnectionStringsByValuePaged
+message GetConnectionStringsByValuePagedResponse {
+    // The connection strings.
+    repeated ConnectionString data = 1;
+
+    // The number of results remaining.
+    int32 results_remaining = 2;
+};
+
+// Request that has Value for GetTotalNumberOfConnectionStringsByGroupNameAndUpdated
+message GetTotalNumberOfConnectionStringsByGroupNameAndUpdatedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["group_name", "updated"];  
+        }
+    };
+
+    // The group name
+    string group_name = 1;
+
+    // The updated date.
+    .google.protobuf.Timestamp updated = 2;
+};
+
+// Response for GetTotalNumberOfConnectionStringsByGroupNameAndUpdated
+message GetTotalNumberOfConnectionStringsByGroupNameAndUpdatedResponse {
+    // The setting count.
+    int32 data = 1;
+};

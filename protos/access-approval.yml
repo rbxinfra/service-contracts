@@ -1,0 +1,13 @@
+version: 1.0.0
+protos_path: roblox/access_approval/access_approval/v1
+
+protos:
+  - name: Roblox.Accessapproval.Accessapproval.V1
+    path: access_approval.proto
+
+  - name: Roblox.Accessapproval.Accessapproval.V1.AccessApprovalAPI
+    type: api
+    path: access_approval_api.proto
+    depends_on:
+      - Roblox.Accessapproval.Accessapproval.V1
+

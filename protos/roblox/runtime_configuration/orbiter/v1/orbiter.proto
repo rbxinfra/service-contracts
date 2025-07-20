@@ -1,0 +1,99 @@
+//  gRPC Messages
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.runtimeconfiguration.orbiter.v1;
+
+option csharp_namespace = "Roblox.Runtimeconfiguration.Orbiter.V1";
+option go_package = "roblox/runtime_configuration/orbiter/v1;orbiterv1";
+option java_multiple_files = true;
+option java_outer_classname = "OrbiterProto";
+option java_package = "com.roblox.runtimeconfiguration.orbiter.v1";
+
+// Represents an attribute.
+// This is used in the request for criteria matching.
+message Attribute {
+    string name = 1;
+
+    string value = 2;
+}
+
+// Represents a group configuration.
+// This is part of the response and contains the settings for a group.
+message GroupConfiguration {
+    string group_name = 1;
+
+    int32 version = 2;
+
+    repeated Entry entries = 3;
+}
+
+// Represents an entry.
+// This is part of the response and basically represents a setting.
+message Entry {
+    string name = 1;
+
+    string type = 2;
+
+    string value = 3;
+}
+
+// Represents a project and group.
+// This is a single item in the bulk request.
+message ProjectGroup {
+    string project_name = 1;
+
+    string group_name = 2;
+
+    repeated Attribute attributes = 3;
+
+    // Optional id that is simply forwarded to the server and returned in the response.
+    // Useful for mapping configurations back to the project group in a bulk request.
+    // ie. if you make a bulk request with 3 items where each item has a unique correlation id,
+    // you can map the returned items to the requested items by only looking at the correlation id and not looking at any other field.
+    string correlation_id = 4;
+}
+
+// Represents a project and group configuration.
+// This is a single item in the bulk response.
+message ProjectGroupConfiguration {
+    ProjectGroup project_group = 1;
+
+    repeated GroupConfiguration group_configurations = 2;
+
+    Status status = 3;
+}
+
+// Represents a status.
+// This is for the bulk request where each requested project group configuration might have a different response status.
+message Status {
+    // This maps to a GRPC status code.
+    // The most common ones are 0 for OK and 5 for NOT_FOUND, which occurs when the requested project group cannot be found.
+    int32 status_code = 1;
+
+    // The description corresponding to the GRPC status code, ie. OK and NOT_FOUND.
+    string detail = 2;
+}
+
+// Represents a project.
+// DEPRECATED.
+message Project {
+    string project_name = 1;
+
+    repeated Attribute attributes = 2;
+
+    // Optional id that is returned in the response for mapping configurations back to the project.
+    string correlation_id = 3;
+}
+
+// Represents a project configuration.
+// DEPRECATED.
+message ProjectConfiguration {
+    Project project = 1;
+
+    repeated GroupConfiguration group_configurations = 2;
+
+    Status status = 3;
+}

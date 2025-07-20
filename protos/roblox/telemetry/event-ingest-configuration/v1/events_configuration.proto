@@ -1,0 +1,23 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=d615f0 SwarpVersion=1.38.0 SwarpCreateDate=2020-08-25T16:10:25.040Z
+//  gRPC Messages
+//
+// Copyright © 2021 Roblox
+//
+syntax = "proto3";
+
+package roblox.telemetry.eventingest.configuration.v1;
+
+option csharp_namespace = "Roblox.Telemetry.Eventingest.Configuration.V1";
+option go_package = "./eventsconfigurationv1";
+option java_multiple_files = true;
+option java_outer_classname = "EventsConfigurationProto";
+option java_package = "com.roblox.eventingest.configuration.v1";
+
+// Defines the info on an event field.
+message EventFieldInfo {
+    // The name of the field.
+    string name = 1;
+
+    // The type of the field.
+    string type = 2;
+}

@@ -1,0 +1,43 @@
+//  gRPC Service
+//
+// Copyright © 2024 Roblox
+//
+syntax = "proto3";
+
+package roblox.games.jobsstate.v1;
+
+option csharp_namespace = "Roblox.Games.Jobsstate.V1";
+option go_package = "roblox/jobsstatev1";
+option java_multiple_files = true;
+option java_outer_classname = "JobsStateApiProto";
+option java_package = "com.roblox.games.jobsstate.v1";
+
+import "roblox/games/jobsstate/v1/jobs_state_datastore_api_messages.proto";
+
+// Redis structure:
+// Queues: List of IDs, queues only in place for job placement.
+//         We assume that the jobs in this queue are not active or completed.
+//         Jobs can still be placed if they are errored, lost or unplaced.
+// Jobs: Jobs are their own seperate cached item, and are keyed via their ID.
+
+service JobsStateDataStoreAPI {
+  // Create a new job
+  // This will essentially take in the key that is derived
+  // by the caller, and push a new job onto that queue.
+  rpc CreateJob(CreateJobRequest) returns (CreateJobResponse) {}
+
+  // Pops a job of the specified queue.
+  rpc PopJob(PopJobRequest) returns (PopJobResponse) {}
+
+  // Pushes an existing job to the specified queue.
+  rpc PushJob(PushJobRequest) returns (PushJobResponse) {}
+
+  // Update an existing job.
+  rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse) {}
+
+  // Gets a job
+  rpc GetJob(GetJobRequest) returns (GetJobResponse) {}
+
+  // Deletes a job
+  rpc DeleteJob(DeleteJobRequest) returns (DeleteJobResponse) {}
+}

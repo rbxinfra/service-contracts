@@ -1,0 +1,124 @@
+//  gRPC Messages
+//
+// Copyright © 2024 Roblox
+//
+syntax = "proto3";
+
+package roblox.games.jobsstate.v1;
+
+option csharp_namespace = "Roblox.Games.Jobsstate.V1";
+option go_package = "roblox/jobsstatev1";
+option java_multiple_files = true;
+option java_outer_classname = "JobsStateApiProto";
+option java_package = "com.roblox.games.jobsstate.v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Enum representing the state of the job.
+// Usually jobs that are not active or complete
+// can still be picked up by Relays, but they can
+// in theory still be picked up if they are in the
+// queue.
+enum JobStatus {
+    // Default status. Do not use this directly.
+    // This is used by gRPC serialization when
+    // updating jobs to determine if a field is
+    // unchanged.
+    JOB_STATUS_DEFAULT = 0;
+
+    // The Job is in the queue, but cannot be completed
+    // or removed from the queue. This is used to issue
+    // jobs that should be top priority, and should be executed
+    // by every relay that can request work.
+    //
+    // Relays may only do this work once, even if it fails.
+    // If this work fails then that relay will be taken out
+    // of ranking.
+    //
+    // Jobs with this status do not need to know
+    // about ranking data, as every relay within criteria will
+    // hit this job.
+    // 
+    // Per-relay queues will never have this status.
+    JOB_STATUS_STICKY_QUEUE = 1;
+
+    // The job is waiting for a relay to pick it up.
+    // This is the default status of jobs that were
+    // just created.
+    JOB_STATUS_IN_QUEUE = 2;
+
+    // The job is currently being worked on by a relay.
+    // This status can remain for a long time, therefore
+    // games-lost-jobs-processor exists to detect
+    // jobs that have been working for too long.
+    JOB_STATUS_ACTIVE = 3;
+
+    // The job is complete, set on successful submission to coordination.
+    // The job should not be replaced in the criteria queue as in this state
+    // it is deemed done, and will most likely get deleted.
+    JOB_STATUS_COMPLETE = 4;
+
+    // There was an error with the job (notify error to coordination)
+    // In this state, the job can be replaced onto the criteria queue,
+    // and can be "retried", coordination can either make it go directly
+    // back to the relay that did the work, or onto the region depending
+    // on the original criteria queue type.
+    JOB_STATUS_ERROR = 5;
+
+    // The job was left in a criteria queue for an extended period of time,
+    // one that violates a period checker's (games-lost-jobs-processor)
+    // policy for unplaced jobs. Usually this is only applied to jobs that were
+    // originally directed towards relays instead of groups.
+    // Often or not, depending on how developers see fit, this job may be kept
+    // on the priority queue, and will be noted as an unplaced job.
+    JOB_STATUS_UNPLACED = 6;
+
+    // The job was taken off the criteria queue, but hasn't been submitted or notified
+    // of an error within some check period, this status is managed by games-lost-jobs-processor.
+    // The job shouldn't be placed back onto the criteria queue if this status is encountered as this work
+    // could potentially be still underway, but this job is not "complete"
+    JOB_STATUS_LOST = 7;
+}
+
+// Model for a job witin the jobs queue,
+// is loosely the same as relay work item
+// but with extra stuff used by coordination
+// and games service to help with directing jobs
+// to nodes, and knowing if jobs failed or not.
+message Job {
+    // The ID of the job.
+    // Generated on creation of the job via CreateJob.
+    string id = 1;
+
+    // The current status of the job.
+    JobStatus status = 2;
+
+    // The key of the queue that this job is
+    // in, this is derived by the client and
+    // a prefix is prepended to it to avoid
+    // conflicting issues.
+    string queue_key = 3;
+
+    // The current retry count of the job.
+    int32 retry_count = 4;
+
+    // The ID of the active working relay.
+    string active_worker_id = 5;
+
+    ////// Stuff specifically from relay work item.
+    
+    // The type of operation being executed on the relay.
+    string operation = 6;
+
+    // The payload being given or received from the relay.
+    string payload = 7;
+
+    // An error that occurred on the relay, if any.
+    string error = 8;
+
+    // The date that the job was issued, managed by datastore.
+    .google.protobuf.Timestamp created = 9;
+
+    // The date that the job was last updated, managed by datastore.
+    .google.protobuf.Timestamp updated = 10;
+}

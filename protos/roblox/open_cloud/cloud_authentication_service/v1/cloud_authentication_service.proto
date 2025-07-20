@@ -1,0 +1,114 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=fcd05f SwarpVersion=1.38.0 SwarpCreateDate=2020-08-25T16:10:25.040Z
+//  gRPC Messages
+//
+// Copyright © 2022 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.cloudauthenticationservice.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Cloudauthenticationservice.V1";
+option go_package = "./cloudauthenticationservicev1";
+option java_multiple_files = true;
+option java_outer_classname = "CloudAuthenticationServiceProto";
+option java_package = "com.roblox.opencloud.cloudauthenticationservice.v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+// Type for owners.
+enum OwnerType {
+    OWNER_TYPE_INVALID = 0;
+    OWNER_TYPE_USER = 1;
+    OWNER_TYPE_GROUP = 2;
+}
+
+// Type for values.
+enum ValueType {
+    VALUE_TYPE_INVALID = 0;
+    VALUE_TYPE_INT64 = 1;
+    VALUE_TYPE_STRING = 2;
+}
+
+// Bad status for cloud authentication.
+enum CloudAuthBadStatus {
+    CLOUD_AUTH_BAD_STATUS_INVALID = 0;
+    CLOUD_AUTH_BAD_STATUS_MODERATED = 1;
+    CLOUD_AUTH_BAD_STATUS_USER_MODERATED = 2;
+    CLOUD_AUTH_BAD_STATUS_REVOKED = 3;
+    CLOUD_AUTH_BAD_STATUS_EXPIRED = 4;
+    CLOUD_AUTH_BAD_STATUS_EXPIRED_AUTO = 5;
+    CLOUD_AUTH_BAD_STATUS_DISABLED = 6;
+}
+
+// Details of a authentication scope.
+message ScopeInfo {
+    string scope_type = 1;
+    repeated string target_parts = 2;
+    repeated string operations = 3;
+    bool allow_all_operations = 4;
+}
+
+// Details of a user configured properties.
+message CloudAuthUserConfiguredProperties {
+    string name = 1;
+    string description = 2;
+    bool is_enabled = 3;
+    .google.protobuf.Timestamp expiration_time = 4;
+    repeated string allowed_cidrs = 5;
+    repeated ScopeInfo scopes = 6;
+}
+
+// Details of a cloud auth key.
+message CloudAuthInfo {
+    int64 id = 1;
+    .google.protobuf.Timestamp created_time = 2;
+    .google.protobuf.Timestamp updated_time = 3;
+    CloudAuthUserConfiguredProperties cloud_auth_user_configured_properties = 4;
+    int64 owner_id = 5;
+    OwnerType owner_type = 6;
+    .google.protobuf.Int64Value last_generated_user_id = 7;
+    .google.protobuf.Timestamp last_generated_time = 8;
+    string apikey_secret_preview = 9;
+    .google.protobuf.Timestamp last_accessed_time = 10;
+    repeated CloudAuthBadStatus cloud_auth_bad_status = 11;
+}
+
+// Details on an operation.
+message Operation {
+    string name = 1;
+    string translation_key = 2;
+}
+
+// Details on a scope type.
+message ScopeType {
+    string name = 1;
+    string target_type = 2;
+    repeated string operations = 3;
+    string translation_key = 4;
+    string product = 5;
+    repeated Operation operation_overrides = 6;
+    bool is_disallowed = 7;
+}
+
+// Details on a target type.
+message TargetType {
+    string name = 1;
+    repeated string required_parts = 2;
+    repeated string optional_parts = 3;
+    string translation_key = 4;
+}
+
+// Details on a target part.
+message TargetPart {
+    string name = 1;
+    ValueType value_type = 2;
+    repeated string constraints = 3;
+    string translation_key = 4;
+}
+
+// Details on a product.
+message Product {
+    string name = 1;
+    string translation_key = 2;
+}

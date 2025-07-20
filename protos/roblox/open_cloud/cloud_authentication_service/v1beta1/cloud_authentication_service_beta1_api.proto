@@ -1,0 +1,38 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=7a71fd SwarpVersion=1.42.0 SwarpCreateDate=2022-08-25T16:10:25.040Z
+//  gRPC Service
+//
+// Copyright © 2022 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.cloudauthenticationservice.v1beta1;
+
+option csharp_namespace = "Roblox.Opencloud.Cloudauthenticationservice.V1Beta1";
+option go_package = "./cloudauthenticationservicev1beta1";
+option java_multiple_files = true;
+option java_outer_classname = "CloudAuthenticationServiceApiProto";
+option java_package = "com.roblox.opencloud.cloudauthenticationservice.v1beta1";
+
+import "roblox/protobuf/options.proto";
+import "google/protobuf/wrappers.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// CloudAuthenticationService Beta Service
+service CloudAuthenticationServiceAPI {
+    // Checks if the user or group can use API keys.
+    rpc CanUseApiKeys(CanUseApiKeysRequest) returns (CanUseApiKeysResponse) {
+    }
+}
+
+message CanUseApiKeysRequest {
+    // Optional group ID to check.
+    // if not specified it will check the
+    // authenticated user.
+    .google.protobuf.Int64Value group_id = 1;
+}
+
+message CanUseApiKeysResponse {
+    // Whether the user or group can use API keys.
+    bool can_use_api_keys = 1;
+}

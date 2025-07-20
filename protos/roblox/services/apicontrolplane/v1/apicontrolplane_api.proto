@@ -1,0 +1,3572 @@
+//  gRPC Service
+//
+// Copyright © 2022 Roblox
+//
+syntax = "proto3";
+
+package roblox.services.apicontrolplane.v1;
+
+option csharp_namespace = "Roblox.Services.Apicontrolplane.V1";
+option go_package = "./apicontrolplanev1";
+option java_multiple_files = true;
+option java_outer_classname = "ApiControlPlaneProto";
+option java_package = "com.services.apicontrolplane.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "roblox/services/apicontrolplane/v1/apicontrolplane.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "gRPC API Control Plane Service";
+        version: "v1";
+        description: "The BEDEV2 implementation of the Roblox Services Platform.";
+    };
+
+    external_docs: {
+        description: "Confluence Page";
+        url: "https://confluence.rbx.com/display/MSP/ApiControlPlane+Service+BEDEV2+Migration";
+    };
+};
+
+// ApiControlPlaneAPI defines methods for fetching service related information as well as update.
+service ApiControlPlaneAPI {
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+        description: "ApiControlPlaneAPI defines methods for fetching service related information as well as update.";
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// AUTHORIZATION TYPE ///////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteAuthorizationTypeByID deletes an authorization type by ID
+    rpc DeleteAuthorizationTypeByID(DeleteAuthorizationTypeByIDRequest) returns (DeleteAuthorizationTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteAuthorizationTypeByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteAuthorizationTypeByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // GetOrCreateAuthorizationType gets or creates an authorization type
+    rpc GetOrCreateAuthorizationType(GetOrCreateAuthorizationTypeRequest) returns (GetOrCreateAuthorizationTypeResponse) {
+        // HTTP mapping from Configuration Service API to GetOrCreateAuthorizationType.
+        option (google.api.http) = {
+            get: "/v1/GetOrCreateAuthorizationType";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // CreateAuthorizationType creates an authorization type
+    rpc CreateAuthorizationType(CreateAuthorizationTypeRequest) returns (CreateAuthorizationTypeResponse) {
+        // HTTP mapping from Configuration Service API to CreateAuthorizationType.
+        option (google.api.http) = {
+            post: "/v1/CreateAuthorizationType";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // UpdateAuthorizationTypeByID updates an authorization type by ID
+    rpc UpdateAuthorizationTypeByID(UpdateAuthorizationTypeByIDRequest) returns (UpdateAuthorizationTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateAuthorizationTypeByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateAuthorizationTypeByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // GetAuthorizationTypeByID gets an authorization type by ID
+    rpc GetAuthorizationTypeByID(GetAuthorizationTypeByIDRequest) returns (GetAuthorizationTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetAuthorizationTypeByID.
+        option (google.api.http) = {
+            get: "/v1/GetAuthorizationTypeByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // GetAuthorizationTypeByValue gets an authorization type by value
+    rpc GetAuthorizationTypeByValue(GetAuthorizationTypeByValueRequest) returns (GetAuthorizationTypeByValueResponse) {
+        // HTTP mapping from Configuration Service API to GetAuthorizationTypeByValue.
+        option (google.api.http) = {
+            get: "/v1/GetAuthorizationTypeByValue";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    // GetAuthorizationTypes gets all authorization types
+    rpc GetAuthorizationTypes(GetAuthorizationTypesRequest) returns (GetAuthorizationTypesResponse) {
+        // HTTP mapping from Configuration Service API to GetAuthorizationTypes.
+        option (google.api.http) = {
+            get: "/v1/GetAuthorizationTypes";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "AuthorizationTypes";
+        };
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// STATUS TYPE //////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteStatusTypeByID deletes a status type by ID
+    rpc DeleteStatusTypeByID(DeleteStatusTypeByIDRequest) returns (DeleteStatusTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteStatusTypeByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteStatusTypeByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // GetOrCreateStatusType gets or creates a status type
+    rpc GetOrCreateStatusType(GetOrCreateStatusTypeRequest) returns (GetOrCreateStatusTypeResponse) {
+        // HTTP mapping from Configuration Service API to GetOrCreateStatusType.
+        option (google.api.http) = {
+            get: "/v1/GetOrCreateStatusType";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // CreateStatusType creates a status type
+    rpc CreateStatusType(CreateStatusTypeRequest) returns (CreateStatusTypeResponse) {
+        // HTTP mapping from Configuration Service API to CreateStatusType.
+        option (google.api.http) = {
+            post: "/v1/CreateStatusType";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // UpdateStatusTypeByID updates a status type by ID
+    rpc UpdateStatusTypeByID(UpdateStatusTypeByIDRequest) returns (UpdateStatusTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateStatusTypeByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateStatusTypeByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // GetStatusTypeByID gets a status type by ID
+    rpc GetStatusTypeByID(GetStatusTypeByIDRequest) returns (GetStatusTypeByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetStatusTypeByID.
+        option (google.api.http) = {
+            get: "/v1/GetStatusTypeByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // GetStatusTypeByValue gets a status type by value
+    rpc GetStatusTypeByValue(GetStatusTypeByValueRequest) returns (GetStatusTypeByValueResponse) {
+        // HTTP mapping from Configuration Service API to GetStatusTypeByValue.
+        option (google.api.http) = {
+            get: "/v1/GetStatusTypeByValue";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+
+    // GetStatusTypes gets all status types
+    rpc GetStatusTypes(GetStatusTypesRequest) returns (GetStatusTypesResponse) {
+        // HTTP mapping from Configuration Service API to GetStatusTypes.
+        option (google.api.http) = {
+            get: "/v1/GetStatusTypes";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "StatusTypes";
+        };
+    };
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// API CLIENT ///////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteApiClientByID deletes an API client by ID
+    rpc DeleteApiClientByID(DeleteApiClientByIDRequest) returns (DeleteApiClientByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteApiClientByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteApiClientByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // CreateApiClient creates an API client
+    rpc CreateApiClient(CreateApiClientRequest) returns (CreateApiClientResponse) {
+        // HTTP mapping from Configuration Service API to CreateApiClient.
+        option (google.api.http) = {
+            post: "/v1/CreateApiClient";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // UpdateApiClientByID updates an API client by ID
+    rpc UpdateApiClientByID(UpdateApiClientByIDRequest) returns (UpdateApiClientByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateApiClientByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateApiClientByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // GetApiClientByID gets an API
+    rpc GetApiClientByID(GetApiClientByIDRequest) returns (GetApiClientByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetApiClientByID.
+        option (google.api.http) = {
+            get: "/v1/GetApiClientByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // GetApiClientByKey gets an API client by key
+    rpc GetApiClientByKey(GetApiClientByKeyRequest) returns (GetApiClientByKeyResponse) {
+        // HTTP mapping from Configuration Service API to GetApiClientByKey.
+        option (google.api.http) = {
+            get: "/v1/GetApiClientByKey";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // GetApiClientByNote gets an API client by note
+    rpc GetApiClientByNote(GetApiClientByNoteRequest) returns (GetApiClientByNoteResponse) {
+        // HTTP mapping from Configuration Service API to GetApiClientByNote.
+        option (google.api.http) = {
+            get: "/v1/GetApiClientByNote";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // GetApiClients gets all API clients
+    rpc GetApiClients(GetApiClientsRequest) returns (GetApiClientsResponse) {
+        // HTTP mapping from Configuration Service API to GetApiClients.
+        option (google.api.http) = {
+            get: "/v1/GetApiClients";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    // GetApiClientsPaged gets all API clients paged
+    rpc GetApiClientsPaged(GetApiClientsPagedRequest) returns (GetApiClientsPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetApiClientsPaged.
+        option (google.api.http) = {
+            get: "/v1/GetApiClientsPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ApiClients";
+        };
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// SERVICE //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteServiceByID deletes a service by ID
+    rpc DeleteServiceByID(DeleteServiceByIDRequest) returns (DeleteServiceByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteServiceByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteServiceByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // CreateService creates a service
+    rpc CreateService(CreateServiceRequest) returns (CreateServiceResponse) {
+        // HTTP mapping from Configuration Service API to CreateService.
+        option (google.api.http) = {
+            post: "/v1/CreateService";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // UpdateServiceByID updates a service by ID
+    rpc UpdateServiceByID(UpdateServiceByIDRequest) returns (UpdateServiceByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateServiceByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateServiceByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // GetServiceByID gets a service by ID
+    rpc GetServiceByID(GetServiceByIDRequest) returns (GetServiceByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceByID.
+        option (google.api.http) = {
+            get: "/v1/GetServiceByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // GetServiceByName gets a service by name
+    rpc GetServiceByName(GetServiceByNameRequest) returns (GetServiceByNameResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceByName.
+        option (google.api.http) = {
+            get: "/v1/GetServiceByName";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // GetServices gets all services
+    rpc GetServices(GetServicesRequest) returns (GetServicesResponse) {
+        // HTTP mapping from Configuration Service API to GetServices.
+        option (google.api.http) = {
+            get: "/v1/GetServices";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+
+    // GetServicesPaged gets all services paged
+    rpc GetServicesPaged(GetServicesPagedRequest) returns (GetServicesPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetServicesPaged.
+        option (google.api.http) = {
+            get: "/v1/GetServicesPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Services";
+        };
+    };
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// OPERATION ////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteOperationByID deletes an operation by ID
+    rpc DeleteOperationByID(DeleteOperationByIDRequest) returns (DeleteOperationByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteOperationByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteOperationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // CreateOperation creates an operation
+    rpc CreateOperation(CreateOperationRequest) returns (CreateOperationResponse) {
+        // HTTP mapping from Configuration Service API to CreateOperation.
+        option (google.api.http) = {
+            post: "/v1/CreateOperation";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // UpdateOperationByID updates an operation by ID
+    rpc UpdateOperationByID(UpdateOperationByIDRequest) returns (UpdateOperationByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateOperationByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateOperationByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationByID gets an operation by ID
+    rpc GetOperationByID(GetOperationByIDRequest) returns (GetOperationByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationByID.
+        option (google.api.http) = {
+            get: "/v1/GetOperationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationByName gets an operation by name
+    rpc GetOperationByName(GetOperationByNameRequest) returns (GetOperationByNameResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationByName.
+        option (google.api.http) = {
+            get: "/v1/GetOperationByName";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationByService gets an operation by service
+    rpc GetOperationByService(GetOperationByServiceRequest) returns (GetOperationByServiceResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationByService.
+        option (google.api.http) = {
+            get: "/v1/GetOperationByService";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperations gets all operations
+    rpc GetOperations(GetOperationsRequest) returns (GetOperationsResponse) {
+        // HTTP mapping from Configuration Service API to GetOperations.
+        option (google.api.http) = {
+            get: "/v1/GetOperations";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationsPaged gets all operations paged
+    rpc GetOperationsPaged(GetOperationsPagedRequest) returns (GetOperationsPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationsPaged.
+        option (google.api.http) = {
+            get: "/v1/GetOperationsPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationsByService gets all operations by service
+    rpc GetOperationsByService(GetOperationsByServiceRequest) returns (GetOperationsByServiceResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationsByService.
+        option (google.api.http) = {
+            get: "/v1/GetOperationsByService";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    // GetOperationsByServicePaged gets all operations by service paged
+    rpc GetOperationsByServicePaged(GetOperationsByServicePagedRequest) returns (GetOperationsByServicePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationsByServicePaged.
+        option (google.api.http) = {
+            get: "/v1/GetOperationsByServicePaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Operations";
+        };
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// SERVICE AUTHORIZATION /////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteServiceAuthorizationByID deletes a service authorization by ID
+    rpc DeleteServiceAuthorizationByID(DeleteServiceAuthorizationByIDRequest) returns (DeleteServiceAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteServiceAuthorizationByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteServiceAuthorizationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // CreateServiceAuthorization creates a service authorization
+    rpc CreateServiceAuthorization(CreateServiceAuthorizationRequest) returns (CreateServiceAuthorizationResponse) {
+        // HTTP mapping from Configuration Service API to CreateServiceAuthorization.
+        option (google.api.http) = {
+            post: "/v1/CreateServiceAuthorization";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // UpdateServiceAuthorizationByID updates a service authorization by ID
+    rpc UpdateServiceAuthorizationByID(UpdateServiceAuthorizationByIDRequest) returns (UpdateServiceAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateServiceAuthorizationByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateServiceAuthorizationByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationByID gets a service authorization by ID
+    rpc GetServiceAuthorizationByID(GetServiceAuthorizationByIDRequest) returns (GetServiceAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationByID.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationByServiceAndApiClient gets a service authorization by service and api client
+    rpc GetServiceAuthorizationByServiceAndApiClient(GetServiceAuthorizationByServiceAndApiClientRequest) returns (GetServiceAuthorizationByServiceAndApiClientResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationByServiceAndApiClient.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationByServiceAndApiClient";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizations gets all service authorizations
+    rpc GetServiceAuthorizations(GetServiceAuthorizationsRequest) returns (GetServiceAuthorizationsResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizations.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizations";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationsPaged gets all service authorizations paged
+    rpc GetServiceAuthorizationsPaged(GetServiceAuthorizationsPagedRequest) returns (GetServiceAuthorizationsPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationsPaged.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationsPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationsByService gets all service authorizations by service
+    rpc GetServiceAuthorizationsByService(GetServiceAuthorizationsByServiceRequest) returns (GetServiceAuthorizationsByServiceResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationsByService.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationsByService";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationsByServicePaged gets all service authorizations by service paged
+    rpc GetServiceAuthorizationsByServicePaged(GetServiceAuthorizationsByServicePagedRequest) returns (GetServiceAuthorizationsByServicePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationsByServicePaged.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationsByServicePaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationsByApiClient gets all service authorizations by api client
+    rpc GetServiceAuthorizationsByApiClient(GetServiceAuthorizationsByApiClientRequest) returns (GetServiceAuthorizationsByApiClientResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationsByApiClient.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationsByApiClient";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    // GetServiceAuthorizationsByApiClientPaged gets all service authorizations by api client paged
+    rpc GetServiceAuthorizationsByApiClientPaged(GetServiceAuthorizationsByApiClientPagedRequest) returns (GetServiceAuthorizationsByApiClientPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetServiceAuthorizationsByApiClientPaged.
+        option (google.api.http) = {
+            get: "/v1/GetServiceAuthorizationsByApiClientPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "ServiceAuthorizations";
+        };
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// OPERATION AUTHORIZATION //////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // DeleteOperationAuthorizationByID deletes an operation authorization by ID
+    rpc DeleteOperationAuthorizationByID(DeleteOperationAuthorizationByIDRequest) returns (DeleteOperationAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to DeleteOperationAuthorizationByID.
+        option (google.api.http) = {
+            delete: "/v1/DeleteOperationAuthorizationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // CreateOperationAuthorization creates an operation authorization
+    rpc CreateOperationAuthorization(CreateOperationAuthorizationRequest) returns (CreateOperationAuthorizationResponse) {
+        // HTTP mapping from Configuration Service API to CreateOperationAuthorization.
+        option (google.api.http) = {
+            post: "/v1/CreateOperationAuthorization";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // UpdateOperationAuthorizationByID updates an operation authorization by ID
+    rpc UpdateOperationAuthorizationByID(UpdateOperationAuthorizationByIDRequest) returns (UpdateOperationAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to UpdateOperationAuthorizationByID.
+        option (google.api.http) = {
+            put: "/v1/UpdateOperationAuthorizationByID";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationByID gets an operation authorization by ID
+    rpc GetOperationAuthorizationByID(GetOperationAuthorizationByIDRequest) returns (GetOperationAuthorizationByIDResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationByID.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationByID";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationByOperationAndApiClient gets an operation authorization by operation and api client
+    rpc GetOperationAuthorizationByOperationAndApiClient(GetOperationAuthorizationByOperationAndApiClientRequest) returns (GetOperationAuthorizationByOperationAndApiClientResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationByOperationAndApiClient.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationByOperationAndApiClient";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizations gets all operation authorizations
+    rpc GetOperationAuthorizations(GetOperationAuthorizationsRequest) returns (GetOperationAuthorizationsResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizations.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizations";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationsPaged gets all operation authorizations paged
+    rpc GetOperationAuthorizationsPaged(GetOperationAuthorizationsPagedRequest) returns (GetOperationAuthorizationsPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationsPaged.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationsPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationsByOperation gets all operation authorizations by operation
+    rpc GetOperationAuthorizationsByOperation(GetOperationAuthorizationsByOperationRequest) returns (GetOperationAuthorizationsByOperationResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationsByOperation.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationsByOperation";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationsByOperationPaged gets all operation authorizations by operation paged
+    rpc GetOperationAuthorizationsByOperationPaged(GetOperationAuthorizationsByOperationPagedRequest) returns (GetOperationAuthorizationsByOperationPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationsByOperationPaged.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationsByOperationPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationsByApiClient gets all operation authorizations by api client
+    rpc GetOperationAuthorizationsByApiClient(GetOperationAuthorizationsByApiClientRequest) returns (GetOperationAuthorizationsByApiClientResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationsByApiClient.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationsByApiClient";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    // GetOperationAuthorizationsByApiClientPaged gets all operation authorizations by api client paged
+    rpc GetOperationAuthorizationsByApiClientPaged(GetOperationAuthorizationsByApiClientPagedRequest) returns (GetOperationAuthorizationsByApiClientPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetOperationAuthorizationsByApiClientPaged.
+        option (google.api.http) = {
+            get: "/v1/GetOperationAuthorizationsByApiClientPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "OperationAuthorizations";
+        };
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// AUTHORIZATION ///////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // GetAuthorizationsByApiClient gets all authorizations by api client
+    rpc GetAuthorizationsByApiClient(GetAuthorizationsByApiClientRequest) returns (GetAuthorizationsByApiClientResponse) {
+        // HTTP mapping from Configuration Service API to GetAuthorizationsByApiClient.
+        option (google.api.http) = {
+            get: "/v1/GetAuthorizationsByApiClient";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Authorizations";
+        };
+    };
+
+    // GetAuthorizationsByApiClientPaged gets all authorizations by api client paged
+    rpc GetAuthorizationsByApiClientPaged(GetAuthorizationsByApiClientPagedRequest) returns (GetAuthorizationsByApiClientPagedResponse) {
+        // HTTP mapping from Configuration Service API to GetAuthorizationsByApiClientPaged.
+        option (google.api.http) = {
+            get: "/v1/GetAuthorizationsByApiClientPaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Authorizations";
+        };
+    };
+
+    // GetAuditAuthorizationsByService gets all audit authorizations by service
+    rpc GetAuditAuthorizationsByService(GetAuditAuthorizationsByServiceRequest) returns (GetAuditAuthorizationsByServiceResponse) {
+        // HTTP mapping from Configuration Service API to GetAuditAuthorizationsByService.
+        option (google.api.http) = {
+            get: "/v1/GetAuditAuthorizationsByService";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Authorizations";
+        };
+    };
+
+    // GetAuditAuthorizationsByServicePaged gets all audit authorizations by service paged
+    rpc GetAuditAuthorizationsByServicePaged(GetAuditAuthorizationsByServicePagedRequest) returns (GetAuditAuthorizationsByServicePagedResponse) {
+        // HTTP mapping from Configuration Service API to GetAuditAuthorizationsByServicePaged.
+        option (google.api.http) = {
+            get: "/v1/GetAuditAuthorizationsByServicePaged";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Authorizations";
+        };
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// CONFIGURATION //////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Import a configuration from a file.
+    rpc ImportConfiguration(ImportConfigurationRequest) returns (ImportConfigurationResponse) {
+        // HTTP mapping from Configuration Service API to ImportConfiguration.
+        option (google.api.http) = {
+            post: "/v1/ImportConfiguration";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Configuration";
+            description: "Used by https://github.rbx.com/Roblox/apicontrolplane-configuration\r\n\r\nNote with the current implementation, when you import an operation authorization, and it appears\r\nto have no service authorization, a service authorization will be created for it with the authorization\r\ntype of \"Partial\". This is because the service authorization is not explicitly defined in the\r\noperation authorization, but is implied by the operation authorization.";
+        };
+    };
+
+    // Import a Sphynx configuration from a file.
+    rpc ImportSphynxConfiguration(ImportSphynxConfigurationRequest) returns (ImportSphynxConfigurationResponse) {
+        // HTTP mapping from Configuration Service API to ImportSphynxConfiguration.
+        option (google.api.http) = {
+            post: "/v1/ImportSphynxConfiguration";
+            body: "*";
+        };
+
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "Configuration";
+            description: "Used by https://github.rbx.com/Roblox/apicontrolplane-configuration/tree/master/cloud-platform-applications";
+        };
+    };
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// AUTHORIZATION TYPE ///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteAuthorizationTypeByID
+message DeleteAuthorizationTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"];
+            title: "DeleteAuthorizationTypeByIDRequest";
+        }
+    };
+
+    // The authorization type ID.
+    int64 id = 1;
+};
+
+// Response for DeleteAuthorizationTypeByID
+message DeleteAuthorizationTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteAuthorizationTypeByIDResponse";
+        }
+    };
+
+    // The deleted authorization type.
+    AuthorizationTypeEntity data = 1;
+};
+
+// Request for GetOrCreateAuthorizationType
+message GetOrCreateAuthorizationTypeRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "GetOrCreateAuthorizationTypeRequest";
+        }
+    };
+
+    // The authorization type value.
+    string value = 1;
+};
+
+// Response for GetOrCreateAuthorizationType
+message GetOrCreateAuthorizationTypeResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOrCreateAuthorizationTypeResponse";
+        }
+    };
+
+    // The authorization type.
+    AuthorizationTypeEntity data = 1;
+
+    // Whether the authorization type was created.
+    bool created = 2;
+};
+
+// Request for CreateAuthorizationType
+message CreateAuthorizationTypeRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "CreateAuthorizationTypeRequest";
+        }
+    };
+
+    // The authorization type value.
+    string value = 1;
+
+    // The authorization type description.
+    string description = 2;
+
+    // The authorization type abbreviation.
+    string abbreviation = 3;
+};
+
+// Response for CreateAuthorizationType
+message CreateAuthorizationTypeResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateAuthorizationTypeResponse";
+        }
+    };
+
+    // The created authorization type.
+    AuthorizationTypeEntity data = 1;
+};
+
+// Request for UpdateAuthorizationTypeByID
+message UpdateAuthorizationTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateAuthorizationTypeByIDRequest";
+        }
+    };
+
+    // The authorization type ID.
+    int64 id = 1;
+
+    // The authorization type value.
+    string value = 2;
+
+    // The authorization type description.
+    string description = 3;
+
+    // The authorization type abbreviation.
+    string abbreviation = 4;
+};
+
+// Response for UpdateAuthorizationTypeByID
+message UpdateAuthorizationTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateAuthorizationTypeByIDResponse";
+        }
+    };
+
+    // The old authorization type.
+    AuthorizationTypeEntity old_data = 1;
+
+    // The new authorization type.
+    AuthorizationTypeEntity new_data = 2;
+};
+
+// Request for GetAuthorizationTypeByID
+message GetAuthorizationTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetAuthorizationTypeByIDRequest";
+        }
+    };
+
+    // The authorization type ID.
+    int64 id = 1;
+};
+
+// Response for GetAuthorizationTypeByID
+message GetAuthorizationTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationTypeByIDResponse";
+        }
+    };
+
+    // The authorization type.
+    AuthorizationTypeEntity data = 1;
+};
+
+// Request for GetAuthorizationTypeByValue
+message GetAuthorizationTypeByValueRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "GetAuthorizationTypeByValueRequest";
+        }
+    };
+
+    // The authorization type value.
+    string value = 1;
+};
+
+// Response for GetAuthorizationTypeByValue
+message GetAuthorizationTypeByValueResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationTypeByValueResponse";
+        }
+    };
+
+
+    // The authorization type.
+    AuthorizationTypeEntity data = 1;
+};
+
+// Request for GetAuthorizationTypes
+message GetAuthorizationTypesRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationTypesRequest";
+        }
+    };
+};
+
+// Response for GetAuthorizationTypes
+message GetAuthorizationTypesResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationTypesResponse";
+        }
+    };
+
+    // The authorization types.
+    repeated AuthorizationTypeEntity data = 1;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// STATUS TYPE //////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteStatusTypeByID
+message DeleteStatusTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteStatusTypeByIDRequest";
+        }
+    };
+
+    // The status type ID.
+    int64 id = 1;
+};
+
+// Response for DeleteStatusTypeByID
+message DeleteStatusTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteStatusTypeByIDResponse";
+        }
+    };
+
+    // The deleted status type.
+    StatusTypeEntity data = 1;
+};
+
+// Request for GetOrCreateStatusType
+message GetOrCreateStatusTypeRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "GetOrCreateStatusTypeRequest";
+        }
+    };
+
+    // The status type value.
+    string value = 1;
+};
+
+// Response for GetOrCreateStatusType
+message GetOrCreateStatusTypeResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOrCreateStatusTypeResponse";
+        }
+    };
+
+    // The status type.
+    StatusTypeEntity data = 1;
+
+    // Whether the status type was created.
+    bool created = 2;
+};
+
+// Request for CreateStatusType
+message CreateStatusTypeRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "CreateStatusTypeRequest";
+        }
+    };
+
+    // The status type value.
+    string value = 1;
+
+    // The status type description.
+    string description = 2;
+
+    // The status type abbreviation.
+    string abbreviation = 3;
+};
+
+// Response for CreateStatusType
+message CreateStatusTypeResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateStatusTypeResponse";
+        }
+    };
+
+    // The created status type.
+    StatusTypeEntity data = 1;
+};
+
+// Request for UpdateStatusTypeByID
+message UpdateStatusTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateStatusTypeByIDRequest";
+        }
+    };
+
+    // The status type ID.
+    int64 id = 1;
+
+    // The status type value.
+    string value = 2;
+
+    // The status type description.
+    string description = 3;
+
+    // The status type abbreviation.
+    string abbreviation = 4;
+};
+
+// Response for UpdateStatusTypeByID
+message UpdateStatusTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateStatusTypeByIDResponse";
+        }
+    };
+
+    // The old status type.
+    StatusTypeEntity old_data = 1;
+
+    // The new status type.
+    StatusTypeEntity new_data = 2;
+};
+
+// Request for GetStatusTypeByID
+message GetStatusTypeByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetStatusTypeByIDRequest";
+        }
+    };
+
+    // The status type ID.
+    int64 id = 1;
+};
+
+// Response for GetStatusTypeByID
+message GetStatusTypeByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetStatusTypeByIDResponse";
+        }
+    };
+
+    // The status type.
+    StatusTypeEntity data = 1;
+};
+
+// Request for GetStatusTypeByValue
+message GetStatusTypeByValueRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["value"]; 
+            title: "GetStatusTypeByValueRequest";
+        }
+    };
+
+    // The status type value.
+    string value = 1;
+};
+
+// Response for GetStatusTypeByValue
+message GetStatusTypeByValueResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetStatusTypeByValueResponse";
+        }
+    };
+
+    // The status type.
+    StatusTypeEntity data = 1;
+};
+
+// Request for GetStatusTypes
+message GetStatusTypesRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetStatusTypesRequest";
+        }
+    };
+};
+
+// Response for GetStatusTypes
+message GetStatusTypesResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetStatusTypesResponse";
+        }
+    };
+
+    // The status types.
+    repeated StatusTypeEntity data = 1;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// API CLIENT //////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteApiClientByID
+message DeleteApiClientByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteApiClientByIDRequest";
+        }
+    };
+
+    // The api client ID.
+    int64 id = 1;
+};
+
+// Response for DeleteApiClientByID
+message DeleteApiClientByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteApiClientByIDResponse";
+        }
+    };
+
+    // The deleted api client.
+    ApiClient data = 1;
+};
+
+// Request for CreateApiClient
+message CreateApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["key", "note", "is_enabled"];
+            title: "CreateApiClientRequest";
+        }
+    };
+
+    // The api client key.
+    string key = 1;
+
+    // The api client note.
+    string note = 2;
+
+    // Whether the api client is enabled.
+    bool is_enabled = 3;
+};
+
+// Response for CreateApiClient
+message CreateApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateApiClientResponse";
+        }
+    };
+
+    // The created api client.
+    ApiClient data = 1;
+};
+
+// Request for UpdateApiClientByID
+message UpdateApiClientByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateApiClientByIDRequest";
+        }
+    };
+
+    // The api client ID.
+    int64 id = 1;
+
+    // The api client key.
+    string key = 2;
+
+    // The api client note.
+    string note = 3;
+
+    // Whether the api client is enabled.
+    bool is_enabled = 4;
+};
+
+// Response for UpdateApiClientByID
+message UpdateApiClientByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateApiClientByIDResponse";
+        }
+    };
+
+    // The old api client.
+    ApiClient old_data = 1;
+
+    // The new api client.
+    ApiClient new_data = 2;
+};
+
+// Request for GetApiClientByID
+message GetApiClientByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetApiClientByIDRequest";
+        }
+    };
+
+    // The api client ID.
+    int64 id = 1;
+};
+
+// Response for GetApiClientByID
+message GetApiClientByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientByIDResponse";
+        }
+    };
+
+    // The api client.
+    ApiClient data = 1;
+};
+
+// Request for GetApiClientByKey
+message GetApiClientByKeyRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["key"]; 
+            title: "GetApiClientByKeyRequest";
+        }
+    };
+
+    // The api client key.
+    string key = 1;
+};
+
+// Response for GetApiClientByKey
+message GetApiClientByKeyResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientByKeyResponse";
+        }
+    };
+
+    // The api client.
+    ApiClient data = 1;
+};
+
+// Request for GetApiClientByNote
+message GetApiClientByNoteRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["note"]; 
+            title: "GetApiClientByNoteRequest";
+        }
+    };
+
+    // The api client note.
+    string note = 1;
+};
+
+// Response for GetApiClientByNote
+message GetApiClientByNoteResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientByNoteResponse";
+        }
+    };
+
+    // The api client.
+    ApiClient data = 1;
+};
+
+// Request for GetApiClients
+message GetApiClientsRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientsRequest";
+        }
+    };
+};
+
+// Response for GetApiClients
+message GetApiClientsResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientsResponse";
+        }
+    };
+
+    // The api clients.
+    repeated ApiClient data = 1;
+};
+
+// Request for GetApiClientsPaged
+message GetApiClientsPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["page", "page_size"]; 
+            title: "GetApiClientsPagedRequest";
+        }
+    };
+
+    // The page number. Default is 0.
+    int64 page = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetApiClientsPaged
+message GetApiClientsPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetApiClientsPagedResponse";
+        }
+    };
+
+    // The api clients.
+    repeated ApiClient data = 1;
+
+    // The total number of api clients.
+    int64 total = 2;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// SERVICE /////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteServiceByID
+message DeleteServiceByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteServiceByIDRequest";
+        }
+    };
+
+    // The service ID.
+    int64 id = 1;
+};
+
+// Response for DeleteServiceByID
+message DeleteServiceByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteServiceByIDResponse";
+        }
+    };
+
+    // The deleted service.
+    Service data = 1;
+};
+
+// Request for CreateService
+message CreateServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name", "is_enabled"];
+            title: "CreateServiceRequest";
+        }
+    };
+
+    // The service name.
+    string name = 1;
+
+    // Whether the service is enabled.
+    bool is_enabled = 2;
+};
+
+// Response for CreateService
+message CreateServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateServiceResponse";
+        }
+    };
+
+    // The created service.
+    Service data = 1;
+};
+
+// Request for UpdateServiceByID
+message UpdateServiceByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateServiceByIDRequest";
+        }
+    };
+
+    // The service ID.
+    int64 id = 1;
+
+    // The service name.
+    string name = 2;
+
+    // Whether the service is enabled.
+    bool is_enabled = 3;
+};
+
+// Response for UpdateServiceByID
+message UpdateServiceByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateServiceByIDResponse";
+        }
+    };
+
+    // The old service.
+    Service old_data = 1;
+
+    // The new service.
+    Service new_data = 2;
+};
+
+// Request for GetServiceByID
+message GetServiceByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetServiceByIDRequest";
+        }
+    };
+
+    // The service ID.
+    int64 id = 1;
+};
+
+// Response for GetServiceByID
+message GetServiceByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceByIDResponse";
+        }
+    };
+
+    // The service.
+    Service data = 1;
+};
+
+// Request for GetServiceByName
+message GetServiceByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name"]; 
+            title: "GetServiceByNameRequest";
+        }
+    };
+
+    // The service name.
+    string name = 1;
+};
+
+// Response for GetServiceByName
+message GetServiceByNameResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceByNameResponse";
+        }
+    };
+
+    // The service.
+    Service data = 1;
+};
+
+// Request for GetServices
+message GetServicesRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServicesRequest";
+        }
+    };
+};
+
+// Response for GetServices
+message GetServicesResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServicesResponse";
+        }
+    };
+
+    // The services.
+    repeated Service data = 1;
+};
+
+// Request for GetServicesPaged
+message GetServicesPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["page", "page_size"];
+            title: "GetServicesPagedRequest"; 
+        }
+    };
+
+    // The page number. Default is 0.
+    int64 page = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetServicesPaged
+message GetServicesPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServicesPagedResponse";
+        }
+    };
+
+    // The services.
+    repeated Service data = 1;
+
+    // The total number of services.
+    int64 total = 2;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// OPERATION ///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteOperationByID
+message DeleteOperationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteOperationByIDRequest";
+        }
+    };
+
+    // The operation ID.
+    int64 id = 1;
+};
+
+// Response for DeleteOperationByID
+message DeleteOperationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteOperationByIDResponse";
+        }
+    };
+
+    // The deleted operation.
+    Operation data = 1;
+};
+
+// Request for CreateOperation
+message CreateOperationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name", "service_name", "is_enabled"];
+            title: "CreateOperationRequest";
+        }
+    };
+
+    // The operation name.
+    string name = 1;
+
+    // The service name.
+    string service_name = 2;
+
+    // Whether the operation is enabled.
+    bool is_enabled = 3;
+};
+
+// Response for CreateOperation
+message CreateOperationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateOperationResponse";
+        }
+    };
+
+    // The created operation.
+    Operation data = 1;
+};
+
+// Request for UpdateOperationByID
+message UpdateOperationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateOperationByIDRequest";
+        }
+    };
+
+    // The operation ID.
+    int64 id = 1;
+
+    // The operation name.
+    string name = 2;
+
+    // The service name.
+    string service_name = 3;
+
+    // Whether the operation is enabled.
+    bool is_enabled = 4;
+};
+
+// Response for UpdateOperationByID
+message UpdateOperationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateOperationByIDResponse";
+        }
+    };
+
+    // The old operation.
+    Operation old_data = 1;
+
+    // The new operation.
+    Operation new_data = 2;
+};
+
+// Request for GetOperationByID
+message GetOperationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetOperationByIDRequest";
+        }
+    };
+
+    // The operation ID.
+    int64 id = 1;
+};
+
+// Response for GetOperationByID
+message GetOperationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationByIDResponse";
+        }
+    };
+    
+    // The operation.
+    Operation data = 1;
+};
+
+// Request for GetOperationByName
+message GetOperationByNameRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["name"]; 
+            title: "GetOperationByNameRequest";
+        }
+    };
+
+    // The operation name.
+    string name = 1;
+};
+
+// Response for GetOperationByName
+message GetOperationByNameResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationByNameResponse";
+        }
+    };
+
+    // The operation.
+    Operation data = 1;
+};
+
+// Request for GetOperationByService
+message GetOperationByServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "name"];
+            title: "GetOperationByServiceRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The operation name.
+    string name = 2;
+};
+
+// Response for GetOperationByService
+message GetOperationByServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationByServiceResponse";
+        }
+    };
+
+    // The operation.
+    Operation data = 1;
+};
+
+// Request for GetOperations
+message GetOperationsRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationsRequest";
+        }
+    };
+};
+
+// Response for GetOperations
+message GetOperationsResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationsResponse";
+        }
+    };
+
+    // The operations.
+    repeated Operation data = 1;
+};
+
+// Request for GetOperationsPaged
+message GetOperationsPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["page", "page_size"]; 
+            title: "GetOperationsPagedRequest";
+        }
+    };
+
+    // The page number. Default is 0.
+    int64 page = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationsPaged
+message GetOperationsPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationsPagedResponse";
+        }
+    };
+
+    // The operations.
+    repeated Operation data = 1;
+
+    // The total number of operations.
+    int64 total = 2;
+};
+
+// Request for GetOperationsByService
+message GetOperationsByServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name"]; 
+            title: "GetOperationsByServiceRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+};
+
+// Response for GetOperationsByService
+message GetOperationsByServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationsByServiceResponse";
+        }
+    };
+
+    // The operations.
+    repeated Operation data = 1;
+};
+
+// Request for GetOperationsByServicePaged
+message GetOperationsByServicePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "page", "page_size"]; 
+            title: "GetOperationsByServicePagedRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationsByServicePaged
+message GetOperationsByServicePagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationsByServicePagedResponse";
+        }
+    };
+
+    // The operations.
+    repeated Operation data = 1;
+
+    // The total number of operations.
+    int64 total = 2;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////// SERVICE AUTHORIZATION ////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteServiceAuthorizationByID
+message DeleteServiceAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteServiceAuthorizationByIDRequest";
+        }
+    };
+
+    // The service authorization ID.
+    int64 id = 1;
+};
+
+// Response for DeleteServiceAuthorizationByID
+message DeleteServiceAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteServiceAuthorizationByIDResponse";
+        }
+    };
+
+    // The deleted service authorization.
+    ServiceAuthorization data = 1;
+};
+
+// Request for CreateServiceAuthorization
+message CreateServiceAuthorizationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "api_client_key", "authorization_type"];
+            title: "CreateServiceAuthorizationRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The API client key.
+    string api_client_key = 2;
+
+    // The authorization type.
+    AuthorizationType authorization_type = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+};
+
+// Response for CreateServiceAuthorization
+message CreateServiceAuthorizationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateServiceAuthorizationResponse";
+        }
+    };
+
+    // The created service authorization.
+    ServiceAuthorization data = 1;
+};
+
+// Request for UpdateServiceAuthorizationByID
+message UpdateServiceAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "UpdateServiceAuthorizationByIDRequest";
+        }
+    };
+
+    // The service authorization ID.
+    int64 id = 1;
+
+    // The service name.
+    string service_name = 2;
+
+    // The API client key.
+    string api_client_key = 3;
+
+    // The authorization type.
+    AuthorizationType authorization_type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+};
+
+// Response for UpdateServiceAuthorizationByID
+message UpdateServiceAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateServiceAuthorizationByIDResponse";
+        }
+    };
+
+    // The old service authorization.
+    ServiceAuthorization old_data = 1;
+
+    // The new service authorization.
+    ServiceAuthorization new_data = 2;
+};
+
+// Request for GetServiceAuthorizationByID
+message GetServiceAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetServiceAuthorizationByIDRequest";
+        }
+    };
+
+    // The service authorization ID.
+    int64 id = 1;
+};
+
+// Response for GetServiceAuthorizationByID
+message GetServiceAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationByIDResponse";
+        }
+    };
+    
+    // The service authorization.
+    ServiceAuthorization data = 1;
+};
+
+// Request for GetServiceAuthorizationByServiceAndApiClient
+message GetServiceAuthorizationByServiceAndApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "api_client_key"];
+            title: "GetServiceAuthorizationByServiceAndApiClientRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The API client key.
+    string api_client_key = 2;
+};
+
+// Response for GetServiceAuthorizationByServiceAndApiClient
+message GetServiceAuthorizationByServiceAndApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationByServiceAndApiClientResponse";
+        }
+    };
+    
+    // The service authorization.
+    ServiceAuthorization data = 1;
+};
+
+// Request for GetServiceAuthorizations
+message GetServiceAuthorizationsRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsRequest";
+        }
+    };
+};
+
+// Response for GetServiceAuthorizations
+message GetServiceAuthorizationsResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+};
+
+// Request for GetServiceAuthorizationsPaged
+message GetServiceAuthorizationsPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["page", "page_size"]; 
+            title: "GetServiceAuthorizationsPagedRequest";
+        }
+    };
+
+    // The page number. Default is 0.
+    int64 page = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetServiceAuthorizationsPaged
+message GetServiceAuthorizationsPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsPagedResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+
+    // The total number of service authorizations.
+    int64 total = 2;
+};
+
+// Request for GetServiceAuthorizationsByService
+message GetServiceAuthorizationsByServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name"]; 
+            title: "GetServiceAuthorizationsByServiceRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+};
+
+// Response for GetServiceAuthorizationsByService
+message GetServiceAuthorizationsByServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsByServiceResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+};
+
+// Request for GetServiceAuthorizationsByServicePaged
+message GetServiceAuthorizationsByServicePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "page", "page_size"]; 
+            title: "GetServiceAuthorizationsByServicePagedRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetServiceAuthorizationsByServicePaged
+message GetServiceAuthorizationsByServicePagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsByServicePagedResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+
+    // The total number of service authorizations.
+    int64 total = 2;
+};
+
+// Request for GetServiceAuthorizationsByApiClient
+message GetServiceAuthorizationsByApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key"]; 
+            title: "GetServiceAuthorizationsByApiClientRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+};
+
+// Response for GetServiceAuthorizationsByApiClient
+message GetServiceAuthorizationsByApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsByApiClientResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+};
+
+// Request for GetServiceAuthorizationsByApiClientPaged
+message GetServiceAuthorizationsByApiClientPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key", "page", "page_size"]; 
+            title: "GetServiceAuthorizationsByApiClientPagedRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetServiceAuthorizationsByApiClientPaged
+message GetServiceAuthorizationsByApiClientPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetServiceAuthorizationsByApiClientPagedResponse";
+        }
+    };
+
+    // The service authorizations.
+    repeated ServiceAuthorization data = 1;
+
+    // The total number of service authorizations.
+    int64 total = 2;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// OPERATION AUTHORIZATION //////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for DeleteOperationAuthorizationByID
+message DeleteOperationAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "DeleteOperationAuthorizationByIDRequest";
+        }
+    };
+
+    // The operation authorization ID.
+    int64 id = 1;
+};
+
+// Response for DeleteOperationAuthorizationByID
+message DeleteOperationAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "DeleteOperationAuthorizationByIDResponse";
+        }
+    };
+
+    // The operation authorization.
+    OperationAuthorization data = 1;
+};
+
+// Request for CreateOperationAuthorization
+message CreateOperationAuthorizationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "operation_name", "api_client_key", "authorization_type"];
+            title: "CreateOperationAuthorizationRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The operation name.
+    string operation_name = 2;
+
+    // The API client key.
+    string api_client_key = 3;
+
+    // The authorization type.
+    AuthorizationType authorization_type = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+};
+
+// Response for CreateOperationAuthorization
+message CreateOperationAuthorizationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "CreateOperationAuthorizationResponse";
+        }
+    };
+    
+    // The operation authorization.
+    OperationAuthorization data = 1;
+};
+
+// Request for UpdateOperationAuthorizationByID
+message UpdateOperationAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id", "service_name", "operation_name", "api_client_key", "authorization_type"];
+            title: "UpdateOperationAuthorizationByIDRequest";
+        }
+    };
+
+    // The operation authorization ID.
+    int64 id = 1;
+
+    // The service name.
+    string service_name = 2;
+
+    // The operation name.
+    string operation_name = 3;
+
+    // The API client key.
+    string api_client_key = 4;
+
+    // The authorization type.
+    AuthorizationType authorization_type = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            enum: ["None", "Partial", "Full"];
+        }
+    ];
+};
+
+// Response for UpdateOperationAuthorizationByID
+message UpdateOperationAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "UpdateOperationAuthorizationByIDResponse";
+        }
+    };
+
+    // The operation authorization.
+    OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationByID
+message GetOperationAuthorizationByIDRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["id"]; 
+            title: "GetOperationAuthorizationByIDRequest";
+        }
+    };
+
+    // The operation authorization ID.
+    int64 id = 1;
+};
+
+// Response for GetOperationAuthorizationByID
+message GetOperationAuthorizationByIDResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationByIDResponse";
+        }
+    };
+
+    // The operation authorization.
+    OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationByOperationAndApiClient
+message GetOperationAuthorizationByOperationAndApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "operation_name", "api_client_key"]; 
+            title: "GetOperationAuthorizationByOperationAndApiClientRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The operation name.
+    string operation_name = 2;
+
+    // The API client key.
+    string api_client_key = 3;
+};
+
+// Response for GetOperationAuthorizationByOperationAndApiClient
+message GetOperationAuthorizationByOperationAndApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationByOperationAndApiClientResponse";
+        }
+    };
+
+    // The operation authorization.
+    OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizations
+message GetOperationAuthorizationsRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsRequest";
+        }
+    };
+};
+
+// Response for GetOperationAuthorizations
+message GetOperationAuthorizationsResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationsPaged
+message GetOperationAuthorizationsPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["page", "page_size"]; 
+            title: "GetOperationAuthorizationsPagedRequest";
+        }
+    };
+
+    // The page number. Default is 0.
+    int64 page = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationAuthorizationsPaged
+message GetOperationAuthorizationsPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsPagedResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+
+    // The total number of operation authorizations.
+    int64 total = 2;
+};
+
+// Request for GetOperationAuthorizationsByService
+message GetOperationAuthorizationsByServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name"]; 
+            title: "GetOperationAuthorizationsByServiceRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+};
+
+// Response for GetOperationAuthorizationsByService
+message GetOperationAuthorizationsByServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByServiceResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationsByServicePaged
+message GetOperationAuthorizationsByServicePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "page", "page_size"]; 
+            title: "GetOperationAuthorizationsByServicePagedRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationAuthorizationsByServicePaged
+message GetOperationAuthorizationsByServicePagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByServicePagedResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+
+    // The total number of operation authorizations.
+    int64 total = 2;
+};
+
+// Request for GetOperationAuthorizationsByOperation
+message GetOperationAuthorizationsByOperationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "operation_name"]; 
+            title: "GetOperationAuthorizationsByOperationRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The operation name.
+    string operation_name = 2;
+};
+
+// Response for GetOperationAuthorizationsByOperation
+message GetOperationAuthorizationsByOperationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByOperationResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationsByOperationPaged
+message GetOperationAuthorizationsByOperationPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "operation_name", "page", "page_size"]; 
+            title: "GetOperationAuthorizationsByOperationPagedRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The operation name.
+    string operation_name = 2;
+
+    // The page number. Default is 0.
+    int64 page = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationAuthorizationsByOperationPaged
+message GetOperationAuthorizationsByOperationPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByOperationPagedResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+
+    // The total number of operation authorizations.
+    int64 total = 2;
+};
+
+// Request for GetOperationAuthorizationsByApiClient
+message GetOperationAuthorizationsByApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key"]; 
+            title: "GetOperationAuthorizationsByApiClientRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+};
+
+// Response for GetOperationAuthorizationsByApiClient
+message GetOperationAuthorizationsByApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByApiClientResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+};
+
+// Request for GetOperationAuthorizationsByApiClientPaged
+message GetOperationAuthorizationsByApiClientPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key", "page", "page_size"]; 
+            title: "GetOperationAuthorizationsByApiClientPagedRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetOperationAuthorizationsByApiClientPaged
+message GetOperationAuthorizationsByApiClientPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetOperationAuthorizationsByApiClientPagedResponse";
+        }
+    };
+
+    // The operation authorizations.
+    repeated OperationAuthorization data = 1;
+
+    // The total number of operation authorizations.
+    int64 total = 2;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// AUTHORIZATION ////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for GetAuthorizationsByApiClient
+message GetAuthorizationsByApiClientRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key"]; 
+            title: "GetAuthorizationsByApiClientRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+};
+
+// Response for GetAuthorizationsByApiClient
+message GetAuthorizationsByApiClientResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationsByApiClientResponse";
+        }
+    };
+
+    // The authorizations.
+    repeated Authorization data = 1;
+};
+
+// Request for GetAuthorizationsByApiClientPaged
+message GetAuthorizationsByApiClientPagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["api_client_key", "page", "page_size"]; 
+            title: "GetAuthorizationsByApiClientPagedRequest";
+        }
+    };
+
+    // The API client key.
+    string api_client_key = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetAuthorizationsByApiClientPaged
+message GetAuthorizationsByApiClientPagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuthorizationsByApiClientPagedResponse";
+        }
+    };
+
+    // The authorizations.
+    repeated Authorization data = 1;
+
+    // The total number of authorizations.
+    int64 total = 2;
+};
+
+// Request for GetAuditAuthorizationsByService
+message GetAuditAuthorizationsByServiceRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name"]; 
+            title: "GetAuditAuthorizationsByServiceRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+};
+
+// Response for GetAuditAuthorizationsByService
+message GetAuditAuthorizationsByServiceResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuditAuthorizationsByServiceResponse";
+        }
+    };
+
+    // The audit authorizations.
+    repeated Authorization data = 1;
+};
+
+// Request for GetAuditAuthorizationsByServicePaged
+message GetAuditAuthorizationsByServicePagedRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            required: ["service_name", "page", "page_size"]; 
+            title: "GetAuditAuthorizationsByServicePagedRequest";
+        }
+    };
+
+    // The service name.
+    string service_name = 1;
+
+    // The page number. Default is 0.
+    int64 page = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "0";
+        }
+    ];
+
+    // The page size. Default is 50.
+    int64 page_size = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            default: "50";
+        }
+    ];
+};
+
+// Response for GetAuditAuthorizationsByServicePaged
+message GetAuditAuthorizationsByServicePagedResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "GetAuditAuthorizationsByServicePagedResponse";
+        }
+    };
+
+    // The audit authorizations.
+    repeated Authorization data = 1;
+
+    // The total number of audit authorizations.
+    int64 total = 2;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// CONFIG ////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+// Request for ImportConfiguration
+message ImportConfigurationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ImportConfigurationRequest";
+        }
+    };
+
+    // Simplified operation model.
+    message Operation {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportConfigurationRequest.Operation";
+            }
+        };
+
+        // The operation name.
+        string name = 1;
+
+        // Is the operation enabled?
+        bool is_enabled = 2;
+    };
+
+    // Simplified API client model.
+    message ApiClient {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportConfigurationRequest.ApiClient";
+            }
+        };
+
+        // Simplified authorization model.
+        message Authorization {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportConfigurationRequest.ApiClient.Authorization";
+                }
+            };
+
+            // Optional operation name. If not set, this is a service authorization.
+            string operation_name = 1;
+
+            // Does this authorization allow access?
+            bool is_allowed = 2;
+        };
+
+        // The API client note.
+        string note = 1;
+
+        // Is the API client enabled?
+        bool is_enabled = 2;
+
+        // The authorizations.
+        repeated Authorization authorizations = 3;
+    };
+
+    // The name of the service.
+    string service_name = 1;
+
+    // The operations.
+    repeated Operation operations = 2;
+
+    // The API clients.
+    repeated ApiClient api_clients = 3;
+};
+
+// Response for ImportConfiguration
+message ImportConfigurationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ImportConfigurationResponse";
+        }
+    };
+
+    message ApiClientKey {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportConfigurationResponse.ApiClientKey";
+            }
+        };
+
+        message Authorization {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportConfigurationResponse.ApiClientKey.Authorization";
+                }
+            };
+
+            // The operation name.
+            string name = 1;
+
+            // Does this authorization allow access?
+            bool is_allowed = 2;
+        };
+
+        // The note of the API client.
+        string note = 1;
+
+        // The key of the API client.
+        string key = 2;
+
+        // The authorizations.
+        repeated Authorization authorizations = 3;
+    };
+
+    // The name of the service.
+    string service_name = 1;
+    
+    // The API client keys.
+    repeated ApiClientKey api_client_keys = 2;
+};
+
+// Request for ImportSphynxConfiguration
+message ImportSphynxConfigurationRequest {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ImportSphynxConfigurationRequest";
+        }
+    };
+
+    // BEDEV2 Template
+    message Bedev2Template {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportSphynxConfigurationRequest.Bedev2Template";
+            }
+        };
+
+        // The version of the template.
+        string version = 1;
+
+        // The hash of the template.
+        string hash = 2;
+    };
+
+    // The traefik configuration.
+    message TraefikConfiguration {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportSphynxConfigurationRequest.TraefikConfiguration";
+            }
+        };
+
+        // Traefik frontend.
+        message Frontend {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.TraefikConfiguration.Frontend";
+                }
+            };
+
+            // ImportSphynxConfigurationRequest.TraefikConfiguration.Frontend.Entrypoint
+            enum Entrypoint {
+                // HTTP
+                HTTP = 0;
+
+                // HTTPS
+                HTTPS = 1;
+
+                // HTTP2
+                HTTP2 = 2;
+
+                // GRPC
+                GRPC = 3;
+
+                // GRPCS
+                GRPCS = 4;
+
+                // TCP
+                TCP = 5;
+
+                // TLS
+                TLS = 6;
+
+                // UDP
+                UDP = 7;
+            };
+
+            // Frontend entry point.
+            repeated Entrypoint entrypoints = 1;
+
+            // Frontend rules.
+            repeated string rules = 2;
+
+            // Pass host header.
+            bool pass_host_header = 3;
+        };
+
+        // Traefik backend.
+        message Backend {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.TraefikConfiguration.Backend";
+                }
+            };
+
+            // Backend load balancer.
+            message LoadBalancer {
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                    json_schema: {
+                        title: "ImportSphynxConfigurationRequest.TraefikConfiguration.Backend.LoadBalancer";
+                    }
+                };
+
+                // ImportSphynxConfigurationRequest.TraefikConfiguration.Backend.LoadBalancer.Method
+                enum Method {
+                    // Wrr.
+                    WRR = 0;
+
+                    // Drr.
+                    DRR = 1;
+
+                    // Wlc.
+                    WLC = 2;
+
+                    // Dlc.
+                    DLC = 3;
+
+                    // Sh.
+                    SH = 4;
+
+                    // Dh.
+                    DH = 5;
+
+                    // Ewma.
+                    EWMA = 6;
+
+                    // Leastconn.
+                    LEASTCONN = 7;
+
+                    // Iphash.
+                    IPHASH = 8;
+
+                    // Random.
+                    RANDOM = 9;
+                };
+
+                // The method.
+                Method method = 1;
+
+                // The sticky.
+                bool sticky = 2;
+            };
+
+            // The load balancer.
+            LoadBalancer load_balancer = 1;
+        };
+
+        // The frontend.
+        Frontend frontend = 1;
+
+        // The backend.
+        Backend backend = 2;
+
+        // Is the configuration enabled?
+        bool is_enabled = 3;
+    };
+
+    // The LBaaS configuration.
+    message LbaaSConfiguration {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportSphynxConfigurationRequest.LbaaSConfiguration";
+            }
+        };
+
+        // The LBaaS frontend.
+        message Frontend {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.LbaaSConfiguration.Frontend";
+                }
+            };
+
+            // ImportSphynxConfigurationRequest.LbaaSConfiguration.Frontend.Entrypoint
+            enum Entrypoint {
+                // HTTP
+                HTTP = 0;
+
+                // HTTPS
+                HTTPS = 1;
+
+                // HTTP2
+                HTTP2 = 2;
+
+                // GRPC
+                GRPC = 3;
+
+                // GRPCS
+                GRPCS = 4;
+
+                // TCP
+                TCP = 5;
+
+                // TLS
+                TLS = 6;
+
+                // UDP
+                UDP = 7;
+            };
+
+            // The LBaaS frontend entry points.
+            repeated Entrypoint entrypoints = 1;
+
+            // The LBaaS frontend fully qualified domain name.
+            string fqdn = 2;
+
+            // The LBaaS frontend path prefix.
+            string path_prefix = 3;
+
+        };
+
+        // ImportSphynxConfigurationRequest.LbaaSConfiguration.Protocol
+        enum Protocol {
+            // HTTP
+            HTTP = 0;
+
+            // HTTPS
+            HTTPS = 1;
+
+            // HTTP2
+            HTTP2 = 2;
+
+            // GRPC
+            GRPC = 3;
+
+            // GRPCS
+            GRPCS = 4;
+
+            // TCP
+            TCP = 5;
+
+            // TLS
+            TLS = 6;
+
+            // UDP
+            UDP = 7;
+        };
+
+        // The LBaaS frontend.
+        Frontend fe = 1;
+
+        // Is the configuration enabled?
+        bool is_enabled = 2;
+
+        // Is the configuration public facing?
+        bool is_public = 3;
+    };
+
+    // The Haproxy configuration.
+    message HaproxyConfiguration {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportSphynxConfigurationRequest.HaproxyConfiguration";
+            }
+        };
+
+        // The Haproxy frontend.
+        message Frontend {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.HaproxyConfiguration.Frontend";
+                }
+            };
+
+            // ImportSphynxConfigurationRequest.HaproxyConfiguration.Frontend.Entrypoint
+            enum Entrypoint {
+                // HTTP
+                HTTP = 0;
+
+                // HTTPS
+                HTTPS = 1;
+
+                // HTTP2
+                HTTP2 = 2;
+
+                // GRPC
+                GRPC = 3;
+
+                // GRPCS
+                GRPCS = 4;
+
+                // TCP
+                TCP = 5;
+
+                // TLS
+                TLS = 6;
+
+                // UDP
+                UDP = 7;
+            };
+
+            // The Haproxy frontend entry points.
+            repeated Entrypoint entrypoints = 1;
+
+            // The Haproxy frontend fully qualified domain name.
+            string fqdn = 2;
+
+            // The Haproxy frontend path prefix.
+            string path_prefix = 3;
+
+            // The Haproxy gRPC authority.
+            string grpc_authority = 4;
+        };
+
+        // The Haproxy backend.
+        message Backend {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.HaproxyConfiguration.Backend";
+                }
+            };
+
+            // The Haproxy backend load balancer.
+            message LoadBalancer {
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                    json_schema: {
+                        title: "ImportSphynxConfigurationRequest.HaproxyConfiguration.Backend.LoadBalancer";
+                    }
+                };
+
+                // ImportSphynxConfigurationRequest.HaproxyConfiguration.Backend.LoadBalancer.Method
+                enum Method {
+                    // Wrr.
+                    WRR = 0;
+
+                    // Drr.
+                    DRR = 1;
+
+                    // Wlc.
+                    WLC = 2;
+
+                    // Dlc.
+                    DLC = 3;
+
+                    // Sh.
+                    SH = 4;
+
+                    // Dh.
+                    DH = 5;
+
+                    // Ewma.
+                    EWMA = 6;
+
+                    // Leastconn.
+                    LEASTCONN = 7;
+
+                    // Iphash.
+                    IPHASH = 8;
+
+                    // Random.
+                    RANDOM = 9;
+                };
+
+                // The method.
+                Method method = 1;
+
+                // The sticky.
+                bool sticky = 2;
+            };
+
+            // The Haproxy backend load balancer.
+            LoadBalancer load_balancer = 1;
+
+            // Blocked paths.
+            repeated string blocked_paths = 2;
+
+            // The backend host header.
+            string host_header = 3;
+        };
+
+        // The Haproxy frontend.
+        Frontend fe = 1;
+
+        // The Haproxy backend.
+        Backend be = 2;
+
+        // Is the configuration enabled?
+        bool is_enabled = 3;
+
+        // Is the configuration public facing?
+        bool is_public = 4;
+
+        // Is the configuration on the test environment?
+        bool is_test = 5;
+    };
+
+    // The Sphynx configuration.
+    message SphynxConfiguration {
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+            json_schema: {
+                title: "ImportSphynxConfigurationRequest.SphynxConfiguration";
+            }
+        };
+
+        // The Sphynx reroute.
+        message Reroute {
+            option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                json_schema: {
+                    title: "ImportSphynxConfigurationRequest.SphynxConfiguration.Reroute";
+                }
+            };
+
+            // ImportSphynxConfigurationRequest.SphynxConfiguration.Reroute.Protocol
+            enum Protocol {
+                // HTTP
+                HTTP = 0;
+
+                // HTTPS
+                HTTPS = 1;
+
+                // HTTP2
+                HTTP2 = 2;
+
+                // GRPC
+                GRPC = 3;
+
+                // GRPCS
+                GRPCS = 4;
+
+                // TCP
+                TCP = 5;
+
+                // TLS
+                TLS = 6;
+
+                // UDP
+                UDP = 7;
+            };
+
+            // The Sphynx cors configuration.
+            message Cors {
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+                    json_schema: {
+                        title: "ImportSphynxConfigurationRequest.SphynxConfiguration.Reroute.Cors";
+                    }
+                };
+
+                // The Sphynx cors allowed origins.
+                repeated string allowed_origins = 1;
+
+                // The Sphynx cors allowed headers.
+                repeated string allowed_headers = 2;
+
+                // The Sphynx cors allowed methods.
+                repeated string allowed_methods = 3;
+
+                // The Sphynx cors exposed headers.
+                repeated string exposed_headers = 4;
+
+                // The Sphynx cors max age.
+                int32 max_age = 5;
+
+                // The Sphynx cors allow credentials.
+                bool allow_credentials = 6;
+            };
+
+            // The Sphynx reroute protocol.
+            Protocol protocol = 1;
+
+            // The Sphynx reroute host.
+            string host = 2;
+
+            // The Sphynx reroute frontend path.
+            string frontend_path = 3;
+
+            // The Sphynx reroute backend path.
+            string backend_path = 4;
+
+            // Allowed methods.
+            repeated string allowed_methods = 5;
+
+            // Header rewrites.
+            map<string, string> header_rewrites = 6;
+
+            // The Sphynx cors configuration.
+            Cors cors = 7;
+        };
+
+        // The Sphynx reroutes.
+        repeated Reroute reroutes = 1;
+    };
+
+    // The name of the product.
+    string product_name = 1;
+
+    // The name of the service.
+    string service_name = 2;
+
+    // The template.
+    Bedev2Template template = 3;
+
+    // The Traefik configuration.
+    TraefikConfiguration traefik_configuration = 4;
+
+    // The LBaaS configuration.
+    LbaaSConfiguration lbaas_configuration = 5;
+
+    // The Haproxy configuration.
+    HaproxyConfiguration haproxy_configuration = 6;
+
+    // The Sphynx configuration.
+    SphynxConfiguration sphynx_configuration = 7;
+
+    // The name of the environment.
+    string environment_name = 8;
+};
+
+message ImportSphynxConfigurationResponse {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+        json_schema: {
+            title: "ImportSphynxConfigurationResponse";
+        }
+    };
+
+    // The json representation of the new configuration.
+    string json = 1;
+}

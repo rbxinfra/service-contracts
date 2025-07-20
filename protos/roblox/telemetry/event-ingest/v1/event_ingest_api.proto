@@ -1,0 +1,37 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=716551 SwarpVersion=1.38.0 SwarpCreateDate=2021-08-25T16:10:25.040Z
+//  gRPC Service
+//
+// Copyright © 2021 Roblox
+//
+syntax = "proto3";
+
+package roblox.telemetry.eventingest.v1;
+
+option csharp_namespace = "Roblox.Telemetry.Eventingest.V1";
+option go_package = "./eventingestv1";
+option java_multiple_files = true;
+option java_outer_classname = "EventIngestProto";
+option java_package = "com.roblox.eventingest.v1";
+
+import "roblox/telemetry/event-ingest/v1/event_ingest.proto";
+
+// EventIngest service.
+service EventIngestAPI {
+    // Send a batch of events to the EventIngest service.
+    rpc SendBatch(SendBatchRequest) returns (SendBatchResponse) {}
+}
+
+// Request to send a batch of events.
+message SendBatchRequest {
+    // The events to send.
+    EventBatch batch = 1;
+}
+
+// Response to a batch of events.
+message SendBatchResponse {
+    // A boolean indicating whether the batch was successfully sent.
+    bool ok = 1;
+
+    // The error message if the batch was not successfully sent.
+    string msg = 2;
+}

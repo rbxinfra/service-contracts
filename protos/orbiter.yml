@@ -1,0 +1,13 @@
+version: 1.0.0
+protos_path: roblox/runtime_configuration/orbiter/v1
+
+protos:
+  - name: Roblox.Runtimeconfiguration.Orbiter.V1
+    path: orbiter.proto
+
+  - name: Roblox.Runtimeconfiguration.Orbiter.V1.OrbiterAPI
+    type: api
+    path: orbiter_api.proto
+    depends_on:
+      - Roblox.Runtimeconfiguration.Orbiter.V1
+

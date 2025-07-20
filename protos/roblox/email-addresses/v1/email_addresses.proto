@@ -1,0 +1,105 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=c6a576 SwarpVersion=1.37.1 SwarpCreateDate=2020-08-18T16:51:04.789Z
+//  gRPC Messages
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.emailaddresses.v1;
+
+option csharp_namespace = "Roblox.Emailaddresses.V1";
+option go_package = "roblox/emailaddressesv1";
+option java_multiple_files = true;
+option java_outer_classname = "EmailAddressesProto";
+option java_package = "com.roblox.emailaddresses.v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Encapsulation of the AccountEmailAddress entity, which contains user's account email address info.
+// This message combines fields from AccountEmailAddress and EmailAddress entities.
+// is_verified: false by default, true when user verifies through email link
+// is_valid: true by default, false when user reverts through email link
+message UserEmailAddress {
+  int64 user_id = 1;
+  EmailAddress email_address = 2;
+  bool is_verified = 3;
+  bool is_valid = 4;
+  int64 id = 5;
+  
+  // All Timestamp values assume UTC timezone
+  google.protobuf.Timestamp created_time = 6;
+  google.protobuf.Timestamp updated_time = 7;
+}
+
+// Details of an email address.
+message EmailAddress {
+  int64 id = 1;
+  string address = 2;
+  bool is_blocked = 3;
+  bool is_reviewed = 4;
+  bool is_approved = 5;
+  
+  // All Timestamp values assume UTC timezone
+  google.protobuf.Timestamp created_time = 6;
+  google.protobuf.Timestamp updated_time = 7;
+  google.protobuf.Timestamp reviewed_time = 8;
+} 
+
+// Deprecated message that encapsulates the AccountEmailAddress entity.
+// The goal is to deprecate the use of this protobuf message once all uses of AccountId is replaced by UserId.
+message AccountEmail {
+  int32 id = 1 [deprecated = true];
+  string address = 2;
+  bool is_blocked = 3;
+  bool is_verified = 4;
+  bool is_current = 5 [deprecated = true];
+  bool is_valid = 6;
+  int64 account_id = 7 [deprecated = true];
+  int32 email_address_id = 8 [deprecated = true];
+  bool is_reviewed = 9;
+  bool is_approved = 10;
+}
+
+// Indicates the value of the "IsVerified" field of fetched UserEmailAddress and AccountEmail.
+enum VerifiedStatus {
+  // defaults to VERIFIED_STATUS_ALL
+  VERIFIED_STATUS_INVALID = 0;
+  VERIFIED_STATUS_TRUE = 1;
+  VERIFIED_STATUS_FALSE = 2;
+  // both true and false
+  VERIFIED_STATUS_ALL = 3;
+}
+
+// Indicates the value of the "IsValid" field of fetched UserEmailAddress and AccountEmail.
+enum ValidStatus {
+  // defaults to VALID_STATUS_ALL
+  VALID_STATUS_INVALID = 0;
+  VALID_STATUS_TRUE = 1;
+  VALID_STATUS_FALSE = 2;
+  // both true and false
+  VALID_STATUS_ALL = 3;
+}
+
+// Enum to indicate type of error or failures from the EmailAddresses service.
+enum ErrorStatusCode {
+  ERROR_STATUS_CODE_INVALID = 0;
+  ERROR_STATUS_CODE_UNKNOWN = 1;
+  ERROR_STATUS_CODE_NULL_OR_EMPTY_ADDRESS = 2;
+  ERROR_STATUS_CODE_INVALID_EMAIL_ADDRESS = 3;
+  ERROR_STATUS_CODE_INPUT_OUT_OF_RANGE = 4;
+  ERROR_STATUS_CODE_INVALID_USER_ID = 5;
+  ERROR_STATUS_CODE_NO_USER_FOUND = 6;
+  ERROR_STATUS_CODE_USERS_CLIENT_REQUEST_FAILED = 7;
+  ERROR_STATUS_CODE_FAILED_TO_FETCH_ENTITIES = 8;
+  ERROR_STATUS_CODE_FAILED_TO_DELETE_ENTITIES = 9;
+  ERROR_STATUS_CODE_FLOODED = 10;
+  ERROR_STATUS_CODE_EMAIL_ALREADY_VERIFIED = 11;
+  ERROR_STATUS_CODE_LOCALIZATION_UNAVAILABLE = 12;
+  ERROR_STATUS_CODE_FAILED_TO_QUEUE_EMAIL = 13;
+  ERROR_STATUS_CODE_INVALID_VERIFICATION_TICKET = 14;
+  ERROR_STATUS_CODE_EXPIRED_VERIFICATION_TICKET = 15;
+  ERROR_STATUS_CODE_ENTITY_NOT_FOUND = 16;
+  ERROR_STATUS_CODE_UNSUPPORTED_OPERATION = 17;
+  ERROR_STATUS_CODE_UNSUPPORTED_INPUT = 18;
+  ERROR_STATUS_CODE_INVALID_USER_EMAIL = 19;
+}

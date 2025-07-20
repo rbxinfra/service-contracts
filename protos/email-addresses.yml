@@ -1,0 +1,13 @@
+version: 1.0.0
+protos_path: roblox/email-addresses/v1
+
+protos:
+  - name: Roblox.Emailaddresses.V1
+    path: email_addresses.proto
+
+  - name: Roblox.EmailAddressesAPI.V1
+    type: api
+    path: email_addresses_api.proto
+    depends_on:
+      - Roblox.Protobuf
+      - Roblox.Emailaddresses.V1

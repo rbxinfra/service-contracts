@@ -1,0 +1,90 @@
+//  gRPC Service
+//
+// Copyright © 2024 Roblox
+//
+syntax = "proto3";
+
+package roblox.games.gamescoordination.v1;
+
+option csharp_namespace = "Roblox.Games.Gamescoordination.V1";
+option go_package = "roblox/gamescoordinationv1";
+option java_multiple_files = true;
+option java_outer_classname = "GamesCoordinationApiProto";
+option java_package = "com.roblox.games.gamescoordination.v1";
+
+import "roblox/games/gamescoordination/v1/games_coordination.proto";
+
+service GamesCoordinationAPI {
+	////////////////////////////////
+	//     Coordination APIs      //
+	////////////////////////////////
+
+	// Gets the relay configuration
+	rpc GetRelayConfiguration(GetRelayConfigurationRequest) returns (GetRelayConfigurationResponse) {}
+
+	// Posts server statistics to the service
+	rpc PostServerStatistics(PostServerStatisticsRequest) returns (PostServerStatisticsResponse) {}
+
+	// Fetches work to do
+	rpc FetchWork(FetchWorkRequest) returns (FetchWorkResponse) {}
+
+	// Notifies of an error
+	rpc NotifyError(NotifyErrorRequest) returns (NotifyErrorResponse) {}
+
+	// Submits work
+	rpc SubmitWork(SubmitWorkRequest) returns (SubmitWorkResponse) {}
+
+	////////////////////////////////
+	//      GamesRelay APIs       //
+	////////////////////////////////
+
+	rpc RegisterRelay(RegisterRelayRequest) returns (RegisterRelayResponse) {}
+}
+
+message GetRelayConfigurationRequest {
+}
+
+message GetRelayConfigurationResponse {
+	RelayConfiguration configuration = 1;
+}
+
+message PostServerStatisticsRequest {
+	string worker_id = 1;
+	ServerStatistics server_statistics = 2;
+}
+
+message PostServerStatisticsResponse {
+}
+
+message FetchWorkRequest {
+	string worker_id = 1;
+}
+
+message FetchWorkResponse {
+	RelayWorkItem work_item = 1;
+}
+
+message NotifyErrorRequest {
+	string worker_id = 1;
+	RelayWorkItem work_item = 2;
+}
+
+message NotifyErrorResponse {
+}
+
+message SubmitWorkRequest {
+	string worker_id = 1;
+	RelayWorkItem work_item = 2;
+}
+
+message SubmitWorkResponse {
+}
+
+message RegisterRelayRequest {
+	string host_name = 1; // Used for lookup
+	string datacenter = 2; // Used for location lookup
+}
+
+message RegisterRelayResponse {
+	string worker_id = 1;
+}

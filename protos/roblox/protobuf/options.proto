@@ -1,0 +1,24 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=02ccf9 SwarpVersion=1.37.1 SwarpCreateDate=2020-08-18T16:51:04.789Z
+//  gRPC Service
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.protobuf;
+
+option csharp_namespace = "Roblox.Protobuf";
+option go_package = "roblox/protobuf";
+option java_multiple_files = true;
+option java_outer_classname = "ProtobufProto";
+option java_package = "com.roblox.protobuf";
+
+import "google/protobuf/descriptor.proto";
+
+message ServiceContractsOptions {
+	bool publish = 1;
+}
+
+extend google.protobuf.FileOptions {
+  optional ServiceContractsOptions service_contracts = 50000;
+}

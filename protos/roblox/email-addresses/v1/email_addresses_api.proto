@@ -1,0 +1,401 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=02ccf9 SwarpVersion=1.37.1 SwarpCreateDate=2020-08-18T16:51:04.789Z
+//  gRPC Service
+//
+// Copyright © 2020 Roblox
+//
+syntax = "proto3";
+
+package roblox.emailaddresses.v1;
+
+option csharp_namespace = "Roblox.Emailaddresses.V1";
+option go_package = "roblox/emailaddressesv1";
+option java_multiple_files = true;
+option java_outer_classname = "EmailAddressesApiProto";
+option java_package = "com.roblox.emailaddresses.v1";
+
+import "roblox/protobuf/options.proto";
+import "roblox/email-addresses/v1/email_addresses.proto";
+import "google/protobuf/timestamp.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// Email Addresses Service APIs.
+service EmailAddressesAPI {
+
+  ////////////////////////////////
+  //     EmailAddress APIs      //
+  ////////////////////////////////
+
+  // Gets or creates EmailAddress by its address.
+  rpc GetOrCreateEmailAddressByAddress(GetOrCreateEmailAddressByAddressRequest) returns (GetOrCreateEmailAddressByAddressResponse) {}
+
+  // Gets EmailAddress by its address.
+  rpc GetEmailAddressByAddress(GetEmailAddressByAddressRequest) returns (GetEmailAddressByAddressResponse) {}
+
+  // Gets EmailAddress by EmailAddress id.
+  rpc GetEmailAddressByEmailAddressId(GetEmailAddressByEmailAddressIdRequest) returns (GetEmailAddressByEmailAddressIdResponse) {}
+
+  // Gets list of EmailAddresseses by EmailAddress ids, as a batch request.
+  rpc GetEmailAddressByEmailAddressIdBatch(GetEmailAddressByEmailAddressIdBatchRequest) returns (GetEmailAddressByEmailAddressIdBatchResponse) {}
+
+  // Checks whether the given email address is valid, blocked, or a shady provider.
+  rpc ValidateEmailAddress(ValidateEmailAddressRequest) returns (ValidateEmailAddressResponse) {}
+
+  // Blocks and invalidates the given email address.
+  rpc BlockEmailAddressByAddress(BlockEmailAddressByAddressRequest) returns (BlockEmailAddressByAddressResponse) {}
+
+  // Removes the given email address from the block list.
+  rpc UnblockEmailAddressByAddress(UnblockEmailAddressByAddressRequest) returns (UnblockEmailAddressByAddressResponse) {}
+
+  // Marks the given email address as reviewed and sets its approval status.
+  rpc ReviewEmailAddressByAddress(ReviewEmailAddressByAddressRequest) returns (ReviewEmailAddressByAddressResponse) {}
+
+  ////////////////////////////////////
+  //      UserEmailAddress APIs     //
+  ////////////////////////////////////
+
+  // Gets UserEmailAddress by AccountEmailAddress entity id.
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse) {}
+
+  // Gets the current UserEmailAddress linked to the user specified by user id.
+  rpc GetByUserId(GetByUserIdRequest) returns (GetByUserIdResponse) {}
+
+  // Gets a list of current UserEmailAddresses linked to users specified by user ids, as a batch request.
+  rpc GetByUserIdBatch(GetByUserIdBatchRequest) returns (GetByUserIdBatchResponse) {}
+
+  // Gets a list of all UserEmailAddresses linked to the user specified by user id in descending order by UserEmailAddress id.
+  rpc GetUserEmailsByUserId(GetUserEmailsByUserIdRequest) returns (GetUserEmailsByUserIdResponse) {}
+
+  // Gets a list of all current UserEmailAddresses with the given email address.
+  rpc GetByEmailAddress(GetByEmailAddressRequest) returns (GetByEmailAddressResponse) {}
+
+  // Gets a list of all UserEmailAddresses with the given email address.
+  rpc GetAllUserEmailsByEmailAddress(GetAllUserEmailsByEmailAddressRequest) returns (GetAllUserEmailsByEmailAddressResponse) {}
+
+  // Gets the total number of UserEmailAddresses with the given email address.
+  rpc GetNumberOfAccountsByEmailAddress(GetNumberOfAccountsByEmailAddressRequest) returns (GetNumberOfAccountsByEmailAddressResponse) {}
+
+  // Checks whether there are too many linked user accounts with the given email address.
+  rpc HasMaxLinkedAccountsByEmailAddress(HasMaxLinkedAccountsByEmailAddressRequest) returns (HasMaxLinkedAccountsByEmailAddressResponse) {}
+
+  // Updates the current email address associated with the user to the given email address.
+  // If validation is enabled, then the response contains a AccountSecurityTicket for user verification.
+  rpc SetEmail(SetEmailRequest) returns (SetEmailResponse) {}
+
+  // Sends a verification email to the specified user. If AccountSecurityTicket feature is disabled, a new ticket is generated.
+  rpc SendVerificationEmail(SendVerificationEmailRequest) returns (SendVerificationEmailResponse) {}
+
+  // Verifies a user's email address with the given verification ticket.
+  // If the email address is not the one currently linked to the user's account, then the new address is added to the user's account.
+  // After verification, an email will be sent to the old email address with an option to to revert the email address change.
+  // If the returned user id is 0, check the error_status_code for reason for failed verification.
+  rpc VerifyUserEmailWithTicket(VerifyUserEmailWithTicketRequest) returns (VerifyUserEmailWithTicketResponse) {}
+
+  // Verifies and validates a user's email address with the given id without a verification ticket.
+  rpc VerifyUserEmailByUserEmailAddressId(VerifyUserEmailByUserEmailAddressIdRequest) returns (VerifyUserEmailByUserEmailAddressIdResponse) {}
+
+  // Marks all UserEmailAddresses with given ids as invalid.
+  rpc InvalidateUserEmailAddressByIds(InvalidateUserEmailAddressByIdsRequest) returns (InvalidateUserEmailAddressByIdsResponse) {}
+
+  // Marks all UserEmailAddress associated with given user id as invalid after the specified timestamp.
+  rpc InvalidateUserEmailsAfterTime(InvalidateUserEmailsAfterTimeRequest) returns (InvalidateUserEmailsAfterTimeResponse) {}
+
+  // Restores the UserEmailAddress with the specified AccountEmailAddress entity id as the only valid UserEmailAddress linked with a user.
+  // Markes all other valid UserEmailAddress associated with the same user as invalid.
+  rpc RestoreUserEmailById(RestoreUserEmailByIdRequest) returns (RestoreUserEmailByIdResponse) {}
+  
+  // Deletes all UserEmailAddresses and EmailAddresses linked to the specified user.
+  rpc PurgeUserEmailsByUserId(PurgeUserEmailsByUserIdRequest) returns (PurgeUserEmailsByUserIdResponse) {}
+
+  //////////////////////////////////
+  //      AccountEmail APIs       //
+  //////////////////////////////////
+
+  // DEPRECATED: Gets AccountEmail by AccountEmail id.
+  // This API is deprecated, use GetById instead.
+  rpc GetAccountEmailById(GetAccountEmailByIdRequest) returns (GetAccountEmailByIdResponse) {
+    option deprecated = true;
+  }
+
+  // DEPRECATED: Gets the current AccountEmail linked to the user specified by user id.
+  // This API is deprecated, use GetByUserId instead.
+  rpc GetAccountEmailByUserId(GetAccountEmailByUserIdRequest) returns (GetAccountEmailByUserIdResponse) {
+    option deprecated = true;
+  }
+  
+  // DEPRECATED: Gets a list of current AccountEmails linked to the user specified by user id in descending order by AccountEmail id. 
+  // This API is deprecated, use GetUserEmailsByUserId instead.
+  rpc GetAccountEmailsByUserId(GetAccountEmailsByUserIdRequest) returns (GetAccountEmailsByUserIdResponse) {
+    option deprecated = true;
+  }
+
+  // DEPRECATED: Gets a list of all current AccountEmails with the given email address.
+  // This API is deprecated, use GetByEmailAddress instead.
+  rpc GetAccountEmailsByEmailAddress(GetAccountEmailsByEmailAddressRequest) returns (GetAccountEmailsByEmailAddressResponse) {
+    option deprecated = true;
+  }
+
+  // DEPRECATED: Gets a list of all AccountEmails with the given email address.
+  // This API is deprecated, use GetAllUserEmailsByEmailAddress instead.
+  rpc GetAllAccountEmailsByEmailAddress(GetAllAccountEmailsByEmailAddressRequest) returns (GetAllAccountEmailsByEmailAddressResponse) {}
+}
+
+
+// All gRPC methods must take a message ending in "Request".
+// and must return a message ending in "Response".
+// See email-addresses/v1/email_addresses.proto for custom defined messages.
+
+message GetOrCreateEmailAddressByAddressRequest {
+  string address = 1;
+}
+
+message GetOrCreateEmailAddressByAddressResponse {
+  EmailAddress email_address = 1;
+}
+
+message GetEmailAddressByAddressRequest {
+  string address = 1;
+}
+
+message GetEmailAddressByAddressResponse {
+  EmailAddress email_address = 1;
+}
+
+message GetEmailAddressByEmailAddressIdRequest {
+  int64 email_address_id = 1;
+}
+
+message GetEmailAddressByEmailAddressIdResponse {
+  EmailAddress email_address = 1;
+}
+
+message GetEmailAddressByEmailAddressIdBatchRequest {
+  repeated int64 email_address_ids = 1;
+}
+
+message GetEmailAddressByEmailAddressIdBatchResponse {
+  repeated EmailAddress email_addresses = 1;
+}
+
+message ValidateEmailAddressRequest {
+  string address = 1;
+}
+
+message ValidateEmailAddressResponse {
+  bool is_valid = 1;
+  bool is_shady_provider = 2;
+  bool is_blocked = 3;
+}
+
+message BlockEmailAddressByAddressRequest {
+  string address = 1;
+}
+
+message BlockEmailAddressByAddressResponse {}
+
+message UnblockEmailAddressByAddressRequest {
+  string address = 1;
+}
+
+message UnblockEmailAddressByAddressResponse {}
+
+message ReviewEmailAddressByAddressRequest {
+  string address = 1;
+  bool is_approved = 2;
+}
+
+message ReviewEmailAddressByAddressResponse {}
+
+message GetByIdRequest {
+  int64 id = 1;
+}
+
+message GetByIdResponse {
+  UserEmailAddress user_email_address = 1;
+}
+
+message GetByUserIdRequest {
+  int64 user_id = 1;
+}
+
+message GetByUserIdResponse {
+  UserEmailAddress user_email_address = 1;
+}
+
+message GetByUserIdBatchRequest {
+  repeated int64 user_ids = 1;
+}
+
+message GetByUserIdBatchResponse {
+  repeated UserEmailAddress user_email_addresses = 1;
+}
+
+message GetUserEmailsByUserIdRequest {
+  int64 user_id = 1;
+  int32 count = 2;
+  // Returns UserEmails with id LESS THAN the ExclusiveStartId
+  int32 exclusive_start_id = 3;
+}
+
+message GetUserEmailsByUserIdResponse {
+  repeated UserEmailAddress user_email_addresses = 1;
+}
+
+message GetByEmailAddressRequest {
+  string address = 1;
+  int32 count = 2;
+  int32 exclusive_start_id = 3;
+  VerifiedStatus verified_status = 4;
+}
+
+message GetByEmailAddressResponse {
+  repeated UserEmailAddress user_email_addresses = 1;
+}
+
+message GetAllUserEmailsByEmailAddressRequest {
+  string address = 1;
+  int32 count = 2;
+  int32 exclusive_start_id = 3;
+}
+
+message GetAllUserEmailsByEmailAddressResponse {
+  repeated UserEmailAddress user_email_addresses = 1;
+}
+
+message GetNumberOfAccountsByEmailAddressRequest {
+  string address = 1;
+  ValidStatus valid_status = 2;
+}
+
+message GetNumberOfAccountsByEmailAddressResponse {
+  int64 count = 1;
+}
+
+message HasMaxLinkedAccountsByEmailAddressRequest {
+  string address = 1;
+}
+
+message HasMaxLinkedAccountsByEmailAddressResponse {
+  bool has_max = 1;
+}
+
+message SetEmailRequest {
+  int64 user_id = 1;
+  string address = 2;
+  bool is_force_set = 3;
+  bool is_send_revert_email = 4;
+  bool is_validate = 5;
+}
+
+message SetEmailResponse {
+  // Returned value is non-null only when validation is enabled.
+  string account_security_ticket = 1;
+}
+
+message SendVerificationEmailRequest {
+  int64 user_id = 1;
+  string address = 2;
+  bool is_free_item = 3;
+  string ticket = 4;
+}
+
+message SendVerificationEmailResponse {}
+
+message VerifyUserEmailWithTicketRequest {
+  string ticket = 1;
+  // AST = Account Security Ticket
+  bool is_ast = 2;
+}
+
+message VerifyUserEmailWithTicketResponse {
+  int64 user_id = 1;
+  ErrorStatusCode error_status_code = 2;
+}
+
+message VerifyUserEmailByUserEmailAddressIdRequest {
+  int64 user_email_address_id = 1;
+}
+
+message VerifyUserEmailByUserEmailAddressIdResponse {
+  bool is_verified = 1;
+}
+
+message InvalidateUserEmailAddressByIdsRequest {
+  repeated int64 user_email_address_ids = 1;
+}
+
+message InvalidateUserEmailAddressByIdsResponse {
+  int64 invalidated_emails_count = 1;
+}
+
+message InvalidateUserEmailsAfterTimeRequest {
+  int64 user_id = 1;
+  // All Timestamp values assume UTC timezone
+  google.protobuf.Timestamp invalidate_after_time = 2;
+}
+
+message InvalidateUserEmailsAfterTimeResponse {
+  int64 invalidated_emails_count = 1;
+}
+
+message RestoreUserEmailByIdRequest {
+  int64 user_email_id_to_restore = 1;
+}
+
+message RestoreUserEmailByIdResponse {
+  int64 reverted_emails_count = 1;
+}
+
+message PurgeUserEmailsByUserIdRequest {
+  int64 user_id = 1;
+}
+
+message PurgeUserEmailsByUserIdResponse {}
+
+message GetAccountEmailByIdRequest {
+  int64 id = 1;
+}
+
+message GetAccountEmailByIdResponse {
+  AccountEmail account_email = 1;
+}
+
+message GetAccountEmailByUserIdRequest {
+  int64 user_id = 1;
+}
+
+message GetAccountEmailByUserIdResponse {
+  AccountEmail account_email = 1;
+}
+
+message GetAccountEmailsByUserIdRequest {
+  int64 user_id = 1;
+  int32 count = 2;
+  // Returns AccountEmails with id LESS THAN the ExclusiveStartId
+  int32 exclusive_start_id = 3;
+}
+
+message GetAccountEmailsByUserIdResponse {
+  repeated AccountEmail account_emails = 1;
+}
+
+message GetAccountEmailsByEmailAddressRequest {
+  string address = 1;
+  int32 count = 2;
+  int32 exclusive_start_id = 3;
+  VerifiedStatus verified_status = 4;
+}
+
+message GetAccountEmailsByEmailAddressResponse {
+  repeated AccountEmail account_emails = 1;
+}
+
+message GetAllAccountEmailsByEmailAddressRequest {
+  string address = 1;
+  int32 count = 2;
+  int32 exclusive_start_id = 3; 
+}
+
+message GetAllAccountEmailsByEmailAddressResponse {
+  repeated AccountEmail account_emails = 1;
+}

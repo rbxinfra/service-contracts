@@ -1,0 +1,22 @@
+version: 1.0.0
+protos_path: roblox/telemetry
+
+protos:
+  - name: Roblox2.Telemetry.Eventingest.V1
+    path: event-ingest/v1/event_ingest.proto
+
+  - name: Roblox2.Telemetry.Eventingest.V1.EventIngestAPI
+    type: api
+    path: event-ingest/v1/event_ingest_api.proto
+    depends_on:
+      - Roblox2.Telemetry.Eventingest.V1
+
+  - name: Roblox2.Telemetry.Eventingest.Configuration.V1
+    path: event-ingest-configuration/v1/events_configuration.proto
+
+  - name: Roblox2.Telemetry.Eventingest.Configuration.V1.EventsConfigurationAPI
+    type: api
+    path: event-ingest-configuration/v1/events_configuration_api.proto
+    depends_on:
+      - Roblox2.Telemetry.Eventingest.Configuration.V1
+

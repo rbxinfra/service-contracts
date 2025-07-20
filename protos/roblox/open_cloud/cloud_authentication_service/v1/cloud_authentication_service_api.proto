@@ -1,0 +1,139 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=0a2cfdc SwarpVersion=1.38.0 SwarpCreateDate=2020-08-25T16:10:25.040Z
+//  gRPC Service
+//
+// Copyright © 2022 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.cloudauthenticationservice.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Cloudauthenticationservice.V1";
+option go_package = "./cloudauthenticationservicev1";
+option java_multiple_files = true;
+option java_outer_classname = "CloudAuthenticationServiceApiProto";
+option java_package = "com.roblox.opencloud.cloudauthenticationservice.v1";
+
+import "roblox/protobuf/options.proto";
+import "roblox/open_cloud/cloud_authentication_service/v1/cloud_authentication_service.proto";
+import "google/protobuf/wrappers.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// CloudAuthenticationService service.
+service CloudAuthenticationServiceAPI {
+    // Deletes an API key.
+    rpc DeleteApiKey(DeleteApiKeyRequest) returns (DeleteApiKeyResponse) {
+    }
+
+    // Gets the details of an API key.
+    rpc GetApiKey(GetApiKeyRequest) returns (GetApiKeyResponse) {
+    }
+
+    // Regenerates an API key.
+    rpc RegenerateApiKey(RegenerateApiKeyRequest) returns (RegenerateApiKeyResponse) {
+    }
+
+    // Updates an API key.
+    rpc UpdateApiKey(UpdateApiKeyRequest) returns (UpdateApiKeyResponse) {
+    }
+
+    // Creates an API key.
+    rpc CreateApiKey(CreateApiKeyRequest) returns (CreateApiKeyResponse) {
+    }
+
+    // Lists API keys.
+    rpc ListApiKeys(ListApiKeysRequest) returns (ListApiKeysResponse) {
+    }
+
+    // Gets all the scope types.
+    rpc GetScopeTypes(GetScopeTypesRequest) returns (GetScopeTypesResponse) {
+    }
+}
+
+message DeleteApiKeyRequest {
+    // ID of the API key.
+    string cloud_auth_id = 1;
+}
+
+message DeleteApiKeyResponse {
+    CloudAuthInfo cloud_auth_info = 1;
+}
+
+message GetApiKeyRequest {
+    // ID of the API key.
+    string cloud_auth_id = 1;
+}
+
+message GetApiKeyResponse {
+    CloudAuthInfo cloud_auth_info = 1;
+}
+
+message RegenerateApiKeyRequest {
+    // ID of the API key.
+    string cloud_auth_id = 1;
+}
+
+message RegenerateApiKeyResponse {
+    CloudAuthInfo cloud_auth_info = 1;
+    string apikey_secret = 2;
+}
+
+message UpdateApiKeyRequest {
+    // ID of the API key.
+    string cloud_auth_id = 1;
+
+    // The new properties of the API key.
+    CloudAuthUserConfiguredProperties cloud_auth_user_configured_properties = 2;
+}
+
+message UpdateApiKeyResponse {
+    CloudAuthInfo cloud_auth_info = 1;
+}
+
+message CreateApiKeyRequest {
+    // The properties of the API key.
+    CloudAuthUserConfiguredProperties cloud_auth_user_configured_properties = 1;
+    
+    // Optional group ID to associate with the API key
+    // If not specified, the API key will be associated with the user instead
+    .google.protobuf.Int64Value group_id = 2;
+}
+
+message CreateApiKeyResponse {
+    CloudAuthInfo cloud_auth_info = 1;
+    string apikey_secret = 2;
+}
+
+message ListApiKeysRequest {
+    string cursor = 1;
+    int64 limit = 2;
+    bool reverse = 3;
+
+    // Optional group ID to filter API keys by
+    // If not specified, it will return the api keys associated with the user
+    .google.protobuf.Int64Value group_id = 4;
+}
+
+message ListApiKeysResponse {
+    repeated CloudAuthInfo cloud_auth_info = 1;
+
+    // Optional previous cursor
+    .google.protobuf.StringValue previous_cursor = 2;
+
+    // Optional next cursor
+    .google.protobuf.StringValue next_cursor = 3;
+}
+
+message GetScopeTypesRequest {
+    // Optional group ID to filter scope types by
+    // If not specified, it will return the scope types for the user
+    .google.protobuf.Int64Value group_id = 1;
+}
+
+message GetScopeTypesResponse {
+    repeated ScopeType scope_types = 1;
+    repeated TargetType target_types = 2;
+    repeated TargetPart target_parts = 3;
+    repeated Operation operations = 4;
+    repeated Product products = 5;
+}

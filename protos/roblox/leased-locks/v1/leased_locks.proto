@@ -1,0 +1,23 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.leasedlocks.v1;
+
+option csharp_namespace = "Roblox.LeasedLocks.V1";
+option go_package = "roblox/leasedlocksv1";
+option java_multiple_files = true;
+option java_outer_classname = "LeasedLocksApiProto";
+option java_package = "com.roblox.leasedlocks.v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Represents the type of leased lock.
+enum LeasedLockType {
+	// Use old school MSSQL locking.
+	LEASED_LOCK_TYPE_MSSQL = 0;
+	// Use Redis cluster locking.
+	LEASED_LOCK_TYPE_REDIS = 1;
+}

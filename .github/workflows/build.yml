@@ -6,7 +6,7 @@ on:
     paths:
       - "src/**"
       - ".github/workflows/**"
-      - "*.sln"
+      - "protos/**"
 
   push:
     branches:
@@ -14,7 +14,7 @@ on:
     paths:
       - "src/**"
       - ".github/workflows/**"
-      - "*.sln"
+      - "protos/**"
 
 env:
   DOTNET_NOLOGO: true

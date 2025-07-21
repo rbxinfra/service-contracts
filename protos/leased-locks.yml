@@ -1,0 +1,12 @@
+version: 1.0.0
+protos_path: roblox/leased_locks/leased_locks/v1
+
+protos:
+  - name: Roblox.Leasedlocks.Leasedlocks.V1
+    path: leased_locks.proto
+
+  - name: Roblox.Leasedlocks.Leasedlocks.V1.LeasedLocksAPI
+    type: api
+    path: leased_locks_api.proto
+    depends_on:
+      - Roblox.Leasedlocks.Leasedlocks.V1

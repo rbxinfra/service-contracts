@@ -4,15 +4,15 @@
 //
 syntax = "proto3";
 
-package roblox.ipaddresses.v1;
+package roblox.ipaddresses.ipaddresses.v1;
 
-option csharp_namespace = "Roblox.IpAddresses.V1";
+option csharp_namespace = "Roblox.Ipaddresses.Ipaddresses.V1";
 option go_package = "roblox/ipaddressesv1";
 option java_multiple_files = true;
 option java_outer_classname = "IpAddressesApiProto";
-option java_package = "com.roblox.ipaddresses.v1";
+option java_package = "com.roblox.ipaddresses.ipaddresses.v1";
 
-import "roblox/ip-addresses/v1/ip_addresses.proto";
+import "roblox/ip_addresses/ip_addresses/v1/ip_addresses.proto";
 
 // Ip Addresses Service APIs.
 service IpAddressesAPI {
@@ -151,7 +151,7 @@ message GetIpAddressStatusRequest {
 message GetIpAddressStatusResponse {
 	string ip_address = 1;
 	IpAddressType ip_address_type = 2;
-	IpAddressState ip_address_state = 3;
+	AddressState ip_address_state = 3;
 }
 
 message GetMacAddressCountByUserIdRequest {
@@ -167,7 +167,7 @@ message GetMacAddressStatusRequest {
 }
 
 message GetMacAddressStatusResponse {
-	MacAddressState mac_address_state = 1;
+	AddressState mac_address_state = 1;
 }
 
 message SetUserIpAddressRequest {
@@ -190,18 +190,18 @@ message SetUserMacAddressResponse {
 
 message SetIpAddressStateRequest {
 	string ip_address = 1;
-	IpAddressState ip_address_state = 2;
+	AddressState ip_address_state = 2;
 }
 
 message SetIpAddressStateResponse {
-	SetIpAddressStateResult result = 1;
+	SetAddressStateResult result = 1;
 }
 
 message SetMacAddressStateRequest {
 	string mac_address = 1;
-	MacAddressState mac_address_state = 2;
+	AddressState mac_address_state = 2;
 }
 
 message SetMacAddressStateResponse {
-	SetMacAddressStateResult result = 1;
+	SetAddressStateResult result = 1;
 }

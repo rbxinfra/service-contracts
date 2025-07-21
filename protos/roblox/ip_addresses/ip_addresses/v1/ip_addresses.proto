@@ -4,13 +4,13 @@
 //
 syntax = "proto3";
 
-package roblox.ipaddresses.v1;
+package roblox.ipaddresses.ipaddresses.v1;
 
-option csharp_namespace = "Roblox.IpAddresses.V1";
+option csharp_namespace = "Roblox.Ipaddresses.Ipaddresses.V1";
 option go_package = "roblox/ipaddressesv1";
 option java_multiple_files = true;
 option java_outer_classname = "IpAddressesApiProto";
-option java_package = "com.roblox.ipaddresses.v1";
+option java_package = "com.roblox.ipaddresses.ipaddresses.v1";
 
 import "google/protobuf/timestamp.proto";
 
@@ -28,7 +28,7 @@ message UserIpAddressV2 {
 message IpAddress {
 	int64 id = 1;
 	string address = 2;
-	IpAddressState state = 3;
+	AddressState state = 3;
 	// TODO: how should the type be passed down when converting ip address to grpc?
 	// IpAddressType ip_address_type = 4;
 
@@ -51,7 +51,7 @@ message UserMacAddress {
 message MacAddress {
 	int64 id = 1;
 	string mac_address = 2;
-	MacAddressState state = 3;
+	AddressState state = 3;
 
 	// All Timestamp values assume UTC timezone
 	google.protobuf.Timestamp expiration_time = 4;
@@ -69,26 +69,14 @@ enum IpAddressType {
 	IP_ADDRESS_TYPE_IPV6 = 2;
 }
 
-// TODO: Single enum for state
-
 // Indicates the value of the "State" field of fetched UserIpAddressV2 and IpAddress.
-enum IpAddressState {
-	// Unknown IP Address State
-    IP_ADDRESS_STATE_UNKNOWN = 0;
-	// IP Address is Open
-    IP_ADDRESS_STATE_ALLOWED = 1;
-	// IP Address is Banned
-    IP_ADDRESS_STATE_BANNED  = 2;	
-}
-
-// Indicates the value of the "State" field of fetched UserMacAddress and MacAddress.
-enum MacAddressState {
-	// Unknown MAC Address State
-    MAC_ADDRESS_STATE_UNKNOWN = 0;
-	// MAC Address is Open
-    MAC_ADDRESS_STATE_ALLOWED = 1;
-	// MAC Address is Banned
-    MAC_ADDRESS_STATE_BANNED  = 2;	
+enum AddressState {
+	// Unknown Address State
+    ADDRESS_STATE_UNKNOWN = 0;
+	// Address is Open
+    ADDRESS_STATE_ALLOWED = 1;
+	// Address is Banned
+    ADDRESS_STATE_BANNED  = 2;	
 }
 
 // Represents the result of the SetUserIpAddressOperation
@@ -116,31 +104,16 @@ enum SetUserMacAddressResult {
 }
 
 // Represents the result of the SetIpAddressStateOperation
-enum SetIpAddressStateResult {
+enum SetAddressStateResult {
 	// Unknown Result
-	SET_IP_ADDRESS_STATE_RESULT_UNKNOWN = 0;
+	SET_ADDRESS_STATE_RESULT_UNKNOWN = 0;
 
-	// IP Address State Changed
-	SET_IP_ADDRESS_STATE_RESULT_CHANGED = 1;
+	// Address State Changed
+	SET_ADDRESS_STATE_RESULT_CHANGED = 1;
 
-	// IP Address State Unchanged
-	SET_IP_ADDRESS_STATE_RESULT_UNCHANGED = 2;
+	// Address State Unchanged
+	SET_ADDRESS_STATE_RESULT_UNCHANGED = 2;
 
-	// IP Address Ban Extended
-	SET_IP_ADDRESS_STATE_RESULT_BAN_EXTENDED = 3;
-}
-
-// Represents the result of the SetMacAddressStateOperation
-enum SetMacAddressStateResult {
-	// Unknown Result
-	SET_MAC_ADDRESS_STATE_RESULT_UNKNOWN = 0;
-
-	// MAC Address State Changed
-	SET_MAC_ADDRESS_STATE_RESULT_CHANGED = 1;
-
-	// MAC Address State Unchanged
-	SET_MAC_ADDRESS_STATE_RESULT_UNCHANGED = 2;
-
-	// MAC Address Ban Extended
-	SET_MAC_ADDRESS_STATE_RESULT_BAN_EXTENDED = 3;
+	// Address Ban Extended
+	SET_ADDRESS_STATE_RESULT_BAN_EXTENDED = 3;
 }

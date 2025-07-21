@@ -1,0 +1,146 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.ipaddresses.v1;
+
+option csharp_namespace = "Roblox.IpAddresses.V1";
+option go_package = "roblox/ipaddressesv1";
+option java_multiple_files = true;
+option java_outer_classname = "IpAddressesApiProto";
+option java_package = "com.roblox.ipaddresses.v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Encapsulation of the UserIpAddress entity, which contains user's ip address info.
+message UserIpAddressV2 {
+	int64 user_id = 1;
+	IpAddress ip_address = 2;
+
+  	// All Timestamp values assume UTC timezone
+	google.protobuf.Timestamp last_seen_time = 3;
+	google.protobuf.Timestamp created_time = 4;
+}
+
+// Details of an ip address.
+message IpAddress {
+	int64 id = 1;
+	string address = 2;
+	IpAddressState state = 3;
+	// TODO: how should the type be passed down when converting ip address to grpc?
+	// IpAddressType ip_address_type = 4;
+
+	// All Timestamp values assume UTC timezone
+	google.protobuf.Timestamp expiration_time = 5;
+	google.protobuf.Timestamp created_time = 6;
+	google.protobuf.Timestamp updated_time = 7;
+}
+
+// Encapsulation of the UserIpAddress entity, which contains user's mac address info.
+message UserMacAddress {
+	int64 user_id = 1;
+	MacAddress mac_address = 2;
+
+	// All Timestamp values assume UTC timezone
+	google.protobuf.Timestamp created_time = 3;
+}
+
+// Details of an mac address.
+message MacAddress {
+	int64 id = 1;
+	string mac_address = 2;
+	MacAddressState state = 3;
+
+	// All Timestamp values assume UTC timezone
+	google.protobuf.Timestamp expiration_time = 4;
+	google.protobuf.Timestamp created_time = 5;
+	google.protobuf.Timestamp updated_time = 6;
+}
+
+// Indicates the value of the "IpAddressType" field of fetched UserIpAddressV2 and IpAddress.
+enum IpAddressType {
+	// Unknown type
+	IP_ADDRESS_TYPE_UNKNOWN = 0;
+	// IP Address Type is IPv4
+	IP_ADDRESS_TYPE_IPV4 = 1;
+	// IP Address Type is IPv6
+	IP_ADDRESS_TYPE_IPV6 = 2;
+}
+
+// TODO: Single enum for state
+
+// Indicates the value of the "State" field of fetched UserIpAddressV2 and IpAddress.
+enum IpAddressState {
+	// Unknown IP Address State
+    IP_ADDRESS_STATE_UNKNOWN = 0;
+	// IP Address is Open
+    IP_ADDRESS_STATE_ALLOWED = 1;
+	// IP Address is Banned
+    IP_ADDRESS_STATE_BANNED  = 2;	
+}
+
+// Indicates the value of the "State" field of fetched UserMacAddress and MacAddress.
+enum MacAddressState {
+	// Unknown MAC Address State
+    MAC_ADDRESS_STATE_UNKNOWN = 0;
+	// MAC Address is Open
+    MAC_ADDRESS_STATE_ALLOWED = 1;
+	// MAC Address is Banned
+    MAC_ADDRESS_STATE_BANNED  = 2;	
+}
+
+// Represents the result of the SetUserIpAddressOperation
+enum SetUserIpAddressResult {
+  // Unknown Result
+  SET_USER_IP_ADDRESS_RESULT_UNKNOWN = 0;
+
+  // IP Address Associated
+  SET_USER_IP_ADDRESS_RESULT_ASSOCIATED = 1;
+
+  // IP Address was already associated
+  SET_USER_IP_ADDRESS_RESULT_ALREADY_ASSOCIATED = 2;
+}
+
+// Represents the result of the SetUserMacAddressOperation
+enum SetUserMacAddressResult {
+  // Unknown Result
+  SET_USER_MAC_ADDRESS_RESULT_UNKNOWN = 0;
+
+  // MAC Address Associated
+  SET_USER_MAC_ADDRESS_RESULT_ASSOCIATED = 1;
+
+  // MAC Address was already associated
+  SET_USER_MAC_ADDRESS_RESULT_ALREADY_ASSOCIATED = 2;
+}
+
+// Represents the result of the SetIpAddressStateOperation
+enum SetIpAddressStateResult {
+	// Unknown Result
+	SET_IP_ADDRESS_STATE_RESULT_UNKNOWN = 0;
+
+	// IP Address State Changed
+	SET_IP_ADDRESS_STATE_RESULT_CHANGED = 1;
+
+	// IP Address State Unchanged
+	SET_IP_ADDRESS_STATE_RESULT_UNCHANGED = 2;
+
+	// IP Address Ban Extended
+	SET_IP_ADDRESS_STATE_RESULT_BAN_EXTENDED = 3;
+}
+
+// Represents the result of the SetMacAddressStateOperation
+enum SetMacAddressStateResult {
+	// Unknown Result
+	SET_MAC_ADDRESS_STATE_RESULT_UNKNOWN = 0;
+
+	// MAC Address State Changed
+	SET_MAC_ADDRESS_STATE_RESULT_CHANGED = 1;
+
+	// MAC Address State Unchanged
+	SET_MAC_ADDRESS_STATE_RESULT_UNCHANGED = 2;
+
+	// MAC Address Ban Extended
+	SET_MAC_ADDRESS_STATE_RESULT_BAN_EXTENDED = 3;
+}

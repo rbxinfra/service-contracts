@@ -1,0 +1,207 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.ipaddresses.v1;
+
+option csharp_namespace = "Roblox.IpAddresses.V1";
+option go_package = "roblox/ipaddressesv1";
+option java_multiple_files = true;
+option java_outer_classname = "IpAddressesApiProto";
+option java_package = "com.roblox.ipaddresses.v1";
+
+import "roblox/ip-addresses/v1/ip_addresses.proto";
+
+// Ip Addresses Service APIs.
+service IpAddressesAPI {
+
+	////////////////////////////////
+	//      IpAddresses APIs      //
+	////////////////////////////////
+
+    // Gets the total number of IpAddresses with the given user id.
+	rpc GetUserIdCountByIpAddress(GetUserIdCountByIpAddressRequest) returns (GetUserIdCountByIpAddressResponse) {}
+
+	// Gets the status for an IpAddress with the given ip address.
+	rpc GetIpAddressStatus (GetIpAddressStatusRequest) returns (GetIpAddressStatusResponse) {}
+
+	// Updates the current state associated with the ip address to the given state
+	rpc SetIpAddressState (SetIpAddressStateRequest) returns (SetIpAddressStateResponse) {}
+
+    // Updates the current ip address associated with the user to the given ip address.
+  	rpc SetUserIpAddress(SetUserIpAddressRequest) returns (SetUserIpAddressResponse) {}
+
+	////////////////////////////////
+	//    UserIpAddresses APIs    //
+	////////////////////////////////
+
+	// Gets a list of all UserIpAddresses entities linked to the user specified by user id.
+	rpc GetUserIpAddressesByUserId(GetUserIpAddressesByUserIdRequest) returns (GetUserIpAddressesByUserIdResponse) {}
+
+	// Gets a list of all UserIpAddresses entities linked to the ip address specified by ip address id.
+	rpc GetUserIpAddressesByIpAddress(GetUserIpAddressesByIpAddressRequest) returns (GetUserIpAddressesByIpAddressResponse) {}
+
+	// Gets the total number of UserIpAddresses with the given user id.
+	rpc GetUserIpAddressCountByUserId(GetUserIpAddressCountByUserIdRequest) returns (GetUserIpAddressCountByUserIdResponse) {}
+
+    // Updates the current mac address associated with the user to the given mac address.
+  	rpc SetUserMacAddress(SetUserMacAddressRequest) returns (SetUserMacAddressResponse) {}
+
+	////////////////////////////////
+	//     MacAddresses APIs      //
+	////////////////////////////////
+
+    // Gets the total number of MacAddresses with the given user id.
+	rpc GetUserIdCountByMacAddress(GetUserIdCountByMacAddressRequest) returns (GetUserIdCountByMacAddressResponse) {}
+
+	// Gets the status for an MACAddress with the given mac address.
+	rpc GetMacAddressStatus (GetMacAddressStatusRequest) returns (GetMacAddressStatusResponse) {}
+
+	// Updates the current state associated with the mac address to the given state
+	rpc SetMacAddressState (SetMacAddressStateRequest) returns (SetMacAddressStateResponse) {}
+
+	////////////////////////////////
+	//   UserMacAddresses APIs    //
+	////////////////////////////////
+
+	// Gets a list of all UserMacAddresses entities linked to the user specified by user id.
+	rpc GetUserMacAddressesByUserId(GetUserMacAddressesByUserIdRequest) returns (GetUserMacAddressesByUserIdResponse) {}
+
+	// Gets a list of all UserMacAddresses entities linked to the mac address specified by mac address id.
+	rpc GetUserMacAddressesByMacAddress(GetUserMacAddressesByMacAddressRequest) returns (GetUserMacAddressesByMacAddressResponse) {}
+
+    // Gets the total number of UserMacAddresses with the given user id.
+	rpc GetMacAddressCountByUserId(GetMacAddressCountByUserIdRequest) returns (GetMacAddressCountByUserIdResponse) {}
+}
+
+// All gRPC methods must take a message ending in "Request".
+// and must return a message ending in "Response".
+// See ip-addresses/v1/ip_addresses.proto for custom defined messages.
+
+message GetUserIdCountByIpAddressRequest {
+	string ip_address = 1;
+}
+
+message GetUserIdCountByIpAddressResponse {
+	int64 count = 1;
+}
+
+message GetUserIdCountByMacAddressRequest {
+	string mac_address = 1;
+}
+
+message GetUserIdCountByMacAddressResponse {
+	int64 count = 1;
+}
+
+message GetUserIpAddressesByUserIdRequest {
+	int64 user_id = 1;
+	int32 count = 2;
+	int32 exclusive_start_id = 3;
+}
+
+message GetUserIpAddressesByUserIdResponse {
+	repeated UserIpAddressV2 user_ip_addresses = 1;
+}
+
+message GetUserIpAddressesByIpAddressRequest {
+	int64 ip_address_id = 1;
+	int32 count = 2;
+	int32 exclusive_start_id = 3;	
+}
+
+message GetUserIpAddressesByIpAddressResponse {
+	repeated UserIpAddressV2 user_ip_addresses = 1;
+}
+
+message GetUserMacAddressesByUserIdRequest {
+	int64 user_id = 1;
+	int32 count = 2;
+	int32 exclusive_start_id = 3;	
+}
+
+message GetUserMacAddressesByUserIdResponse {
+	repeated UserMacAddress user_mac_addresses = 1;
+}
+
+message GetUserMacAddressesByMacAddressRequest {
+	int64 mac_address_id = 1;
+	int32 count = 2;
+	int32 exclusive_start_id = 3;	
+}
+
+message GetUserMacAddressesByMacAddressResponse {
+	repeated UserMacAddress user_mac_addresses = 1;
+}
+
+message GetUserIpAddressCountByUserIdRequest {
+	int64 user_id = 1;
+}
+
+message GetUserIpAddressCountByUserIdResponse {
+	int64 count = 1;
+}
+
+message GetIpAddressStatusRequest {
+	string ip_address = 1;
+}
+
+message GetIpAddressStatusResponse {
+	string ip_address = 1;
+	IpAddressType ip_address_type = 2;
+	IpAddressState ip_address_state = 3;
+}
+
+message GetMacAddressCountByUserIdRequest {
+	int64 user_id = 1;
+}
+
+message GetMacAddressCountByUserIdResponse {
+	int64 count = 1;
+}
+
+message GetMacAddressStatusRequest {
+	string mac_address = 1;
+}
+
+message GetMacAddressStatusResponse {
+	MacAddressState mac_address_state = 1;
+}
+
+message SetUserIpAddressRequest {
+	string ip_address = 1;
+	int64 user_id = 2;
+}
+
+message SetUserIpAddressResponse {
+	SetUserIpAddressResult result = 1;
+}
+
+message SetUserMacAddressRequest {
+	string mac_address = 1;
+	int64 user_id = 2;
+}
+
+message SetUserMacAddressResponse {
+	SetUserMacAddressResult result = 1;
+}
+
+message SetIpAddressStateRequest {
+	string ip_address = 1;
+	IpAddressState ip_address_state = 2;
+}
+
+message SetIpAddressStateResponse {
+	SetIpAddressStateResult result = 1;
+}
+
+message SetMacAddressStateRequest {
+	string mac_address = 1;
+	MacAddressState mac_address_state = 2;
+}
+
+message SetMacAddressStateResponse {
+	SetMacAddressStateResult result = 1;
+}

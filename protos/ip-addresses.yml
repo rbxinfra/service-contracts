@@ -1,0 +1,13 @@
+version: 1.0.0
+protos_path: roblox/ip-addresses/v1
+
+protos:
+  - name: Roblox.IpAddresses.V1
+    path: ip_addresses.proto
+
+  - name: Roblox.IpAddressesAPI.V1
+    type: api
+    path: ip_addresses_api.proto
+    depends_on:
+      - Roblox.Protobuf
+      - Roblox.IpAddresses.V1

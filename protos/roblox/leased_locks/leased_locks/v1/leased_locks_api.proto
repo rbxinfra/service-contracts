@@ -1,0 +1,70 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.leasedlocks.leasedlocks.v1;
+
+option csharp_namespace = "Roblox.Leasedlocks.Leasedlocks.V1";
+option go_package = "roblox/leasedlocksv1";
+option java_multiple_files = true;
+option java_outer_classname = "LeasedLocksApiProto";
+option java_package = "com.roblox.leasedlocks.leasedlocks.v1";
+
+import "google/protobuf/duration.proto";
+
+import "roblox/leased_locks/leased_locks/v1/leased_locks.proto";
+
+// Leased Locks Service APIs.
+service LeasedLocksAPI {
+
+	////////////////////////////////
+	//      LeasedLocks APIs      //
+	////////////////////////////////
+
+	// Tries to acquire a lock.
+	rpc TryAcquire (TryAcquireRequest) returns (TryAcquireResponse) {}
+
+	// Tries to release a lock.
+	rpc TryRelease (TryReleaseRequest) returns (TryReleaseResponse) {}
+
+	// Tries to renew a lock.
+	rpc TryRenew (TryRenewRequest) returns (TryRenewResponse) {}
+}
+
+// All gRPC methods must take a message ending in "Request".
+// and must return a message ending in "Response".
+// See leased_locks/leased_locks/v1/leased_locks.proto for custom defined messages.
+
+message TryAcquireRequest {
+	LeasedLockType leased_lock_type = 1;
+	string leased_lock_key = 2;
+	string leased_lock_holder = 3;
+	google.protobuf.Duration leased_lock_duration = 4;
+}
+
+message TryAcquireResponse {
+	bool acquired = 1;
+}
+
+message TryReleaseRequest {
+	LeasedLockType leased_lock_type = 1;
+	string leased_lock_key = 2;
+	string leased_lock_holder = 3;
+}
+
+message TryReleaseResponse {
+	bool released = 1;
+}
+
+message TryRenewRequest {
+	LeasedLockType leased_lock_type = 1;
+	string leased_lock_key = 2;
+	string leased_lock_holder = 3;
+	google.protobuf.Duration leased_lock_duration = 4;
+}
+
+message TryRenewResponse {
+	bool renewed = 1;
+}

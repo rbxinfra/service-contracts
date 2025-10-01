@@ -1,0 +1,87 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=c6a576 SwarpVersion=1.38.0 SwarpCreateDate=2025-10-01 11:15
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.systemevents.systemevents.v1;
+
+option csharp_namespace = "Roblox.Systemevents.Systemevents.V1";
+option go_package = "roblox/systemeventsv1";
+option java_multiple_files = true;
+option java_outer_classname = "SystemEventsProto";
+option java_package = "com.roblox.systemevents.systemevents.v1";
+
+import "roblox/protobuf/options.proto";
+import "roblox/system_events/system_events/v1/system_events.proto";
+
+import "google/protobuf/timestamp.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// System Events Service APIs.
+service SystemEventsAPI {
+
+	////////////////////////////////
+	//     SystemEvents APIs      //
+	////////////////////////////////
+
+	// Queries events with specified parameters.
+	rpc QueryEvents (QueryEventsRequest) returns (QueryEventsResponse) {}
+
+    // Logs a new event
+    rpc LogEvent (LogEventRequest) returns (LogEventRequest) {}
+}
+
+message QueryEventsRequest {
+    // The page number
+    int32 page = 1;
+
+    // The page size.
+    int32 page_size = 2;
+
+    ///////////////////////////////
+    //         FILTERING         //
+    //////////////////////////////
+
+    // NB: Oneof type or subtype can be used to filter.
+    // NB: If end_date specified, then start_date must be specifed.
+    //     If only start_date specifed, then end_date is current date.
+
+    // Filter by event type
+    optional string type = 3;
+
+    // Filter by event subtype
+    optional string subtype = 4;
+
+    // Filter by starting date
+    optional .google.protobuf.Timestamp start_date = 5;
+
+    // Filter by ending date
+    optional .google.protobuf.Timestamp end_date = 6;
+}
+
+message QueryEventsResponse {
+    // The total count of all events with the specified filter args
+    int32 count = 1;
+
+    // The actual event page items.
+    repeated Event page_items = 2;
+}
+
+message LogEventRequest {
+    // The type of the event. This is required.
+    string type = 1;
+
+    // The subtype of the event. This is optional.
+    optional string subtype = 2;
+
+    // The summary of the event, this is required.
+    string summary = 3;
+}
+
+message LogEventResponse {
+    // The newly created event.
+    Event event = 1;
+}

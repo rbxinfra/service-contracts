@@ -1,0 +1,13 @@
+version: 1.0.0
+protos_path: roblox/system_events/system_events/v1
+
+protos:
+  - name: Roblox.Systemevents.Systemevents.V1
+    path: system_events.proto
+
+  - name: Roblox.Systemevents.Systemevents.V1.SystemEventsAPI
+    type: api
+    path: system_events_api.proto
+    depends_on:
+      - Roblox.Systemevents.Systemevents.V1
+      - Roblox.Protobuf

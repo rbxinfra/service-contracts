@@ -1,0 +1,35 @@
+// DONT REMOVE THIS LINE! SwarpTemplateHash=c6a576 SwarpVersion=1.38.0 SwarpCreateDate=2025-10-01 11:15
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.systemevents.systemevents.v1;
+
+option csharp_namespace = "Roblox.Systemevents.Systemevents.V1";
+option go_package = "roblox/systemeventsv1";
+option java_multiple_files = true;
+option java_outer_classname = "SystemEventsProto";
+option java_package = "com.roblox.systemevents.systemevents.v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Represents a loose Event type
+// With consolidated data.
+message Event {
+  // The ID of the event.
+  int64 id = 1;
+
+  // The type of the event (EventType)
+  string type = 2;
+
+  // The subtype of the event (EventSubtype)
+  string subtype = 3;
+
+  // The summary of the event (EventSummary)
+  string summary = 4;
+
+  // The created date of this event.
+  .google.protobuf.Timestamp timestamp = 5;
+}

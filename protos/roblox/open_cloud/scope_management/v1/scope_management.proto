@@ -1,0 +1,96 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.scopemanagement.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Scopemanagement.V1";
+option go_package = "./scopemanagementv1";
+option java_multiple_files = true;
+option java_outer_classname = "ScopeManagementProto";
+option java_package = "com.roblox.opencloud.scopemanagement.v1";
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+// Environment indicates the environment
+enum Environment {
+  ENVIRONMENT_INVALID = 0;
+  ENVIRONMENT_SITETEST1 = 1;
+  ENVIRONMENT_SITETEST2 = 2;
+  ENVIRONMENT_SITETEST3 = 3;
+  ENVIRONMENT_PRODUCTION = 4;
+}
+
+// OperationRiskLevel indicates the risk level of an operation
+enum OperationRiskLevel {
+  OPERATION_RISK_LEVEL_INVALID = 0;
+  OPERATION_RISK_LEVEL_LOW = 1;
+  OPERATION_RISK_LEVEL_MODERATE = 2;
+  OPERATION_RISK_LEVEL_HIGH = 3;
+}
+
+// AuthenticationSystem indicates the authentication system
+enum AuthenticationSystem {
+  AUTHENTICATION_SYSTEM_INVALID = 0;
+  AUTHENTICATION_SYSTEM_CLOUD_AUTHENTICATION = 1;
+  AUTHENTICATION_SYSTEM_OAUTH2 = 2;
+  AUTHENTICATION_SYSTEM_EXPERIENCE_AUTH = 3;
+}
+
+// ValueType indicates the type of value
+enum ValueType {
+  VALUE_TYPE_INVALID = 0;
+  VALUE_TYPE_INT64 = 1;
+  VALUE_TYPE_STRING = 2;
+}
+
+// ============================================================================
+// Messages
+// ============================================================================
+
+// Product represents a product in scope configuration
+message Product {
+  string name = 1;
+  string translation_key = 2;
+}
+
+// TargetPart represents a part of a target
+message TargetPart {
+  string name = 1;
+  ValueType type = 2;
+  repeated string constraints = 3;
+  string translation_key = 4;
+}
+
+// TargetTypeInfo represents information about a target type
+message TargetTypeInfo {
+  string name = 1;
+  repeated string required_parts = 2;
+  repeated string optional_parts = 3;
+  string translation_key = 4;
+}
+
+// OperationInfo represents operation information
+message OperationInfo {
+  string name = 1;
+  string translation_key = 2;
+  string description_translation_key = 3;
+  OperationRiskLevel risk_level = 4;
+}
+
+// ScopeType represents a scope type configuration
+message ScopeType {
+  string name = 1;
+  repeated Environment environments = 2;
+  string target_type = 3;
+  repeated string operations = 4;
+  string translation_key = 5;
+  string product = 6;
+  repeated OperationInfo operation_overrides = 7;
+  repeated AuthenticationSystem authentication_systems = 8;
+  repeated string group_allowed_operations = 9;
+}

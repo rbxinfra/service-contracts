@@ -1,0 +1,41 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "ExternalVerificationApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// ExternalVerificationAPI handles external verification
+service ExternalVerificationAPI {
+  // SetExternalVerificationTypes sets external verification types
+  rpc SetExternalVerificationTypes(SetExternalVerificationTypesRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/verification-types"
+      body: "*"
+    };
+  }
+}
+
+// ============================================================================
+// Request Messages
+// ============================================================================
+
+message SetExternalVerificationTypesRequest {
+  string token = 1;
+}
+
+

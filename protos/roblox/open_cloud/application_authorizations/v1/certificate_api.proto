@@ -1,0 +1,45 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "CertificateApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// CertificateAPI handles certificate operations
+service CertificateAPI {
+  // GetDefaultCertificates retrieves default certificates
+  rpc GetDefaultCertificates(google.protobuf.Empty) returns (JwksModel) {
+    option (google.api.http) = {
+      get: "/v1/certs"
+    };
+  }
+
+  // GetAccessTokenCertificates retrieves access token certificates
+  rpc GetAccessTokenCertificates(google.protobuf.Empty) returns (JwksModel) {
+    option (google.api.http) = {
+      get: "/v1/certificates/access-tokens"
+    };
+  }
+
+  // GetIdentityTokenCertificates retrieves identity token certificates
+  rpc GetIdentityTokenCertificates(google.protobuf.Empty) returns (JwksModel) {
+    option (google.api.http) = {
+      get: "/v1/certificates/identity-tokens"
+    };
+  }
+}
+

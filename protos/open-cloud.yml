@@ -1,4 +1,4 @@
-version: 1.0.0
+version: 1.2.0
 protos_path: roblox/open_cloud
 
 protos:
@@ -17,3 +17,83 @@ protos:
     path: cloud_authentication_service/v1beta1/cloud_authentication_service_beta1_api.proto
     depends_on:
       - Roblox.Protobuf
+
+  - name: Roblox.Opencloud.Scopemanagement.V1
+    path: scope_management/v1/scope_management.proto
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1
+    path: application_authorizations/v1/application_authorizations.proto
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.ApplicationAPI
+    type: api
+    path: application_authorizations/v1/application_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.AuthorizationAPI
+    type: api
+    path: application_authorizations/v1/authorization_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.CertificateAPI
+    type: api
+    path: application_authorizations/v1/certificate_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.DiscoveryAPI
+    type: api
+    path: application_authorizations/v1/discovery_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.ExternalVerificationAPI
+    type: api
+    path: application_authorizations/v1/external_verification_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.PermissionRequestAPI
+    type: api
+    path: application_authorizations/v1/permission_request_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.ScopeAPI
+    type: api
+    path: application_authorizations/v1/scope_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Scopemanagement.V1 
+      - Roblox.Opencloud.Applicationauthorizations.V1
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.TokenAPI
+    type: api
+    path: application_authorizations/v1/token_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1
+      - Roblox.Opencloud.Applicationauthorizations.V1.AuthorizationAPI
+
+  - name: Roblox.Opencloud.Applicationauthorizations.V1.UserInfoAPI
+    type: api
+    path: application_authorizations/v1/user_info_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Opencloud.Applicationauthorizations.V1

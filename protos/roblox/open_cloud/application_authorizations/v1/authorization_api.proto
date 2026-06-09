@@ -1,0 +1,86 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "AuthorizationApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// AuthorizationAPI manages OAuth2 authorizations
+service AuthorizationAPI {
+  // GetAuthorization retrieves an authorization by ID
+  rpc GetAuthorization(GetAuthorizationRequest) returns (Authorization) {
+    option (google.api.http) = {
+      get: "/v1/authorizations/{authorization_id}"
+    };
+  }
+
+  // ListAuthorizations lists all authorizations for the current user
+  rpc ListAuthorizations(ListAuthorizationsRequest) returns (AuthorizationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/authorizations"
+    };
+  }
+
+  // DeleteAuthorization deletes an authorization
+  rpc DeleteAuthorization(DeleteAuthorizationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/authorizations/{authorization_id}"
+    };
+  }
+
+  // GetAuthorizationResources retrieves resources for an authorization
+  rpc GetAuthorizationResources(GetAuthorizationResourcesRequest) returns (OAuthGetAuthorizationResourcesResponse) {
+    option (google.api.http) = {
+      get: "/v1/authorizations/resources"
+    };
+  }
+}
+
+// ============================================================================
+// Request Messages
+// ============================================================================
+
+message GetAuthorizationRequest {
+  string authorization_id = 1;
+}
+
+message ListAuthorizationsRequest {
+  int32 limit = 1;
+  SortOrder sort_order = 2;
+  string cursor = 3;
+}
+
+message DeleteAuthorizationRequest {
+  string authorization_id = 1;
+}
+
+message GetAuthorizationResourcesRequest {
+  string application_id = 1;
+  repeated string partial_scopes = 2;
+}
+
+// AuthorizationsResponse is the response when listing authorizations
+message AuthorizationsResponse {
+  repeated Authorization authorizations = 1;
+  string next_page_cursor = 2;
+}
+
+// OAuthGetAuthorizationResourcesResponse is the response for getting authorization resources
+message OAuthGetAuthorizationResourcesResponse {
+  repeated AuthorizationResourceInfo resource_infos = 1;
+}
+

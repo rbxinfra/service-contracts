@@ -1,0 +1,45 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "ScopeApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "roblox/open_cloud/scope_management/v1/scope_management.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// ScopeAPI handles scope configuration
+service ScopeAPI {
+  // GetScopeConfiguration retrieves scope configuration
+  rpc GetScopeConfiguration(GetScopeConfigurationRequest) returns (ScopeConfigurationResponse) {
+    option (google.api.http) = {
+      get: "/v1/scope-configuration"
+    };
+  }
+}
+
+message GetScopeConfigurationRequest {
+  bool return_beta_scopes = 1;
+}
+
+// ScopeConfigurationResponse is the scope configuration response
+message ScopeConfigurationResponse {
+  repeated .roblox.opencloud.scopemanagement.v1.ScopeType scope_types = 1;
+  repeated .roblox.opencloud.scopemanagement.v1.TargetTypeInfo target_types = 2;
+  repeated .roblox.opencloud.scopemanagement.v1.TargetPart target_parts = 3;
+  repeated .roblox.opencloud.scopemanagement.v1.Product products = 4;
+  repeated string oidc_scopes = 5;
+}

@@ -1,0 +1,112 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "TokenApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "roblox/open_cloud/application_authorizations/v1/authorization_api.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// TokenAPI handles OAuth2 token operations
+service TokenAPI {
+  // UseAuthorizationGrant exchanges an authorization grant for tokens
+  rpc UseAuthorizationGrant(UseAuthorizationGrantRequest) returns (OAuthTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/token"
+      body: "*"
+    };
+  }
+
+  // IntrospectToken introspects a token
+  rpc IntrospectToken(IntrospectTokenRequest) returns (OAuthTokenIntrospectionResponse) {
+    option (google.api.http) = {
+      post: "/v1/token/introspect"
+      body: "*"
+    };
+  }
+
+  // RevokeToken revokes a token
+  rpc RevokeToken(RevokeTokenRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/token/revoke"
+      body: "*"
+    };
+  }
+
+  // GetTokenAuthorizationResources retrieves resources for a token
+  rpc GetTokenAuthorizationResources(GetTokenAuthorizationResourcesRequest) returns (OAuthGetAuthorizationResourcesResponse) {
+    option (google.api.http) = {
+      post: "/v1/token/resources"
+      body: "*"
+    };
+  }
+}
+
+// ============================================================================
+// Request Messages
+// ============================================================================
+
+message UseAuthorizationGrantRequest {
+  string grant_type = 1;
+  string code = 2;
+  string code_verifier = 3;
+  string refresh_token = 4;
+  string client_id = 5;
+  string client_secret = 6;
+}
+
+message IntrospectTokenRequest {
+  string token = 1;
+  string client_id = 2;
+  string client_secret = 3;
+}
+
+message RevokeTokenRequest {
+  string token = 1;
+  string client_id = 2;
+  string client_secret = 3;
+}
+
+message GetTokenAuthorizationResourcesRequest {
+  string token = 1;
+  string client_id = 2;
+  string client_secret = 3;
+}
+
+// OAuthTokenResponse is the OAuth2 token response
+message OAuthTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string token_type = 3;
+  int32 expires_in = 4;
+  string id_token = 5;
+  string scope = 6;
+}
+
+// OAuthTokenIntrospectionResponse is the OAuth2 token introspection response
+message OAuthTokenIntrospectionResponse {
+  bool active = 1;
+  string jti = 2;
+  string iss = 3;
+  string token_type = 4;
+  string client_id = 5;
+  string aud = 6;
+  string sub = 7;
+  string scope = 8;
+  int32 exp = 9;
+  int32 iat = 10;
+}
+

@@ -1,0 +1,333 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "ApplicationAuthorizationsProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+// TargetType indicates whether a target is a User or Group
+enum TargetType {
+  TARGET_TYPE_INVALID = 0;
+  TARGET_TYPE_USER = 1;
+  TARGET_TYPE_GROUP = 2;
+}
+
+// CodeChallengeMethod specifies the PKCE code challenge method
+enum CodeChallengeMethod {
+  CODE_CHALLENGE_METHOD_INVALID = 0;
+  CODE_CHALLENGE_METHOD_S256 = 1;
+}
+
+// ErrorCode represents various API error codes
+enum ErrorCode {
+  ERROR_CODE_INVALID = 0;
+  ERROR_CODE_INTERNAL_ERROR = 1;
+  ERROR_CODE_NOT_AUTHENTICATED = 2;
+  ERROR_CODE_MISSING_ARGUMENT = 3;
+  ERROR_CODE_DUPLICATE_VALUES_ARGUMENT = 4;
+  ERROR_CODE_INVALID_ARGUMENT = 5;
+  ERROR_CODE_INVALID_REQUEST = 6;
+  ERROR_CODE_ARGUMENT_EXCEEDS_LIMIT = 7;
+  ERROR_CODE_AUTHORIZATION_UNAUTHORIZED_ACCESS = 8;
+  ERROR_CODE_AUTHORIZATION_NOT_FOUND = 9;
+  ERROR_CODE_APPLICATION_UNAUTHORIZED_ACCESS = 10;
+  ERROR_CODE_APPLICATION_NOT_FOUND = 11;
+  ERROR_CODE_TARGET_UNAUTHORIZED_ACCESS = 12;
+  ERROR_CODE_TARGET_NOT_FOUND = 13;
+  ERROR_CODE_APPLICATION_NAME_TAKEN = 14;
+  ERROR_CODE_TEXT_INAPPROPRIATE = 15;
+  ERROR_CODE_INVALID_SCOPE = 16;
+  ERROR_CODE_MALFORMED_REDIRECT_URI = 17;
+  ERROR_CODE_ILLEGAL_SCHEME_REDIRECT_URI = 18;
+  ERROR_CODE_REDIRECT_URI_MISMATCH = 19;
+  ERROR_CODE_SCOPE_MISMATCH = 20;
+  ERROR_CODE_ACCESS_DENIED = 21;
+  ERROR_CODE_SETTINGS_CHANGE_REQUIRED = 22;
+  ERROR_CODE_LUOBU_CREATOR_MOBILE_BINDING_MISSING = 23;
+  ERROR_CODE_AGE_CHECK_REQUIRED = 24;
+  ERROR_CODE_EMAIL_VERIFICATION_REQUIRED = 25;
+  ERROR_CODE_INVALID_PROMPT_VALUE = 26;
+  ERROR_CODE_INVALID_RESPONSE_TYPE_VALUE = 27;
+  ERROR_CODE_ILLEGAL_PROMPT = 28;
+  ERROR_CODE_INTERACTION_REQUIRED = 29;
+  ERROR_CODE_LOGIN_REQUIRED = 30;
+  ERROR_CODE_ACCOUNT_SELECTION_REQUIRED = 31;
+  ERROR_CODE_CONSENT_REQUIRED = 32;
+  ERROR_CODE_GROUP_NOT_FOUND = 33;
+  ERROR_CODE_CONFLICT = 34;
+  ERROR_CODE_UNAUTHORIZED_ACCESS = 35;
+  ERROR_CODE_ACTIVE_APPLICATION_LIMIT_EXCEEDED = 36;
+  ERROR_CODE_AUTHORIZATION_LIMIT_EXCEEDED = 37;
+  ERROR_CODE_INVALID_IMAGE_FILE = 38;
+  ERROR_CODE_APPLICATION_STATUS_CONFLICT = 39;
+  ERROR_CODE_INVALID_ORIGIN = 40;
+  ERROR_CODE_INVALID_VERIFICATION_TOKEN = 41;
+  ERROR_CODE_PUBLISH_LIMIT_EXCEEDED = 42;
+  ERROR_CODE_APPLICATION_MODERATED = 43;
+}
+
+// PromptType indicates the type of prompt
+enum PromptType {
+  PROMPT_TYPE_INVALID = 0;
+  PROMPT_TYPE_NONE = 1;
+  PROMPT_TYPE_LOGIN = 2;
+  PROMPT_TYPE_CONSENT = 3;
+  PROMPT_TYPE_SELECT_ACCOUNT = 4;
+  PROMPT_TYPE_SELECT_RESOURCES = 5;
+}
+
+// ResponseType indicates the OAuth2 response type
+enum ResponseType {
+  RESPONSE_TYPE_INVALID = 0;
+  RESPONSE_TYPE_NONE = 1;
+  RESPONSE_TYPE_CODE = 2;
+}
+
+// SortOrder indicates sort direction
+enum SortOrder {
+  SORT_ORDER_INVALID = 0;
+  SORT_ORDER_ASC = 1;
+  SORT_ORDER_DESC = 2;
+}
+
+// AuthorizationAction indicates an authorization action
+enum AuthorizationAction {
+  AUTHORIZATION_ACTION_INVALID = 0;
+  AUTHORIZATION_ACTION_AGE_VERIFICATION = 1;
+}
+
+// AgreementType indicates the type of user agreement
+enum AgreementType {
+  AGREEMENT_TYPE_INVALID = 0;
+  AGREEMENT_TYPE_TERMS_OF_SERVICE = 1;
+  AGREEMENT_TYPE_PRIVACY_POLICY = 2;
+  AGREEMENT_TYPE_RIDER_TERMS = 3;
+  AGREEMENT_TYPE_CHILDREN_PRIVACY_POLICY = 4;
+  AGREEMENT_TYPE_CONSENT_FLOW = 5;
+  AGREEMENT_TYPE_REFUND_TERMS = 6;
+  AGREEMENT_TYPE_LUOBU_THIRD_PARTY_DATA_USE = 7;
+  AGREEMENT_TYPE_PERSONAL_INFORMATION_POLICY = 8;
+  AGREEMENT_TYPE_PARENTAL_CONSENT = 9;
+  AGREEMENT_TYPE_IMMERSIVE_ADVERTISING_STANDARDS = 10;
+  AGREEMENT_TYPE_THIRD_PARTY_PERSONAL_INFORMATION_POLICY = 11;
+  AGREEMENT_TYPE_TRANSFER_PERSONAL_INFORMATION_POLICY = 12;
+  AGREEMENT_TYPE_OPTIONAL_PERSONAL_INFORMATION_POLICY = 13;
+  AGREEMENT_TYPE_STUDIO_TERMS_FOR_VNG_SKU = 14;
+}
+
+// ClientType indicates the client type
+enum ClientType {
+  CLIENT_TYPE_INVALID = 0;
+  CLIENT_TYPE_WEB = 1;
+  CLIENT_TYPE_APP = 2;
+  CLIENT_TYPE_STUDIO = 3;
+  CLIENT_TYPE_TALENT_HUB = 4;
+  CLIENT_TYPE_NONE = 5;
+  CLIENT_TYPE_CREATOR_DASHBOARD_ANALYTICS = 6;
+  CLIENT_TYPE_IMMERSIVE_ADS = 7;
+  CLIENT_TYPE_CREATOR_AI_ASSISTANT = 8;
+  CLIENT_TYPE_CREATOR_STORE = 9;
+  CLIENT_TYPE_AUDIO_DISTRIBUTION = 10;
+  CLIENT_TYPE_AFFILIATE_PROGRAM = 11;
+  CLIENT_TYPE_COMMERCE = 12;
+  CLIENT_TYPE_EXTENDED_SERVICES = 13;
+}
+
+// RegulationType indicates the regulation type
+enum RegulationType {
+  REGULATION_TYPE_INVALID = 0;
+  REGULATION_TYPE_GLOBAL = 1;
+  REGULATION_TYPE_LUOBU = 2;
+  REGULATION_TYPE_EUROPE = 3;
+  REGULATION_TYPE_SOUTH_KOREA = 4;
+  REGULATION_TYPE_VNG = 5;
+}
+
+// ============================================================================
+// Common Messages
+// ============================================================================
+
+// Target represents a resource owner (User or Group)
+message Target {
+  string id = 1;
+  TargetType type = 2;
+}
+
+// Resources represents a collection of resource IDs
+message Resources {
+  repeated string ids = 1;
+}
+
+// AuthorizationResourceInfo represents resource information for an authorization
+message AuthorizationResourceInfo {
+  Target owner = 1;
+  repeated Resources resources = 2;
+}
+
+// PartialScopeInfo represents partial scope information
+message PartialScopeInfo {
+  string scope_type = 1;
+  repeated string operations = 2;
+}
+
+// ============================================================================
+// Application Messages
+// ============================================================================
+
+// CreateApplicationRequest is the request to create an application
+message CreateApplicationRequestPayload {
+  string name = 1;
+  string summary = 2;
+  repeated string redirect_uris = 3;
+  repeated PartialScopeInfo allowed_scopes = 4;
+  string tos_uri = 5;
+  string privacy_uri = 6;
+  string entry_point_uri = 7;
+}
+
+// UpdateApplicationRequestPayload is the payload for updating an application
+message UpdateApplicationRequestPayload {
+  string name = 1;
+  string summary = 2;
+  repeated string redirect_uris = 3;
+  repeated PartialScopeInfo allowed_scopes = 4;
+  string tos_uri = 5;
+  string privacy_uri = 6;
+  string entry_point_uri = 7;
+}
+
+// ApplicationVersionInfo contains version information for an application
+message ApplicationVersionInfo {
+  int32 last_approved_version_number = 1;
+  int32 version_number = 2;
+  bool is_in_review = 3;
+}
+
+// LimitedApplication is a limited view of an application
+message LimitedApplication {
+  string application_id = 1;
+  Target owner = 2;
+  string name = 3;
+  string summary = 4;
+  string tos_uri = 5;
+  string privacy_uri = 6;
+  string entry_point_uri = 7;
+  string image_asset_id = 8;
+}
+
+// Application is the full application resource
+message Application {
+  string application_id = 1;
+  Target owner = 2;
+  string name = 3;
+  string summary = 4;
+  repeated string redirect_uris = 5;
+  repeated PartialScopeInfo allowed_scopes = 6;
+  ApplicationVersionInfo version_info = 7;
+  bool is_banned = 8;
+  string created_utc = 9;
+  string updated_utc = 10;
+  string tos_uri = 11;
+  string privacy_uri = 12;
+  string entry_point_uri = 13;
+  string image_asset_id = 14;
+}
+
+// ErrorResponse contains error information
+message ErrorResponse {
+  ErrorCode code = 1;
+  string message = 2;
+  string field = 3;
+}
+
+// ============================================================================
+// Authorization Messages
+// ============================================================================
+
+// AuthorizationApplication is an application in an authorization context
+message AuthorizationApplication {
+  string application_id = 1;
+  Target owner = 2;
+  string name = 3;
+  string summary = 4;
+  string tos_uri = 5;
+  string privacy_uri = 6;
+  string entry_point_uri = 7;
+  string image_asset_id = 8;
+}
+
+// Authorization is the authorization resource
+message Authorization {
+  string authorization_id = 1;
+  AuthorizationApplication application = 2;
+  repeated PartialScopeInfo scopes = 3;
+  repeated AuthorizationResourceInfo resource_info = 4;
+  string created_utc = 5;
+  string refreshed_utc = 6;
+}
+
+// ============================================================================
+// OAuth2 Messages
+// ============================================================================
+
+// OAuthErrorResponse is the OAuth2 error response
+message OAuthErrorResponse {
+  string error = 1;
+  string error_description = 2;
+  string scope = 3;
+  string state = 4;
+}
+
+// ============================================================================
+// Certificate Messages
+// ============================================================================
+
+// JwkModel represents a single JWK
+message JwkModel {
+  string alg = 1;
+  string enc = 2;
+  string kty = 3;
+  string kid = 4;
+  string use = 5;
+  string n = 6;
+  string e = 7;
+  string d = 8;
+  string p = 9;
+  string q = 10;
+  string dp = 11;
+  string dq = 12;
+  string qi = 13;
+  string crv = 14;
+  string x = 15;
+  string y = 16;
+  string k = 17;
+}
+
+// JwksModel represents a JWKS (JSON Web Key Set)
+message JwksModel {
+  repeated JwkModel keys = 1;
+}
+
+// ============================================================================
+// User Agreement Messages
+// ============================================================================
+
+// ClientAgreementResolutionResponse represents a user agreement
+message ClientAgreementResolutionResponse {
+  string id = 1;
+  AgreementType agreement_type = 2;
+  ClientType client_type = 3;
+  RegulationType regulation_type = 4;
+  string display_url = 5;
+}

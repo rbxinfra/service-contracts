@@ -1,0 +1,54 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "UserInfoApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// UserInfoAPI handles user info operations
+service UserInfoAPI {
+  // GetUserInfo retrieves user information
+  rpc GetUserInfo(google.protobuf.Empty) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      get: "/v1/userinfo"
+    };
+  }
+}
+
+// ============================================================================
+// User Info Messages
+// ============================================================================
+
+// UserInfoResponse is the user info response
+message UserInfoResponse {
+  string sub = 1;
+  string name = 2;
+  string nickname = 3;
+  string preferred_username = 4;
+  string created_at = 5;
+  string profile = 6;
+  string picture = 7;
+  string email = 8;
+  bool email_verified = 9;
+  bool verified = 10;
+  string age_bracket = 11;
+  bool premium = 12;
+  repeated string roles = 13;
+  bool internal_user = 14;
+  map<string, string> attributes = 15;
+}
+

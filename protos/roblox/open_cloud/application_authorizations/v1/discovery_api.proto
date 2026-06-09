@@ -1,0 +1,51 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "DiscoveryApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// DiscoveryAPI handles OpenID Connect discovery
+service DiscoveryAPI {
+  // GetDiscoveryConfiguration retrieves OpenID Connect discovery configuration
+  rpc GetDiscoveryConfiguration(google.protobuf.Empty) returns (OAuthDiscoveryResponse) {
+    option (google.api.http) = {
+      get: "/.well-known/openid-configuration"
+    };
+  }
+}
+
+// OAuthDiscoveryResponse is the OpenID Connect discovery response
+message OAuthDiscoveryResponse {
+  string issuer = 1;
+  string authorization_endpoint = 2;
+  string token_endpoint = 3;
+  string introspection_endpoint = 4;
+  string revocation_endpoint = 5;
+  string resources_endpoint = 6;
+  string userinfo_endpoint = 7;
+  string jwks_uri = 8;
+  string registration_endpoint = 9;
+  string service_documentation = 10;
+  repeated string scopes_supported = 11;
+  repeated string response_types_supported = 12;
+  repeated string subject_types_supported = 13;
+  repeated string id_token_signing_alg_values_supported = 14;
+  repeated string claims_supported = 15;
+  repeated string token_endpoint_auth_methods_supported = 16;
+}
+

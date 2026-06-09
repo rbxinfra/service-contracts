@@ -1,0 +1,133 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "PermissionRequestApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// PermissionRequestAPI handles OAuth2 permission requests
+service PermissionRequestAPI {
+  // ValidatePermissionRequest validates a permission request
+  rpc ValidatePermissionRequest(ValidatePermissionRequestRequest) returns (ValidatePermissionRequestResponse) {
+    option (google.api.http) = {
+      get: "/v1/permission-request"
+    };
+  }
+
+  // GetAuthorizationEndpoint retrieves the authorization endpoint
+  rpc GetAuthorizationEndpoint(GetAuthorizationEndpointRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/authorize"
+    };
+  }
+
+  // CreateAuthorizationGrant creates an authorization grant
+  rpc CreateAuthorizationGrant(CreateAuthorizationGrantRequest) returns (AuthorizationGrantResponse) {
+    option (google.api.http) = {
+      post: "/v1/authorizations"
+      body: "*"
+    };
+  }
+
+  // CreateMagicAuthorizationGrant creates a magic authorization grant
+  rpc CreateMagicAuthorizationGrant(CreateMagicAuthorizationGrantRequest) returns (MagicAuthorizationGrantResponse) {
+    option (google.api.http) = {
+      post: "/v1/authorizations/magic"
+      body: "*"
+    };
+  }
+}
+
+// ============================================================================
+// Request Messages
+// ============================================================================
+
+message ValidatePermissionRequestRequest {
+  string client_id = 1;
+  string redirect_uri = 2;
+  repeated string scopes = 3;
+  repeated ResponseType response_types = 4;
+  repeated PromptType prompts = 5;
+  string rlt = 6;
+}
+
+message GetAuthorizationEndpointRequest {
+  string client_id = 1;
+  string response_type = 2;
+  string redirect_uri = 3;
+  string scope = 4;
+  string state = 5;
+  string nonce = 6;
+  string prompt = 7;
+  string code_challenge = 8;
+  string code_challenge_method = 9;
+  string rlt = 10;
+}
+
+message CreateAuthorizationGrantRequest {
+  AuthorizationGrantRequest request = 1;
+}
+
+message CreateMagicAuthorizationGrantRequest {
+  MagicAuthorizationGrantRequest request = 1;
+}
+
+// AuthorizationGrantRequest is a request to create an authorization grant
+message AuthorizationGrantRequest {
+  string client_id = 1;
+  repeated ResponseType response_types = 2;
+  string redirect_uri = 3;
+  repeated PartialScopeInfo scopes = 4;
+  string state = 5;
+  string nonce = 6;
+  string code_challenge = 7;
+  CodeChallengeMethod code_challenge_method = 8;
+  repeated AuthorizationResourceInfo resource_infos = 9;
+}
+
+// MagicAuthorizationGrantRequest is a request for a magic authorization grant
+message MagicAuthorizationGrantRequest {
+  string client_id = 1;
+  repeated PartialScopeInfo scopes = 2;
+  string nonce = 3;
+}
+
+// AuthorizationGrantResponse is the response when creating an authorization grant
+message AuthorizationGrantResponse {
+  string location = 1;
+}
+
+// MagicAuthorizationGrantResponse is the response for a magic authorization grant
+message MagicAuthorizationGrantResponse {
+  string code = 1;
+}
+
+// ValidatePermissionRequestResponse is the response for validating a permission request
+message ValidatePermissionRequestResponse {
+  repeated PartialScopeInfo scopes = 1;
+  repeated ResponseType response_types = 2;
+  repeated PromptType prompt_types = 3;
+  repeated ClientAgreementResolutionResponse user_agreements = 4;
+  string application_id = 5;
+  Target owner = 6;
+  string name = 7;
+  string summary = 8;
+  string tos_uri = 9;
+  string privacy_uri = 10;
+  string entry_point_uri = 11;
+  string image_asset_id = 12;
+}

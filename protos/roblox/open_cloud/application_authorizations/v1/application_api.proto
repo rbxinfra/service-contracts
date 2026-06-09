@@ -1,0 +1,243 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.opencloud.applicationauthorizations.v1;
+
+option csharp_namespace = "Roblox.Opencloud.Applicationauthorizations.V1";
+option go_package = "./applicationauthorizationsv1";
+option java_multiple_files = true;
+option java_outer_classname = "ApplicationApiProto";
+option java_package = "com.roblox.opencloud.applicationauthorizations.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "roblox/open_cloud/application_authorizations/v1/application_authorizations.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// ApplicationAPI manages OAuth2 applications and authorizations
+service ApplicationAPI {
+  // CreateApplicationForUser creates a new application for a user
+  rpc CreateApplicationForUser(CreateApplicationForUserRequest) returns (CreatedApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/{user_id}/applications"
+      body: "*"
+    };
+  }
+
+  // CreateApplicationForGroup creates a new application for a group
+  rpc CreateApplicationForGroup(CreateApplicationForGroupRequest) returns (CreatedApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/groups/{group_id}/applications"
+      body: "*"
+    };
+  }
+
+  // GetApplication retrieves an application by ID
+  rpc GetApplication(GetApplicationRequest) returns (Application) {
+    option (google.api.http) = {
+      get: "/v1/applications/{application_id}"
+    };
+  }
+
+  // ListApplicationsForUser lists all applications for a user
+  rpc ListApplicationsForUser(ListApplicationsForUserRequest) returns (ApplicationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{user_id}/applications"
+    };
+  }
+
+  // ListApplicationsForGroup lists all applications for a group
+  rpc ListApplicationsForGroup(ListApplicationsForGroupRequest) returns (ApplicationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/groups/{group_id}/applications"
+    };
+  }
+
+  // UpdateApplication updates an application
+  rpc UpdateApplication(UpdateApplicationRequest) returns (Application) {
+    option (google.api.http) = {
+      patch: "/v1/applications/{application_id}"
+      body: "*"
+    };
+  }
+
+  // DeleteApplication deletes an application
+  rpc DeleteApplication(DeleteApplicationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/applications/{application_id}"
+    };
+  }
+
+  // PublishApplication publishes an application
+  rpc PublishApplication(PublishApplicationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/v1/applications/{application_id}/publish"
+    };
+  }
+
+  // PrivatizeApplication privatizes an application
+  rpc PrivatizeApplication(PrivatizeApplicationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/v1/applications/{application_id}/privatize"
+    };
+  }
+
+  // UploadApplicationImage uploads an application image
+  rpc UploadApplicationImage(UploadApplicationImageRequest) returns (ImageResponse) {
+    option (google.api.http) = {
+      post: "/v1/applications/{application_id}/image"
+      body: "*"
+    };
+  }
+
+  // RegenerateApplicationSecret regenerates the application secret
+  rpc RegenerateApplicationSecret(RegenerateApplicationSecretRequest) returns (ApplicationSecretResponse) {
+    option (google.api.http) = {
+      post: "/v1/applications/{application_id}/secret"
+    };
+  }
+
+  // ValidateApplicationName validates an application name
+  rpc ValidateApplicationName(ValidateApplicationNameRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/applications/names/validate"
+    };
+  }
+
+  // ValidateApplicationSummary validates an application summary
+  rpc ValidateApplicationSummary(ValidateApplicationSummaryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/applications/summary/validate"
+    };
+  }
+
+  // GetApplicationManagementMetadata retrieves application management metadata
+  rpc GetApplicationManagementMetadata(google.protobuf.Empty) returns (ApplicationManagementMetadataResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/metadata"
+    };
+  }
+}
+
+// ============================================================================
+// Request Messages
+// ============================================================================
+
+message CreateApplicationForUserRequest {
+  string user_id = 1;
+  CreateApplicationRequestPayload application = 2;
+}
+
+message CreateApplicationForGroupRequest {
+  string group_id = 1;
+  CreateApplicationRequestPayload application = 2;
+}
+
+message GetApplicationRequest {
+  string application_id = 1;
+}
+
+message ListApplicationsForUserRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  SortOrder sort_order = 3;
+  string cursor = 4;
+}
+
+message ListApplicationsForGroupRequest {
+  string group_id = 1;
+  int32 limit = 2;
+  SortOrder sort_order = 3;
+  string cursor = 4;
+}
+
+message UpdateApplicationRequest {
+  string application_id = 1;
+  UpdateApplicationRequestPayload update = 2;
+}
+
+message DeleteApplicationRequest {
+  string application_id = 1;
+}
+
+message PublishApplicationRequest {
+  string application_id = 1;
+}
+
+message PrivatizeApplicationRequest {
+  string application_id = 1;
+}
+
+message UploadApplicationImageRequest {
+  string application_id = 1;
+  bytes image_file = 2;
+}
+
+message RegenerateApplicationSecretRequest {
+  string application_id = 1;
+}
+
+message ValidateApplicationNameRequest {
+  string name = 1;
+  string application_id = 2;
+}
+
+message ValidateApplicationSummaryRequest {
+  string summary = 1;
+}
+
+// CreatedApplicationResponse is the response when creating an application
+message CreatedApplicationResponse {
+  string application_secret = 1;
+  repeated string redirect_uris = 2;
+  repeated PartialScopeInfo allowed_scopes = 3;
+  ApplicationVersionInfo version_info = 4;
+  bool is_banned = 5;
+  string created_utc = 6;
+  string updated_utc = 7;
+  string application_id = 8;
+  Target owner = 9;
+  string name = 10;
+  string summary = 11;
+  string tos_uri = 12;
+  string privacy_uri = 13;
+  string entry_point_uri = 14;
+  string image_asset_id = 15;
+}
+
+// ApplicationSecretResponse is the response containing the application secret
+message ApplicationSecretResponse {
+  string application_secret = 1;
+}
+
+
+// ApplicationsResponse is the response when listing applications
+message ApplicationsResponse {
+  repeated Application applications = 1;
+  string next_page_cursor = 2;
+}
+
+// ApplicationManagementMetadataResponse is the response for application management metadata
+message ApplicationManagementMetadataResponse {
+  bool is_create_user_applications_allowed = 1;
+  bool is_view_user_applications_allowed = 2;
+  bool is_update_user_applications_allowed = 3;
+  bool is_delete_user_applications_allowed = 4;
+  repeated AuthorizationAction actions = 5;
+  int32 min_name_length = 6;
+  int32 max_name_length = 7;
+  int32 max_summary_length = 8;
+  int32 max_redirect_uri_count = 9;
+  int32 max_redirect_uri_length = 10;
+  int32 max_active_applications = 11;
+}
+
+// ImageResponse is the response when uploading an image
+message ImageResponse {
+  string image_asset_id = 1;
+}

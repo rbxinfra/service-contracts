@@ -1,0 +1,17 @@
+version: 1.0.0
+protos_path: roblox/analytics
+
+protos:
+  - name: Roblox.Analytics.Analyticsquerygateway
+    path: analytics_query_gateway/v1/analytics_query_gateway.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+
+  - name: Roblox.Analytics.Analyticsquerygateway.V1.AnalyticsQueryGatewayAPI
+    type: api
+    path: analytics_query_gateway/v1/analytics_query_gateway_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf
+      - Roblox.Analytics.Analyticsquerygateway
+

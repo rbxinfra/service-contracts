@@ -1,0 +1,176 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.analytics.analyticsquerygateway.v1;
+
+option csharp_namespace = "Roblox.Analytics.Analyticsquerygateway.V1";
+option go_package = "./analyticsquerygatewayv1";
+option java_multiple_files = true;
+option java_outer_classname = "AnalyticsQueryGatewayApiProto";
+option java_package = "com.roblox.analytics.analyticsquerygateway.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "roblox/analytics/analytics_query_gateway/v1/analytics_query_gateway.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// AnalyticsQueryGatewayAPI provides endpoints for executing and validating metric queries
+service AnalyticsQueryGatewayAPI {
+  // Execute executes a DAG-based metric query
+  rpc Execute(ExecuteDagRequest) returns (ExecuteDagResponse) {
+    option (google.api.http) = {
+      post: "/v1/dag/execute"
+      body: "*"
+    };
+  }
+
+  // Validate validates a DAG-based metric query without executing it
+  rpc Validate(ValidateDagRequest) returns (ValidateDagResponse) {
+    option (google.api.http) = {
+      post: "/v1/dag/validate"
+      body: "*"
+    };
+  }
+
+  // GetDimensionValues retrieves available dimension values for a resource
+  rpc GetDimensionValues(DimensionValuesRequest) returns (DimensionValuesResponse) {
+    option (google.api.http) = {
+      post: "/v1/dimensions/resource/{resource_type}/id/{resource_id}"
+      body: "*"
+    };
+  }
+
+  // GetMetricMetadata retrieves metadata for available metrics
+  rpc GetMetricMetadata(MetricMetadataRequest) returns (MetricMetadataResponse) {
+    option (google.api.http) = {
+      post: "/v1/metrics/metadata"
+      body: "*"
+    };
+  }
+
+  // QueryMetrics queries metrics for a resource
+  rpc QueryMetrics(QueryRequest) returns (QueryResponse) {
+    option (google.api.http) = {
+      post: "/v1/metrics/resource/{resource_type}/id/{resource_id}"
+      body: "*"
+    };
+  }
+
+  // GetStatusConfig retrieves status configuration
+  rpc GetStatusConfig(GetStatusConfigRequest) returns (GetStatusConfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/status-config"
+    };
+  }
+}
+
+// ExecuteDagRequest is the request to execute a DAG-based query
+message ExecuteDagRequest {
+  // graph is the DAG computation graph
+  DagGraph graph = 1;
+  
+  // context is the execution context
+  DagExecutionContext context = 2;
+  
+  // include_debug includes debug information in the response
+  bool include_debug = 3;
+}
+
+// ExecuteDagResponse is the response from executing a DAG query
+message ExecuteDagResponse {
+  // result is the execution result
+  DagResult result = 1;
+  
+  // operation_id is the operation ID for tracking
+  string operation_id = 2;
+  
+  // pending indicates if the operation is still pending
+  bool pending = 3;
+}
+
+// ValidateDagRequest is the request to validate a DAG
+message ValidateDagRequest {
+  // graph is the DAG computation graph to validate
+  DagGraph graph = 1;
+  
+  // context is the execution context
+  DagExecutionContext context = 2;
+}
+
+// ValidateDagResponse is the response from validating a DAG
+message ValidateDagResponse {
+  // is_valid indicates if the DAG is valid
+  bool is_valid = 1;
+  
+  // errors are validation errors
+  repeated DagError errors = 2;
+  
+  // warnings are validation warnings
+  string warnings = 3;
+}
+
+// DimensionValuesRequest is the request to get dimension values
+message DimensionValuesRequest {
+  // resource_type is the type of resource
+  ResourceType resource_type = 1;
+  
+  // resource_id is the ID of the resource
+  string resource_id = 2;
+  
+  // query is the dimension values query
+  DimensionValuesQuery query = 3;
+}
+
+// DimensionValuesResponse is the response from getting dimension values
+message DimensionValuesResponse {
+  // operation contains the result
+  Operation operation = 1;
+}
+
+// MetricMetadataRequest is the request to get metric metadata
+message MetricMetadataRequest {
+  // query is the metric metadata query
+  MetricMetadataQuery query = 1;
+}
+
+// MetricMetadataResponse is the response from getting metric metadata
+message MetricMetadataResponse {
+  // operation contains the result
+  Operation operation = 1;
+}
+
+// QueryRequest is the request to query metrics
+message QueryRequest {
+  // resource_type is the type of resource
+  ResourceType resource_type = 1;
+  
+  // resource_id is the ID of the resource
+  string resource_id = 2;
+  
+  // query is the metric query
+  RaqiQuery query = 3;
+}
+
+// QueryResponse is the response from querying metrics
+message QueryResponse {
+  // operation contains the result
+  Operation operation = 1;
+}
+
+// GetStatusConfigRequest is the request to get status configuration
+message GetStatusConfigRequest {
+  // universe_id is the optional universe ID
+  string universe_id = 1;
+}
+
+// GetStatusConfigResponse contains status configuration
+message GetStatusConfigResponse {
+  repeated BannerConfiguration banner_configurations = 1;
+  repeated AnnotationConfiguration annotation_configurations = 2;
+  repeated ChartWarningConfiguration chart_warning_configurations = 3;
+}
+

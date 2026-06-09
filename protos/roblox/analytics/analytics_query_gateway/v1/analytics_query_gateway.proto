@@ -1,0 +1,486 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.analytics.analyticsquerygateway.v1;
+
+option csharp_namespace = "Roblox.Analytics.Analyticsquerygateway.V1";
+option go_package = "./analyticsquerygatewayv1";
+option java_multiple_files = true;
+option java_outer_classname = "AnalyticsQueryGatewayProto";
+option java_package = "com.roblox.analytics.analyticsquerygateway.v1";
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+// ResourceType is the type of analytics resource
+enum ResourceType {
+  RESOURCE_TYPE_INVALID = 0;
+  RESOURCE_TYPE_UNIVERSE = 1;
+  RESOURCE_TYPE_CREATOR = 2;
+  RESOURCE_TYPE_GROUP = 3;
+  RESOURCE_TYPE_ORGANIZATION = 4;
+  RESOURCE_TYPE_AD_ACCOUNT_ID = 5;
+}
+
+// MetricGranularity is the time granularity for metrics
+enum MetricGranularity {
+  METRIC_GRANULARITY_INVALID = 0;
+  METRIC_GRANULARITY_DEFAULT_GRANULARITY = 1;
+  METRIC_GRANULARITY_ONE_MINUTE = 2;
+  METRIC_GRANULARITY_ONE_HOUR = 3;
+  METRIC_GRANULARITY_ONE_DAY = 4;
+  METRIC_GRANULARITY_ONE_WEEK = 5;
+  METRIC_GRANULARITY_NONE = 6;
+  METRIC_GRANULARITY_HALF_HOUR = 7;
+  METRIC_GRANULARITY_ONE_MONTH = 8;
+}
+
+// NodeType is the type of computation node
+enum NodeType {
+  NODE_TYPE_INVALID = 0;
+  NODE_TYPE_QUERY = 1;
+  NODE_TYPE_CONSTANT = 2;
+  NODE_TYPE_ADD = 3;
+  NODE_TYPE_SUBTRACT = 4;
+  NODE_TYPE_MULTIPLY = 5;
+  NODE_TYPE_DIVIDE = 6;
+  NODE_TYPE_POWER = 7;
+  NODE_TYPE_LOG = 8;
+  NODE_TYPE_ROLLING_WINDOW = 9;
+  NODE_TYPE_SERIES_SUM = 10;
+  NODE_TYPE_SERIES_AVG = 11;
+  NODE_TYPE_SERIES_MIN = 12;
+  NODE_TYPE_SERIES_MAX = 13;
+  NODE_TYPE_PERCENTILE = 14;
+  NODE_TYPE_OUTPUT = 15;
+  NODE_TYPE_POISONED = 16;
+}
+
+// ErrorCode is the error code for query execution failures
+enum ErrorCode {
+  ERROR_CODE_INVALID = 0;
+  ERROR_CODE_INVALID_JSON = 1;
+  ERROR_CODE_MISSING_NODE_ID = 2;
+  ERROR_CODE_DUPLICATE_NODE_ID = 3;
+  ERROR_CODE_INVALID_EDGE_REFERENCE = 4;
+  ERROR_CODE_CYCLE_DETECTED = 5;
+  ERROR_CODE_NO_OUTPUT_NODES = 6;
+  ERROR_CODE_INVALID_NODE_CONFIG = 7;
+  ERROR_CODE_COMPLEXITY_EXCEEDED = 8;
+  ERROR_CODE_MISSING_INPUT = 9;
+  ERROR_CODE_INVALID_NODE_TYPE = 10;
+  ERROR_CODE_UNAUTHORIZED = 11;
+  ERROR_CODE_NOT_ELIGIBLE = 12;
+  ERROR_CODE_INCOMPATIBLE_GRANULARITY = 13;
+  ERROR_CODE_INSUFFICIENT_LOOKBACK = 14;
+  ERROR_CODE_TYPE_MISMATCH = 15;
+  ERROR_CODE_INVALID_TIME_RANGE = 16;
+  ERROR_CODE_QUERY_FAILED = 17;
+  ERROR_CODE_TRANSFORM_FAILED = 18;
+  ERROR_CODE_TIMEOUT = 19;
+  ERROR_CODE_CANCELLED = 20;
+  ERROR_CODE_UPSTREAM_FAILED = 21;
+  ERROR_CODE_DIVISION_BY_ZERO = 22;
+  ERROR_CODE_INVALID_PERCENTILE = 23;
+  ERROR_CODE_INVALID_MATH_DOMAIN = 24;
+  ERROR_CODE_INTERNAL_ERROR = 25;
+  ERROR_CODE_SERVICE_UNAVAILABLE = 26;
+  ERROR_CODE_RESOURCE_EXHAUSTED = 27;
+}
+
+// ErrorSeverity is the severity level of an error
+enum ErrorSeverity {
+  ERROR_SEVERITY_INVALID = 0;
+  ERROR_SEVERITY_WARNING = 1;
+  ERROR_SEVERITY_ERROR = 2;
+  ERROR_SEVERITY_CRITICAL = 3;
+}
+
+// BreakdownFunction is the function to apply during breakdown
+enum BreakdownFunction {
+  BREAKDOWN_FUNCTION_INVALID = 0;
+  BREAKDOWN_FUNCTION_TOP_N = 1;
+}
+
+// FilterOperation is the operation for filtering dimension values
+enum FilterOperation {
+  FILTER_OPERATION_INVALID = 0;
+  FILTER_OPERATION_CONTAINS = 1;
+  FILTER_OPERATION_NOT_CONTAINS = 2;
+  FILTER_OPERATION_GT = 3;
+  FILTER_OPERATION_GTE = 4;
+  FILTER_OPERATION_LT = 5;
+  FILTER_OPERATION_LTE = 6;
+  FILTER_OPERATION_MATCH = 7;
+  FILTER_OPERATION_EQUALS = 8;
+  FILTER_OPERATION_NOT_EQUAL = 9;
+}
+
+// DataStatus is the status of a data point
+enum DataStatus {
+  DATA_STATUS_INVALID = 0;
+  DATA_STATUS_VALID = 1;
+  DATA_STATUS_IN_PROGRESS = 2;
+  DATA_STATUS_INCOMPLETE = 3;
+  DATA_STATUS_NOT_MEANINGFUL = 4;
+  DATA_STATUS_PROJECTED = 5;
+  DATA_STATUS_NOT_STATISTICALLY_SIGNIFICANT = 6;
+}
+
+// WindowReducer is the reducer function for rolling windows
+enum WindowReducer {
+  WINDOW_REDUCER_INVALID = 0;
+  WINDOW_REDUCER_SUM = 1;
+  WINDOW_REDUCER_AVG = 2;
+  WINDOW_REDUCER_MIN = 3;
+  WINDOW_REDUCER_MAX = 4;
+  WINDOW_REDUCER_COUNT = 5;
+  WINDOW_REDUCER_FIRST = 6;
+  WINDOW_REDUCER_LAST = 7;
+}
+
+// QueryValidationField is the field that failed validation
+enum QueryValidationField {
+  QUERY_VALIDATION_FIELD_INVALID = 0;
+  QUERY_VALIDATION_FIELD_FILTER = 1;
+  QUERY_VALIDATION_FIELD_BREAKDOWN = 2;
+  QUERY_VALIDATION_FIELD_GRANULARITY = 3;
+  QUERY_VALIDATION_FIELD_TIME_RANGE = 4;
+  QUERY_VALIDATION_FIELD_METRIC = 5;
+}
+
+// ============================================================================
+// Query Messages
+// ============================================================================
+
+// QueryBreakdown specifies how to break down query results
+message QueryBreakdown {
+  repeated string dimensions = 1;
+  BreakdownFunction function = 2;
+  string function_params = 3;
+}
+
+// QueryFilter applies filters to query results
+message QueryFilter {
+  string dimension = 1;
+  repeated string values = 2;
+  FilterOperation operation = 3;
+}
+
+// TopNConfig specifies top-N configuration
+message TopNConfig {
+  int32 n = 1;
+  string order_by_metric = 2;
+  repeated QueryFilter order_filters = 3;
+  bool exclude_other_series = 4;
+  int32 order_time_range_days = 5;
+  string other_label = 6;
+  string dimension = 7;
+  repeated string excluded_values = 8;
+}
+
+// RaqiQuery is a RAQI (Roblox Analytics Query Interface) query
+message RaqiQuery {
+  string metric = 1;
+  MetricGranularity granularity = 2;
+  repeated QueryBreakdown breakdown = 3;
+  repeated QueryFilter filter = 4;
+  string start_time = 5;
+  string end_time = 6;
+  int32 limit = 7;
+}
+
+// QueryError contains error information from a query
+message QueryError {
+  string code = 1;
+  string message = 2;
+  QueryValidationDetails validation_details = 3;
+}
+
+// QueryValidationDetails contains validation details
+message QueryValidationDetails {
+  QueryValidationField field = 1;
+  string subject = 2;
+  string rejected_values = 3;
+}
+
+// ============================================================================
+// Data Point Messages
+// ============================================================================
+
+// BreakdownValue is a value for a breakdown dimension
+message BreakdownValue {
+  string dimension = 1;
+  string value = 2;
+  string display_value = 3;
+}
+
+// DataPoint is a single data point in a time series
+message DataPoint {
+  int64 time = 1;
+  double value = 2;
+  repeated string string_values = 3;
+  DataStatus status = 4;
+}
+
+// MetricValue is a metric value with optional breakdowns
+message MetricValue {
+  repeated BreakdownValue breakdown_value = 1;
+  repeated DataPoint data_points = 2;
+}
+
+// QueryResult is the result of a metric query
+message QueryResult {
+  repeated MetricValue values = 1;
+}
+
+// ============================================================================
+// Dimension Messages
+// ============================================================================
+
+// Dimension identifies a dimension for breaking down metrics
+message Dimension {
+  string namespace = 1;
+  string name = 2;
+}
+
+// DimensionValues contains available values for a dimension
+message DimensionValues {
+  Dimension dimension = 1;
+  repeated BreakdownValue values = 2;
+}
+
+// DimensionValuesQuery specifies parameters for querying dimension values
+message DimensionValuesQuery {
+  ResourceType resource_type = 1;
+  string resource_id = 2;
+  repeated Dimension dimensions = 3;
+  string start_time = 4;
+  string end_time = 5;
+  int32 limit = 6;
+  repeated QueryFilter filters = 7;
+  MetricGranularity granularity = 8;
+}
+
+// DimensionValuesResult contains the result of a dimension values query
+message DimensionValuesResult {
+  repeated DimensionValues values = 1;
+}
+
+// ============================================================================
+// Metric Metadata Messages
+// ============================================================================
+
+// MetricMetadata contains metadata about a metric
+message MetricMetadata {
+  string metric = 1;
+  string latest_available_time = 2;
+}
+
+// MetricMetadataQuery queries metric metadata
+message MetricMetadataQuery {
+  repeated string metrics = 1;
+}
+
+// MetricMetadataResult contains metric metadata query results
+message MetricMetadataResult {
+  repeated MetricMetadata metadata = 1;
+}
+
+// ============================================================================
+// DAG Messages
+// ============================================================================
+
+// DagGraph is a directed acyclic graph for metric computation
+message DagGraph {
+  string id = 1;
+  string name = 2;
+  repeated DagNode nodes = 3;
+}
+
+// DagNode is a node in the computation graph
+message DagNode {
+  string id = 1;
+  NodeType type = 2;
+  QueryNodeConfig query_config = 3;
+  MathNodeConfig math_config = 4;
+  RollingWindowConfig rolling_window_config = 5;
+  AggregationConfig aggregation_config = 6;
+  OutputConfig output_config = 7;
+  ConstantNodeConfig constant_config = 8;
+  PoisonedNodeConfig poisoned_config = 9;
+}
+
+// QueryNodeConfig is configuration for a query node
+message QueryNodeConfig {
+  string metric = 1;
+  ResourceType resource_type = 2;
+  string resource_id = 3;
+  MetricGranularity granularity = 4;
+  repeated QueryBreakdown breakdown = 5;
+  repeated QueryFilter filters = 6;
+  TopNConfig top_n = 7;
+  string pseudo_dimension_values = 8;
+}
+
+// MathNodeConfig is configuration for mathematical operation nodes
+message MathNodeConfig {
+  repeated string inputs = 1;
+}
+
+// RollingWindowConfig is configuration for rolling window aggregation
+message RollingWindowConfig {
+  string input = 1;
+  string window_size = 2;
+  WindowReducer reducer = 3;
+}
+
+// AggregationConfig is configuration for aggregation nodes
+message AggregationConfig {
+  string input = 1;
+  double percentile = 2;
+}
+
+// OutputConfig is configuration for output nodes
+message OutputConfig {
+  string input = 1;
+  string alias = 2;
+}
+
+// ConstantNodeConfig is configuration for constant value nodes
+message ConstantNodeConfig {
+  double value = 1;
+}
+
+// PoisonedNodeConfig is configuration for poisoned nodes (error states)
+message PoisonedNodeConfig {
+  ErrorCode error_code = 1;
+  string error_message = 2;
+  string suggestion = 3;
+}
+
+// DagExecutionContext is the context for DAG execution
+message DagExecutionContext {
+  ResourceType resource_type = 1;
+  string resource_id = 2;
+  MetricGranularity granularity = 3;
+  string start_time = 4;
+  string end_time = 5;
+  string trace_id = 6;
+}
+
+// DagError is an error that occurred during DAG validation or execution
+message DagError {
+  ErrorCode code = 1;
+  ErrorSeverity severity = 2;
+  string message = 3;
+  string node_id = 4;
+  string suggestion = 5;
+  string context = 6;
+}
+
+// DagComplexity contains complexity metrics for a DAG
+message DagComplexity {
+  int32 query_count = 1;
+  int32 transform_count = 2;
+  int32 aggregation_count = 3;
+  int32 max_depth = 4;
+  double estimated_cost = 5;
+  int32 max_fan_out = 6;
+  int32 root_count = 7;
+}
+
+// NodeExecutionTiming contains timing information for a node
+message NodeExecutionTiming {
+  string node_id = 1;
+  NodeType node_type = 2;
+  int64 start_offset_ms = 3;
+  int64 duration_ms = 4;
+  bool success = 5;
+  string error = 6;
+  string failed_due_to = 7;
+  bool skipped = 8;
+  ErrorCode error_code = 9;
+}
+
+// DagExecutionMetadata contains metadata about DAG execution
+message DagExecutionMetadata {
+  int64 total_execution_time_ms = 1;
+  string trace_id = 2;
+  int32 total_nodes = 3;
+  DagComplexity complexity = 4;
+  repeated NodeExecutionTiming node_timings = 5;
+}
+
+// DagResult is the result of DAG execution
+message DagResult {
+  bool success = 1;
+  repeated NodeResult outputs = 2;
+  DagExecutionMetadata metadata = 3;
+  repeated DagError errors = 4;
+  string warnings = 5;
+  bool partial_success = 6;
+}
+
+// NodeResult is the result from a single node
+message NodeResult {
+  string node_id = 1;
+  bool success = 2;
+  string error = 3;
+  QueryResult time_series = 4;
+  double scalar_value = 5;
+  int64 execution_time_ms = 6;
+  ErrorCode error_code = 7;
+  string failed_due_to = 8;
+  bool skipped = 9;
+}
+
+// ============================================================================
+// Status Configuration Messages
+// ============================================================================
+
+// BannerConfiguration specifies banner display configuration
+message BannerConfiguration {
+  string key = 1;
+  string targets = 2;
+  int64 unix_start_time = 3;
+  string links = 4;
+  string dimensions = 5;
+}
+
+// AnnotationConfiguration specifies annotation configuration
+message AnnotationConfiguration {
+  string key = 1;
+  string targets = 2;
+  string category = 3;
+}
+
+// ChartWarningConfiguration specifies chart warning configuration
+message ChartWarningConfiguration {
+  string key = 1;
+  string targets = 2;
+}
+
+// ============================================================================
+// Operation Messages
+// ============================================================================
+
+// Operation represents a long-running operation result
+message Operation {
+  string path = 1;
+  OperationMetadata metadata = 2;
+  bool done = 3;
+  QueryError error = 4;
+  QueryResult query_result = 5;
+  DimensionValuesResult dimension_values_result = 6;
+  MetricMetadataResult metric_metadata_result = 7;
+}
+
+// OperationMetadata contains metadata about an operation
+message OperationMetadata {
+  string created_time = 1;
+}

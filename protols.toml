@@ -1,0 +1,6 @@
+[config]
+include_paths = ["protos"] # Include paths to look for protofiles during parsing
+
+[config.path]
+clang_format = "clang-format"
+protoc = "protoc"

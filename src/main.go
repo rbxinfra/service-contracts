@@ -67,7 +67,7 @@ func main() {
 	}
 
 	if *flags.CreateSolution {
-		solutionPath := path.Join(*flags.OutputDirectoryFlag, "Protos.sln")
+		solutionPath := path.Join(*flags.OutputDirectoryFlag, "Protos.slnx")
 
 		if err := os.Remove(solutionPath); err != nil && !os.IsNotExist(err) {
 			panic(err)

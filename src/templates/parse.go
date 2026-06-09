@@ -12,22 +12,31 @@ import (
 )
 
 const (
-	productMessagesText = "BEDEV2 gRPC Models %s"
-	productClientText = "BEDEV2 gRPC API Client %s"
-	productServiceText = "BEDEV2 gRPC API %s"
+	apiProto = "api"
 
-	baseDescriptionText = "Service-Contracts repository auto-generated this"
+	productMessagesText = "BEDEV2 gRPC Models %s"
+	productClientText   = "BEDEV2 gRPC API Client %s"
+	productServiceText  = "BEDEV2 gRPC API %s"
+
+	baseDescriptionText     = "Service-Contracts repository auto-generated this"
 	messagesDescriptionText = baseDescriptionText + " messages library for %s."
-	clientDescriptionText = baseDescriptionText + " service client for %s."
-	serviceDescriptionText = baseDescriptionText + " service for %s."
+	clientDescriptionText   = baseDescriptionText + " service client for %s."
+	serviceDescriptionText  = baseDescriptionText + " service for %s."
 
 	referenceText = "        <ProjectReference Include=\"$(RootDir)/%s\" />"
 	itemGroupText = "<ItemGroup>%s\n    </ItemGroup>"
 
 	protoReferenceText = "<Protobuf ProtoRoot=\"$(ProtoRoot)\" Include=\"$(ProtoRoot)/%s\" Link=\"%s\" GrpcServices=\"%s\" />"
 
-	csprojExtension = ".csproj"
+	csprojExtension       = ".csproj"
 	clientCsprojExtension = ".Client.csproj"
+
+	servicePathPart = "service"
+	clientPathPart  = "bedev2"
+
+	noReferenceName      = "None"
+	serviceReferenceName = "Service"
+	clientReferenceName  = "Client"
 )
 
 func executeTemplateForCsproj(model *csproj.ProjectModel) (string, error) {
@@ -48,7 +57,7 @@ func executeTemplateForCsproj(model *csproj.ProjectModel) (string, error) {
 }
 
 func getProduct(proto *models.Proto, isService bool) string {
-	if proto.Type == "api" {
+	if proto.Type == apiProto {
 		if isService {
 			return fmt.Sprintf(productServiceText, proto.Name)
 		}
@@ -60,7 +69,7 @@ func getProduct(proto *models.Proto, isService bool) string {
 }
 
 func getProductDescription(proto *models.Proto, isService bool) string {
-	if proto.Type == "api" {
+	if proto.Type == apiProto {
 		if isService {
 			return fmt.Sprintf(serviceDescriptionText, proto.Name)
 		}
@@ -72,7 +81,11 @@ func getProductDescription(proto *models.Proto, isService bool) string {
 }
 
 func buildReference(ref *models.Proto) string {
-	return fmt.Sprintf(referenceText, path.Join(ref.OutputPath, ref.Name + csprojExtension))
+	if ref.Type == apiProto {
+		return fmt.Sprintf(referenceText, path.Join(ref.OutputPath, servicePathPart, ref.Name+csprojExtension))
+	}
+
+	return fmt.Sprintf(referenceText, path.Join(ref.OutputPath, ref.Name+csprojExtension))
 }
 
 func buildReferencesString(refs []*models.Proto) string {
@@ -90,13 +103,13 @@ func buildReferencesString(refs []*models.Proto) string {
 }
 
 func buildProtoReference(proto *models.Proto, isForService bool) string {
-	services := "None"
+	services := noReferenceName
 
-	if proto.Type == "api" {
+	if proto.Type == apiProto {
 		if isForService {
-			services = "Service"
+			services = serviceReferenceName
 		} else {
-			services = "Client"
+			services = clientReferenceName
 		}
 	}
 
@@ -124,7 +137,7 @@ func ParseForConfiguration(configMap map[string]*models.Proto) (map[string]strin
 		model := csproj.BuildModel(proto)
 		model.References = buildReferencesString(protoDependencies)
 
-		if proto.Type == "api" {
+		if proto.Type == apiProto {
 			// Gen for both client and service here.
 
 			// service first.
@@ -134,7 +147,7 @@ func ParseForConfiguration(configMap map[string]*models.Proto) (map[string]strin
 
 			var err error
 
-			if files[path.Join(proto.OutputPath, "service", protoName + csprojExtension)], err = executeTemplateForCsproj(model); err != nil {
+			if files[path.Join(proto.OutputPath, servicePathPart, protoName+csprojExtension)], err = executeTemplateForCsproj(model); err != nil {
 				fmt.Fprintf(os.Stderr, "Skipping rest of proto %s due to error: %+v\n", proto.Name, err)
 
 				continue
@@ -144,8 +157,7 @@ func ParseForConfiguration(configMap map[string]*models.Proto) (map[string]strin
 			model.Description = getProductDescription(proto, false)
 			model.Protos = buildProtoReference(proto, false)
 
-
-			if files[path.Join(proto.OutputPath, "bedev2", protoName + clientCsprojExtension)], err = executeTemplateForCsproj(model); err != nil {
+			if files[path.Join(proto.OutputPath, clientPathPart, protoName+clientCsprojExtension)], err = executeTemplateForCsproj(model); err != nil {
 				fmt.Fprintf(os.Stderr, "Skipping rest of proto %s due to error: %+v\n", proto.Name, err)
 
 				continue
@@ -156,7 +168,7 @@ func ParseForConfiguration(configMap map[string]*models.Proto) (map[string]strin
 			model.Protos = buildProtoReference(proto, false)
 
 			var err error
-			if files[path.Join(proto.OutputPath, protoName + csprojExtension)], err = executeTemplateForCsproj(model); err != nil {
+			if files[path.Join(proto.OutputPath, protoName+csprojExtension)], err = executeTemplateForCsproj(model); err != nil {
 				fmt.Fprintf(os.Stderr, "Error generating proto %s: %+v\n", proto.Name, err)
 
 				continue

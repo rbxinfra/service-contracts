@@ -1,0 +1,182 @@
+//  gRPC Service
+//
+// Copyright © 2026 Roblox
+//
+syntax = "proto3";
+
+package roblox.accessmanagement.accessmanagement.v1;
+
+option csharp_namespace = "Roblox.Accessmanagement.Accessmanagement.V1";
+option go_package = "./accessmanagementv1";
+option java_multiple_files = true;
+option java_outer_classname = "AccessManagementProto";
+option java_package = "com.roblox.accessmanagement.accessmanagement.v1";
+
+import "roblox/protobuf/options.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// AccessManagement Service
+service AccessManagementAPI {
+	// Evaluates whether the current authenticated user has access to one or more
+	// features.
+	//
+	// This operation is intended for client-side or service-side feature gate
+	// checks and supports evaluating multiple feature names within a namespace.
+	// Additional evaluation context may be supplied through the extraParameters
+	// query parameter.
+	rpc GetFeatureAccess(GetFeatureAccessRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/v1/feature-access"
+		};
+	};
+
+
+	// Evaluates access to a feature for a target user in relation to one or more other users.
+	//
+	// This operation is typically used for social features where access depends on relationships between users, 
+	// such as friends, followers, ownership relationships, collaborations, or other pairwise rules.
+	rpc GetPairwiseFeatureAccess(GetPairwiseFeatureAccessRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/v1/pairwise-feature-access"
+		};
+	};
+
+	// Evaluates feature access for the owner of an RCC execution context.
+	//
+	// Feature access is determined using ownership information associated with the supplied place.
+	rpc GetRCCOwnerFeatureAccess(GetRCCOwnerFeatureAccessRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/v1/rcc-owner-feature-access"
+		};
+	};
+
+	// Evaluates feature access for a specific user within an RCC execution context.
+	//
+	// The evaluation considers both the target user and the supplied game/place identifiers.
+	rpc GetRCCUserFeatureAccess(GetRCCUserFeatureAccessRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/v1/rcc-user-feature-access"
+		};
+	};
+
+	// Performs bulk feature evaluations for one or more users within an RCC execution context.
+	//
+	// This operation is optimized for high-throughput feature evaluation and 
+	// supports batching multiple requests into a single call.
+	rpc GetRCCUserFeatureEvaluation(BulkFeatureEvaluationRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			post: "/v1/rcc-user-feature-evaluation"
+			body: "*"
+		};
+	};
+
+	// Evaluates access to an upsell-related feature.
+	//
+	// Used to determine whether an upsell, purchase flow, 
+	// premium prompt, subscription prompt, or monetization experience should be shown to a user.
+	rpc GetUpsellFeatureAccess(GetUpsellFeatureAccessRequest) returns (google.protobuf.Empty) {
+		option (google.api.http) = {
+			get: "/v1/upsell-feature-access"
+		};
+	};
+};
+
+///////////////////////////////////////////////////////
+////////// REQUEST AND RESPONSE MESSAGES //////////////
+///////////////////////////////////////////////////////
+
+// GetFeatureAccessRequest is the request message for GetFeatureAccess.
+message GetFeatureAccessRequest {
+	// List of feature names to evaluate access for.
+	repeated string feature_names = 1;
+
+	// Optional namespace for the features. If not specified, a default namespace is used.
+	string namespace = 2;
+
+	// Optional extra parameters to provide additional context for the access evaluation.
+	// This can include any relevant information that may influence access decisions, such as user attributes,
+	// device information, or other contextual data.
+	map<string, string> extra_parameters = 3;
+};
+
+// GetPairwiseFeatureAccessRequest is the request message for GetPairwiseFeatureAccess.
+message GetPairwiseFeatureAccessRequest {
+	// The name of the feature to evaluate access for.
+	string feature_name = 1;
+
+	// The namespace of the feature. If not specified, a default namespace is used.
+	string namespace = 2;
+
+	// The target user for whom access is being evaluated.
+	int64 target_user_id = 3;
+
+	// List of other users to evaluate pairwise relationships against.
+	repeated int64 other_user_ids = 4;
+};
+
+// GetRCCOwnerFeatureAccessRequest is the request message for GetRCCOwnerFeatureAccess.
+message GetRCCOwnerFeatureAccessRequest {
+	// List of feature names to evaluate access for.
+	repeated string feature_names = 1;
+
+	// Optional namespace for the features. If not specified, a default namespace is used.
+	string namespace = 2;
+
+	// Optional extra parameters to provide additional context for the access evaluation.
+	map<string, string> extra_parameters = 3;
+};
+
+// GetRCCUserFeatureAccessRequest is the request message for GetRCCUserFeatureAccess.
+message GetRCCUserFeatureAccessRequest {
+	// List of feature names to evaluate access for.
+	repeated string feature_names = 1;
+
+	// User ID of the target user for whom access is being evaluated.
+	int64 user_id = 2;
+
+	// Optional namespace for the features. If not specified, a default namespace is used.
+	string namespace = 3;
+
+	// Optional extra parameters to provide additional context for the access evaluation.
+	map<string, string> extra_parameters = 4;
+};
+
+// EvaluationRequest is a single feature evaluation request used in bulk evaluations.
+message EvaluationRequest {
+	// The ID of the user for whom access is being evaluated.
+	int64 user_id = 1;
+
+	// The name of the feature to evaluate access for.
+	string feature_name = 2;
+
+	// Optional namespace for the feature. If not specified, a default namespace is used.
+	string namespace = 3;
+
+	// Optional full name of the feature, including namespace, in the format "namespace.feature_name". If both feature_name/namespace and full_feature_name are provided, full_feature_name takes precedence.
+	string full_feature_name = 4;
+};
+
+// BulkFeatureEvaluationRequest is the request message for GetRCCUserFeatureEvaluation.
+message BulkFeatureEvaluationRequest {
+	// List of feature evaluation requests to process in bulk.
+	repeated EvaluationRequest requests = 1;
+};
+
+// GetUpsellFeatureAccessRequest is the request message for GetUpsellFeatureAccess.
+message GetUpsellFeatureAccessRequest {
+	// The name of the upsell-related feature to evaluate access for.
+	string feature_name = 1;
+
+	// Optional namespace for the feature. If not specified, a default namespace is used.
+	string namespace = 2;
+
+	// Optional extra parameters to provide additional context for the access evaluation.
+	map<string, string> extra_parameters = 3;
+
+	// List of actions already successfully taken by the user that may be relevant to the access evaluation. 
+	// This can include actions such as previous purchases, subscription status, or other interactions with upsell features.
+	repeated string successful_actions = 4;
+};

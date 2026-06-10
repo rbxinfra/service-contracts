@@ -1,0 +1,119 @@
+//  gRPC Messages
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.analytics.analyticsalertcontrolplane.v1;
+
+option csharp_namespace = "Roblox.Analytics.Analyticsalertcontrolplane.V1";
+option go_package = "./analyticsalertcontrolplanev1";
+option java_multiple_files = true;
+option java_outer_classname = "AnalyticsAlertControlPlaneProto";
+option java_package = "com.roblox.analytics.analyticsalertcontrolplane.v1";
+
+/////////////////////////////////
+// ENUMS
+////////////////////////////////
+
+// Resource types that can be monitored with analytics alerts.
+enum ResourceType {
+    RESOURCE_TYPE_UNSPECIFIED = 0;
+    RESOURCE_TYPE_UNIVERSE = 1;
+};
+
+// Severity levels for analytics alerts.
+enum Severity {
+    SEVERITY_UNSPECIFIED = 0;
+    SEVERITY_0 = 1;
+    SEVERITY_1 = 2;
+    SEVERITY_2 = 3;
+};
+
+// Alert intervals determine how often incidents are generated for an alert configuration.
+enum AlertInterval {
+    ALERT_INTERVAL_UNSPECIFIED = 0;
+    ALERT_INTERVAL_ONE_MINUTE = 1;
+    ALERT_INTERVAL_HALF_HOUR = 2;
+    ALERT_INTERVAL_ONE_HOUR = 3;
+    ALERT_INTERVAL_ONE_DAY = 4;
+};
+
+// Condition operators for alert triggers.
+enum ConditionOperator {
+    CONDITION_OPERATOR_UNSPECIFIED = 0;
+    CONDITION_OPERATOR_GT = 1;
+    CONDITION_OPERATOR_GTE = 2;
+    CONDITION_OPERATOR_LT = 3;
+    CONDITION_OPERATOR_LTE = 4;
+};
+
+// Evaluation modes for alert conditions.
+enum EvaluationMode {
+    EVALUATION_MODE_UNSPECIFIED = 0;
+    EVALUATION_MODE_ABSOLUTE = 1;
+    EVALUATION_MODE_PERIOD_OVER_PERIOD = 2;
+};
+
+// Alert configuration states.
+enum AlertConfigState {
+    ALERT_CONFIG_STATE_UNSPECIFIED = 0;
+    ALERT_CONFIG_STATE_ENABLED = 1;
+    ALERT_CONFIG_STATE_DISABLED = 2;
+    ALERT_CONFIG_STATE_PAUSED_BY_ROBLOX = 3;
+    ALERT_CONFIG_STATE_SYNCING = 4;
+    ALERT_CONFIG_STATE_ERROR = 5;
+};
+
+// Firing status of an alert incident.
+enum FiringStatus {
+    FIRING_STATUS_UNSPECIFIED = 0;
+    FIRING_STATUS_OK = 1;
+    FIRING_STATUS_FIRING = 2;
+};
+
+/////////////////////////////////
+// MESSAGES
+////////////////////////////////
+
+// Alert condition defines the criteria for triggering an alert based on metric values.
+message AlertCondition {
+    ConditionOperator operator = 1;
+    double threshold = 2;
+    EvaluationMode evaluation_mode = 3;
+}
+
+// Alert query breakdown specifies dimensions for breaking down alert data.
+message AlertQueryBreakdown {
+    repeated string dimensions = 1;
+}
+
+// Alert query filter specifies dimension filters for alert data.
+message AlertQueryFilter {
+    string dimension = 1;
+    repeated string values = 2;
+}
+
+// Webhook receiver defines a single webhook endpoint to receive alert notifications.
+message WebhookReceiver {
+    string webhook_configuration_id = 1;
+}
+
+// Webhook receiver config contains a list of webhook receivers for an alert configuration.
+message WebhookReceiverConfig {
+    repeated WebhookReceiver receivers = 1;
+}
+
+// AlertConfigSummary provides a summary of an alert configuration, used in incident details.
+message AlertConfigSummary {
+    string id = 1;
+
+    string name = 2;
+    string metric = 3;
+    string description = 4;
+    Severity severity = 5;
+    AlertInterval interval = 6;
+    repeated AlertQueryFilter filter = 7;
+    repeated AlertQueryBreakdown breakdown = 8;
+    AlertCondition condition = 9;
+}

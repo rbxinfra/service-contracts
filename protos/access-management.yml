@@ -1,0 +1,10 @@
+version: 1.0.0
+protos_path: roblox/access_management/access_management/v1
+
+protos:
+  - name: Roblox.Accessmanagement.Accessmanagement.V1.AccessManagementAPI
+    type: api
+    path: access_management_api.proto
+    depends_on:
+      - Grpc.Gateway.V2.Annotations
+      - Roblox.Protobuf

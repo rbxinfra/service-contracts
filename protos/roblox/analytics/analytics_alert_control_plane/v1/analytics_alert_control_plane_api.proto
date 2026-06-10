@@ -1,0 +1,209 @@
+//  gRPC Service
+//
+// Copyright © 2025 Roblox
+//
+syntax = "proto3";
+
+package roblox.analytics.analyticsalertcontrolplane.v1;
+
+option csharp_namespace = "Roblox.Analytics.Analyticsalertcontrolplane.V1";
+option go_package = "./analyticsalertcontrolplanev1";
+option java_multiple_files = true;
+option java_outer_classname = "AnalyticsAlertControlPlaneApiProto";
+option java_package = "com.roblox.analytics.analyticsalertcontrolplane.v1";
+
+import "roblox/protobuf/options.proto";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+import "roblox/analytics/analytics_alert_control_plane/v1/analytics_alert_control_plane.proto";
+
+option (roblox.protobuf.service_contracts).publish = true;
+
+// AnalyticsAlertControlPlaneAPI provides endpoints for managing analytics alerts
+service AnalyticsAlertControlPlaneAPI {
+    // CreateAlertConfig creates a new analytics alert configuration
+    rpc CreateAlertConfig(CreateAlertConfigRequest) returns (AlertDetailResponse) {
+        option (google.api.http) = {
+            post: "/v1/resource/{resource_type}/id/{resource_id}/alerts"
+            body: "*"
+        };
+    };
+
+    // GetAlertDetails lists alert configurations for a resource and provides details for each alert
+    rpc GetAlertDetails(GetAlertDetailsRequest) returns (GetAlertDetailsResponse) {
+        option (google.api.http) = {
+            get: "/v1/resource/{resource_type}/id/{resource_id}/alerts"
+        };
+    };
+
+    // UpdateAlertConfig updates an existing analytics alert configuration
+    rpc UpdateAlertConfig(UpdateAlertConfigRequest) returns (AlertDetailResponse) {
+        option (google.api.http) = {
+            patch: "/v1/resource/{resource_type}/id/{resource_id}/alerts/{alert_id}"
+            body: "*"
+        };
+    };
+
+    // DeleteAlertConfig deletes an existing analytics alert configuration
+    rpc DeleteAlertConfig(DeleteAlertConfigRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/resource/{resource_type}/id/{resource_id}/alerts/{alert_id}"
+        };
+    };
+
+    // GetAlertIncidents queries incidents triggered for a specific alert configuration
+    rpc GetAlertIncidents(GetAlertIncidentsRequest) returns (IncidentDetailResponse) {
+        option (google.api.http) = {
+            get: "/v1/resource/{resource_type}/id/{resource_id}/alerts/incidents"
+        };
+    };
+};
+
+message CreateAlertConfigRequest {
+  string name = 1;
+  string metric = 2;
+  string description = 3;
+
+  Severity severity = 4;
+  AlertInterval interval = 5;
+
+  int32 duration_in_minutes = 6;
+
+  repeated AlertQueryBreakdown breakdown = 7;
+  repeated AlertQueryFilter filter = 8;
+
+  AlertCondition condition = 9;
+
+  WebhookReceiverConfig webhook_receiver_config = 10;
+}
+
+message UpdateAlertConfigRequest {
+  optional string name = 1;
+  optional string metric = 2;
+  optional string description = 3;
+
+  optional Severity severity = 4;
+  optional AlertInterval interval = 5;
+
+  optional int32 duration_in_minutes = 6;
+
+  repeated AlertQueryBreakdown breakdown = 7;
+  repeated AlertQueryFilter filter = 8;
+
+  AlertCondition condition = 9;
+
+  WebhookReceiverConfig webhook_receiver_config = 10;
+
+  AlertConfigState config_state = 11;
+}
+
+message AlertDetailResponse {
+  string alert_id = 1;
+
+  ResourceType resource_type = 2;
+  string resource_id = 3;
+
+  string name = 4;
+  string metric = 5;
+  string description = 6;
+
+  Severity severity = 7;
+  AlertInterval interval = 8;
+
+  int32 duration_in_minutes = 9;
+
+  repeated AlertQueryFilter filter = 10;
+  repeated AlertQueryBreakdown breakdown = 11;
+
+  AlertCondition condition = 12;
+
+  AlertConfigState config_state = 13;
+
+  WebhookReceiverConfig webhook_receiver_config = 14;
+
+  FiringStatus firing_status = 15;
+
+  google.protobuf.Timestamp last_fired_at = 16;
+  google.protobuf.Timestamp created_at = 17;
+  google.protobuf.Timestamp last_modified_at = 18;
+}
+
+message FiringDimensionResponse {
+  string dimension = 1;
+  string value = 2;
+}
+
+message FiringConditionResponse {
+  double firing_value = 1;
+
+  FiringDimensionResponse firing_dimension = 2;
+}
+
+message FiringMetadataResponse {
+  repeated AlertQueryFilter filter = 1;
+  repeated AlertQueryBreakdown breakdown = 2;
+
+  AlertCondition condition = 3;
+
+  repeated FiringConditionResponse firing_condition = 4;
+}
+
+message IncidentDetailResponse {
+  string id = 1;
+
+  ResourceType resource_type = 2;
+  string resource_id = 3;
+
+  FiringStatus status = 4;
+
+  google.protobuf.Timestamp opened_at = 5;
+  google.protobuf.Timestamp opened_window_start_at = 6;
+
+  google.protobuf.Timestamp resolved_at = 7;
+  google.protobuf.Timestamp resolved_window_start_at = 8;
+
+  FiringMetadataResponse first_firing_metadata = 9;
+  FiringMetadataResponse latest_firing_metadata = 10;
+
+  AlertConfigSummary alert_config = 11;
+}
+
+message GetAlertDetailsRequest {
+  ResourceType resource_type = 1;
+  string resource_id = 2;
+
+  repeated string ids = 3;
+  FiringStatus firing_status = 4;
+  repeated Severity severities = 5;
+  repeated string metrics = 6;
+}
+
+message GetAlertDetailsResponse {
+  repeated AlertDetailResponse alerts = 1;
+}
+
+message GetAlertIncidentsRequest {
+  ResourceType resource_type = 1;
+  string resource_id = 2;
+
+  google.protobuf.Timestamp start_time = 3;
+  google.protobuf.Timestamp end_time = 4;
+
+  string metric = 5;
+
+  repeated string alert_ids = 6;
+  repeated Severity severities = 7;
+}
+
+message GetAlertIncidentsResponse {
+  repeated IncidentDetailResponse incidents = 1;
+}
+
+message DeleteAlertConfigRequest {
+  ResourceType resource_type = 1;
+  string resource_id = 2;
+  string alert_id = 3;
+}
